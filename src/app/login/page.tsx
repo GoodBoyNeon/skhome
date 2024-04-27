@@ -1,5 +1,5 @@
-import SignIn from "@/components/sign-in";
+import SignInCard from "@/components/SignInCard";
 
 export default function Page() {
-  return <SignIn />;
+  return <SignInCard />;
 }

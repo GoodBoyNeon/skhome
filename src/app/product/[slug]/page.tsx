@@ -9,27 +9,17 @@ import {
   CarouselPrevious,
 } from "@/components/ui/slider";
 import { prisma } from "@/lib/database";
-import { Product } from "@prisma/client";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
 export default async function Page({ params }: { params: { slug: string } }) {
   const allProducts = await prisma.product.findMany();
-  // const product = allProducts.find(p => p.urlSlug.toLowerCase() === params.slug.toLowerCase())
 
-  const product: Product = {
-    name: "Kent Grand with Alkaline Filter",
-    description: `Multiple Purification By RO + U F+ TDS Control + UV in Tank + Alkaline. Makes Water 100% pure. Retains Essential Minerals. Makes Water Alkaline. UV LED Light in Storage Tank. High Purification & Storage Capacity. World's Best Quality Certifications. Most Trusted & Awarded 1 Year Warranty`,
-    images: [
-      "https://www.cgdigital.com.np/api/images/products/l6S0CK_1701674274-GRAND%20MINERAL%20RO%20WITH%20ALKALINE%20FILTER.jpg",
-      "https://www.cgdigital.com.np/api/images/products/5n8DxF_1685517910-KENT%20GRAND%20PLUS-B%20MINERAL%20RO%20WATER-Update.jpg",
-    ],
-    urlSlug: "kent-grand-with-alkaline",
-    price: 28_490,
-    stock: -1,
-    id: 123,
-    categoryId: 345,
-  };
+  const product = allProducts.find(
+    (p) => p.urlSlug.toLowerCase() === params.slug.toLowerCase(),
+  );
+
+  if (!product) notFound();
 
   const similar = allProducts.filter(
     (p) => p.categoryId === product.categoryId,
@@ -38,14 +28,6 @@ export default async function Page({ params }: { params: { slug: string } }) {
   const category = await prisma.category.findUnique({
     where: { id: product.categoryId },
   });
-
-  // const product = await prisma.product.findUnique({
-  //   where: {
-  //     urlSlug: params.slug,
-  //   },
-  // });
-
-  if (!product) notFound();
 
   return (
     <>

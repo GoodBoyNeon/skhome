@@ -19,9 +19,9 @@ export default async function ProductCard({
   });
 
   return (
-    <div className="border max-w-md p-4 rounded-lg">
+    <div className="border max-w-md p-2 rounded-lg">
       <Link className="flex flex-col gap-1" href={`/product/${urlSlug}`}>
-        <Image src={images[0]} alt={`${name} image`} width={200} height={300} />
+        <Image src={images[0]} alt={`${name} image`} width={300} height={300} />
 
         <div>
           {category && (
@@ -29,7 +29,7 @@ export default async function ProductCard({
               {category.name}
             </h2>
           )}
-          <h2 className="font-medium">{name}</h2>
+          <h2 className="font-medium line-clamp-2">{name}</h2>
         </div>
 
         <div>
