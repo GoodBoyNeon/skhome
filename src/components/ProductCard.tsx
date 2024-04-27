@@ -14,12 +14,9 @@ export default async function ProductCard({
   urlSlug,
   categoryId,
 }: Product) {
-  // const category = await prisma.category.findUnique({
-  //   where: { id: categoryId },
-  // });
-  const category = {
-    name: "Water Purifier",
-  };
+  const category = await prisma.category.findUnique({
+    where: { id: categoryId },
+  });
 
   return (
     <div className="border max-w-md p-4 rounded-lg">
