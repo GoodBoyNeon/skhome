@@ -76,4 +76,19 @@
   body {
     @apply bg-background text-foreground;
   }
+
+  .gradient-1 {
+    /** Created with https://www.css-gradient.com* Gradient link: https://www.css-gradient.com/?c1=7dd9a5&c2=3b83f6&gt=r&gd=dtr*/
+    background: #7dd9a5;
+    background: radial-gradient(at right top, #7dd9a5, #3b83f6);
+  }
+
+  .gradient-2 {
+    /*
+    * Created with https://www.css-gradient.com
+    * Gradient link: https://www.css-gradient.com/?c1=27eddc&c2=14144a&gt=r&gd=dtr
+    */
+    background: #27eddc;
+    background: radial-gradient(at right top, #27eddc, #14144a);
+  }
 }
