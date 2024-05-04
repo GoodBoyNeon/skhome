@@ -27,7 +27,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
     <>
       <div className="m-4 md:flex md:border-b">
         <Images images={product.images} />
-        <div className="gap-2">
+        <div className="gap-2 border-b md:border-none">
           <h2 className="font-semibold my-1.5 text-2xl md:text-4xl">
             {product.name}
           </h2>
@@ -42,13 +42,18 @@ export default async function Page({ params }: { params: { slug: string } }) {
 
           <div className="flex flex-col gap-2">
             {product.stock > 0 ? (
-              <Button className="w-full md:h-12 text-xl">Buy Now</Button>
+              <Button className="w-full md:h-12 text-lg md:text-xl">
+                Buy Now
+              </Button>
             ) : (
               <Button variant={"destructive"} disabled>
                 Out of Stock
               </Button>
             )}
-            <Button className="w-full md:h-12 text-xl" variant={"secondary"}>
+            <Button
+              className="w-full md:h-12 text-lg md:text-xl"
+              variant={"secondary"}
+            >
               Add to Cart
             </Button>
           </div>
@@ -58,7 +63,7 @@ export default async function Page({ params }: { params: { slug: string } }) {
             {product.description.replace(/\\n/gm, "\n")}
           </p>
         </div>
-        <div className="m-auto h-max">
+        <div className="m-auto w-0 h-0">
           <ProductSidebar />
         </div>
       </div>
