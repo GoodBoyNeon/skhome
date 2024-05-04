@@ -13,7 +13,7 @@ export default function Footer() {
           physical store located at Madhyapur Thimi, Bhaktapur.{" "}
           <Link
             href={"https://maps.app.goo.gl/9EeqihMRFqi5wjQ16"}
-            className="hover:underline text-blue-400"
+            className="hover:underline text-accent"
           >
             Check on Google Maps
           </Link>
@@ -21,11 +21,11 @@ export default function Footer() {
       </div>
 
       <div className="text-2xl flex gap-3">
-        <Link href={"https://facebook.com"}>
+        <Link href={"https://facebook.com"} aria-label="Facebook Page">
           <FaFacebook />
         </Link>
 
-        <Link href={"https://instagram.com"}>
+        <Link href={"https://instagram.com"} aria-label="Instagram Page">
           <FaInstagram />
         </Link>
       </div>

@@ -8,7 +8,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
       {categories.map((category) => (
         <div key={category.id} className="text-center max-w-xl">
           <Link
-            href={category.urlSlug}
+            href={`category/${category.urlSlug}`}
             className="flex items-center justify-center flex-col"
           >
             <Image

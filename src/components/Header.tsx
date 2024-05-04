@@ -19,7 +19,7 @@ function Header() {
         </div>
       </form>
 
-      <Link href={"/cart"}>
+      <Link href={"/cart"} aria-label="Open the Cart">
         <ShoppingCart />
       </Link>
 

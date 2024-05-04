@@ -49,7 +49,7 @@ export default function Nav() {
   ) : (
     <>
       <Drawer>
-        <DrawerTrigger>
+        <DrawerTrigger aria-label="Nav Button">
           <Menu />
         </DrawerTrigger>
         <DrawerContent>

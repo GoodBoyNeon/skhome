@@ -41,7 +41,7 @@ export default async function ProductCard({
           </h2>
 
           {stock && stock > 0 ? (
-            <h2 className="tracking-tight text-sm flex gap-1 text-green-500">
+            <h2 className="tracking-tight text-sm flex gap-1 text-green">
               <Check width={"0.875rem"} /> In stock
             </h2>
           ) : (
