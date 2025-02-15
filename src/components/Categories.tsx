@@ -7,7 +7,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
     <div className="flex gap-12 m-2 p-1 overflow-x-auto sm:justify-center">
       {categories.map((category) => (
         <div key={category.id} className="text-center max-w-xl">
-          <Link
+          <Link prefetch
             href={`category/${category.urlSlug}`}
             className="flex items-center justify-center flex-col"
           >

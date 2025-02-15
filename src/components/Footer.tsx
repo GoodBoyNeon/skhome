@@ -11,7 +11,7 @@ export default function Footer() {
         <p className="text-muted-foreground mb-3">
           Your go-to store for home appliances in Kathmandu Valley. Visit our
           physical store located at Madhyapur Thimi, Bhaktapur.{" "}
-          <Link
+          <Link prefetch
             href={"https://maps.app.goo.gl/9EeqihMRFqi5wjQ16"}
             className="hover:underline text-accent"
           >
@@ -21,11 +21,11 @@ export default function Footer() {
       </div>
 
       <div className="text-2xl flex gap-3">
-        <Link href={"https://facebook.com"} aria-label="Facebook Page">
+        <Link prefetch href={"https://facebook.com"} aria-label="Facebook Page">
           <FaFacebook />
         </Link>
 
-        <Link href={"https://instagram.com"} aria-label="Instagram Page">
+        <Link prefetch href={"https://instagram.com"} aria-label="Instagram Page">
           <FaInstagram />
         </Link>
       </div>

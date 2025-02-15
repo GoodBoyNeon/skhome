@@ -20,7 +20,7 @@ export default async function ProductCard({
 
   return (
     <div className="border max-w-md p-2 rounded-lg">
-      <Link className="flex flex-col gap-1" href={`/product/${urlSlug}`}>
+      <Link prefetch className="flex flex-col gap-1" href={`/product/${urlSlug}`}>
         <Image src={images[0]} alt={`${name} image`} width={300} height={300} />
 
         <div>

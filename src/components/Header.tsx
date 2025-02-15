@@ -1,5 +1,4 @@
 import { Search, ShoppingCart } from "lucide-react";
-import Link from "next/link";
 import Nav from "./Nav";
 import { Input } from "./ui/input";
 
@@ -19,9 +18,9 @@ function Header() {
         </div>
       </form>
 
-      <Link href={"/cart"} aria-label="Open the Cart">
-        <ShoppingCart />
-      </Link>
+      {/* <Link href={"/cart"} aria-label="Open the Cart"> */}
+      {/*   <ShoppingCart /> */}
+      {/* </Link> */}
 
       {/* <DropdownMenu> */}
       {/*   <DropdownMenuTrigger> */}

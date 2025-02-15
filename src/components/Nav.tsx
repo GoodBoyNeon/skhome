@@ -34,13 +34,13 @@ export default function Nav() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return isDesktop ? (
     <>
-      <Link href={"/"} className="flex flex-shrink-0 items-center max-w-40">
+      <Link prefetch href={"/"} className="flex flex-shrink-0 items-center max-w-40">
         {/* S.K. Home Traders */}
         <Image src={logo} alt={"logo"} />
       </Link>
       <nav className="flex gap-2 sm:gap-4">
         {navItems.map(({ name, href }, i) => (
-          <Link href={href} key={i}>
+          <Link prefetch href={href} key={i}>
             {name}
           </Link>
         ))}
@@ -58,14 +58,14 @@ export default function Nav() {
           </DrawerHeader>
 
           {navItems.map(({ name, href }, i) => (
-            <Link className="p-4 text-base" href={href} key={i}>
+            <Link prefetch className="p-4 text-base" href={href} key={i}>
               {name}
             </Link>
           ))}
 
           <hr />
 
-          <Link href={"/me"} className="flex flex-row-reverse m-4">
+          <Link prefetch href={"/me"} className="flex flex-row-reverse m-4">
             <Avatar className="max-w-9 max-h-9">
               <AvatarImage
                 src={
