@@ -3,7 +3,8 @@ import { prisma } from "@/lib/database";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const Page = async ({ params }: { params: { slug: string } }) => {
+const Page = async (props: { params: Promise<{ slug: string }> }) => {
+  const params = await props.params;
   const category = await prisma.category.findUnique({
     where: { urlSlug: params.slug },
   });
