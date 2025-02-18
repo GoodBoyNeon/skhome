@@ -35,7 +35,7 @@ const Search = async ({ searchParams }: {
   return (
     <div className="m-6">
       <div className='my-4'>
-        <h2 className="text-xl font-medium">Search Results for "{query}"</h2>
+        <h2 className="text-xl font-medium">Search Results for &quot;{query}&quot;</h2>
         <p className='text-muted-foreground text-sm'>Found {searchResults.length} results</p>
       </div>
 
@@ -46,7 +46,7 @@ const Search = async ({ searchParams }: {
         <div className='h-screen m-12 flex flex-col items-center justify-center'>
           <SearchIcon className='m-2 size-20' />
           <h2 className='m-2 font-bold text-3xl'>Sorry, we couldn&apos;t find anything :(</h2>
-          <p className='text-muted-foreground'>No results found for "{query}." Try checking the spelling or using different keywords.</p>
+          <p className='text-muted-foreground'>No results found for &quot;{query}.&quot; Try checking the spelling or using different keywords.</p>
         </div>
       )}
     </div>
