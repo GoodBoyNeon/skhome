@@ -15,7 +15,7 @@ const Page = async (props: { params: Promise<{ slug: string }> }) => {
     },
   });
   return (
-    <div className="m-2">
+    <div className="m-6">
       <h2 className="text-2xl font-black">{category?.name}s</h2>
 
       <ProductsSection products={products} />
