@@ -34,7 +34,7 @@ export default function Nav() {
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return isDesktop ? (
     <>
-      <Link prefetch href={"/"} className="flex flex-shrink-0 items-center max-w-40">
+      <Link prefetch href={"/"} className="flex shrink-0 items-center max-w-40">
         {/* S.K. Home Traders */}
         <Image src={logo} alt={"logo"} />
       </Link>

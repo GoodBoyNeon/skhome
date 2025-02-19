@@ -22,9 +22,9 @@ function Header() {
       <Nav />
 
       <form className="flex-1 max-w-" onSubmit={handleSearch}>
-        <div className="relative flex items-center w-full bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-400 focus-within:dark:text-gray-400">
+        <div className="relative flex items-center w-full bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-400 dark:focus-within:text-gray-400">
           <Input
-            className="appearance-none w-full bg-transparent border-none focus:outline-none"
+            className="appearance-none w-full bg-transparent border-none focus:outline-hidden"
             id="search"
             placeholder="Search for products"
             value={searchQuery}
