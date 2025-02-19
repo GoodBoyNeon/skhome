@@ -1,24 +1,23 @@
-'use client';
-import { Search, ShoppingCart } from "lucide-react";
+"use client";
+import { Search } from "lucide-react";
 import Nav from "./Nav";
 import { Input } from "./ui/input";
 import { FormEvent, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Header() {
-
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+    e.preventDefault();
     if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`)
+      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
     }
-  }
+  };
 
   return (
-    <header className="flex items-center h-14 px-4 border-b gap-4 sm:gap-10 lg:px-6">
+    <header className="flex items-center h-14 px-4 border-b gap-4 sm:gap-10 lg:px-6 bg-white">
       <Nav />
 
       <form className="flex-1 max-w-" onSubmit={handleSearch}>

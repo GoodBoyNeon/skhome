@@ -11,8 +11,11 @@ export default async function Home() {
       <Categories categories={categories}></Categories>
       <PromoSlides />
 
-      <div className="m-4">
-        <h3 className="text-xl mb-2 font-semibold">Featured Products</h3>
+      <div className="m-6">
+        <h2 className="text-3xl font-bold mb-6 mt-10 text-center">
+          Featured Products
+        </h2>
+        {/* <h3 className="text-xl mb-2 font-semibold">Featured Products</h3> */}
 
         <ProductsSection products={products} />
       </div>

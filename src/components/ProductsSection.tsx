@@ -3,17 +3,6 @@ import ProductCard from "./ProductCard";
 import { Product } from "@prisma/client";
 import { cn } from "@/lib/utils";
 
-const p: Product = {
-  id: 123,
-  name: "abcd",
-  description: "efgh",
-  urlSlug: "water-purifier",
-  categoryId: 345,
-  images: [""],
-  stock: 64,
-  price: 23000,
-};
-
 export interface ProductSectionProps
   extends React.HTMLAttributes<HTMLDivElement> {
   products: Product[];

@@ -8,37 +8,48 @@ datasource db {
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  name  String
-  email String  @unique
-  phone String? @unique
-  cart  Cart?
-}
-
-model Cart {
-  id     Int       @id @default(autoincrement())
-  user   User      @relation(fields: [userId], references: [id])
-  userId Int       @unique
-  items  Product[]
+  id     Int     @id @default(autoincrement())
+  userId String  @unique
+  name   String
+  email  String  @unique
+  phone  String? @unique
+  Cart   Cart?
 }
 
 model Category {
   id       Int       @id @default(autoincrement())
   name     String    @unique
   urlSlug  String    @unique
-  products Product[]
   image    String
+  products Product[]
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
+  id          Int        @id @default(autoincrement())
   name        String
   description String
-  urlSlug     String   @unique
+  urlSlug     String     @unique
+  MRP         Int
   price       Int
-  category    Category @relation(fields: [categoryId], references: [id])
   categoryId  Int
   images      String[]
   stock       Int
-  carts       Cart[]
+  CartItem    CartItem[]
+  category    Category   @relation(fields: [categoryId], references: [id])
+}
+
+model Cart {
+  id       Int        @id @default(autoincrement())
+  userId   String     @unique
+  User     User       @relation(fields: [userId], references: [userId])
+  CartItem CartItem[]
+}
+
+model CartItem {
+  id        Int     @id @default(autoincrement())
+  quantity  Int
+  cartId    Int
+  productId Int
+  Cart      Cart    @relation(fields: [cartId], references: [id])
+  Product   Product @relation(fields: [productId], references: [id])
 }

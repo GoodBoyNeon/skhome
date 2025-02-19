@@ -1,4 +1,3 @@
-import Header from "@/components/Header";
 import ProductsSection from "@/components/ProductsSection";
 import { prisma } from "@/lib/database";
 

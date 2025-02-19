@@ -7,7 +7,7 @@ import { prisma } from "@/lib/database";
 
 export default async function ProductCard({
   name,
-  description,
+  MRP,
   price,
   stock,
   images,
@@ -18,9 +18,15 @@ export default async function ProductCard({
     where: { id: categoryId },
   });
 
+  const discountPercentage = Math.round(((MRP - price) / MRP) * 100);
+
   return (
-    <div className="border max-w-md p-2 rounded-lg">
-      <Link prefetch className="flex flex-col gap-1" href={`/product/${urlSlug}`}>
+    <div className="bg-white border transition hover:shadow-md max-w-md p-2 rounded-lg">
+      <Link
+        prefetch
+        className="flex flex-col gap-1"
+        href={`/product/${urlSlug}`}
+      >
         <Image src={images[0]} alt={`${name} image`} width={300} height={300} />
 
         <div>
@@ -33,12 +39,23 @@ export default async function ProductCard({
         </div>
 
         <div>
-          <h2 className="text-accent">
+          <h3 className="text-base font-medium text-accent">
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "npr",
             }).format(price)}
-          </h2>
+          </h3>
+
+          <div className="flex text-sm gap-2">
+            <s className="text-sm text-muted-foreground">
+              {new Intl.NumberFormat("en-US", {
+                style: "currency",
+                currency: "npr",
+              }).format(MRP)}
+            </s>
+
+            <p className="text-red-400">-{discountPercentage}%</p>
+          </div>
 
           {stock && stock > 0 ? (
             <h2 className="tracking-tight text-sm flex gap-1 text-green">

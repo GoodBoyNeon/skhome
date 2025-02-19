@@ -4,10 +4,11 @@ import Link from "next/link";
 
 export default function Categories({ categories }: { categories: Category[] }) {
   return (
-    <div className="flex gap-12 m-2 p-1 overflow-x-auto sm:justify-center">
+    <div className="bg-white flex gap-12 m-2 p-1 overflow-x-auto sm:justify-center">
       {categories.map((category) => (
         <div key={category.id} className="text-center max-w-xl">
-          <Link prefetch
+          <Link
+            prefetch
             href={`category/${category.urlSlug}`}
             className="flex items-center justify-center flex-col"
           >
