@@ -1,4 +1,4 @@
-import ProductsSection from "@/components/ProductsSection";
+import ProductsList from "@/components/ProductsList";
 import SubHeading from "@/components/SubHeading";
 import { prisma } from "@/lib/database";
 import { SearchIcon } from "lucide-react";
@@ -18,7 +18,7 @@ export default async function NotFound() {
       <hr className="mx-6 lg:mx-12" />
       <div className="p-4">
         <SubHeading>Discover other products</SubHeading>
-        <ProductsSection products={otherProducts} />
+        <ProductsList products={otherProducts} />
       </div>
     </>
   );

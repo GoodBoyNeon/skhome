@@ -3,12 +3,12 @@ import ProductCard from "./ProductCard";
 import { Product } from "@prisma/client";
 import { cn } from "@/lib/utils";
 
-export interface ProductSectionProps
+export interface ProductsListProps
   extends React.HTMLAttributes<HTMLDivElement> {
   products: Product[];
 }
 
-const ProductsSection = React.forwardRef<HTMLDivElement, ProductSectionProps>(
+const ProductsList = React.forwardRef<HTMLDivElement, ProductsListProps>(
   ({ className, products, ...props }, ref) => {
     return (
       <div
@@ -27,6 +27,6 @@ const ProductsSection = React.forwardRef<HTMLDivElement, ProductSectionProps>(
   },
 );
 
-ProductsSection.displayName = "Product Section";
+ProductsList.displayName = "Product Section";
 
-export default ProductsSection;
+export default ProductsList;

@@ -13,7 +13,9 @@ import {
 } from "./ui/drawer";
 
 import logo from "../../public/logo.png";
-import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import { MouseEvent, useState } from "react";
+import { redirect } from "next/navigation";
+import ProductsListLoading from "./ProductsListLoading";
 
 const navItems = [
   {
@@ -31,6 +33,15 @@ const navItems = [
 ];
 
 export default function Nav() {
+  const [isOpen, setIsOpen] = useState(false);
+
+  const drawerItemOnClick = (e: MouseEvent, href: string) => {
+    e.preventDefault();
+
+    setIsOpen(false);
+    redirect(href);
+  };
+
   const isDesktop = useMediaQuery("(min-width: 768px)");
   return isDesktop ? (
     <>
@@ -40,7 +51,12 @@ export default function Nav() {
       </Link>
       <nav className="flex gap-2 sm:gap-4">
         {navItems.map(({ name, href }, i) => (
-          <Link prefetch href={href} key={i}>
+          <Link
+            prefetch
+            href={href}
+            key={i}
+            className="text-muted-foreground hover:text-black transition"
+          >
             {name}
           </Link>
         ))}
@@ -48,7 +64,7 @@ export default function Nav() {
     </>
   ) : (
     <>
-      <Drawer>
+      <Drawer open={isOpen} onOpenChange={setIsOpen}>
         <DrawerTrigger aria-label="Nav Button">
           <Menu />
         </DrawerTrigger>
@@ -57,12 +73,25 @@ export default function Nav() {
             <DrawerTitle>S.K. Home Traders</DrawerTitle>
           </DrawerHeader>
 
+          <Link
+            prefetch
+            className="p-4 text-base"
+            href={"/"}
+            onClick={(e) => drawerItemOnClick(e, "/")}
+          >
+            Home
+          </Link>
+
           {navItems.map(({ name, href }, i) => (
-            <div className="p-4 text-base" key={i}>
-              <Link prefetch className="" href={href}>
-                {name}
-              </Link>
-            </div>
+            <Link
+              prefetch
+              className="p-4 text-base"
+              key={i}
+              href={href}
+              onClick={(e) => drawerItemOnClick(e, href)}
+            >
+              {name}
+            </Link>
           ))}
 
           <hr />

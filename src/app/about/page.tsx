@@ -1,14 +1,12 @@
-import AboutCard from "@/components/AboutCard";
+import SubHeading from "@/components/SubHeading";
 import React from "react";
 
 const Page = () => {
   return (
-    <div className="m-4">
-      <div className="mb-4">
-        <h1 className="font-black text-4xl">Welcome to S.K. Home Traders.</h1>
-      </div>
+    <div className="m-4 md:m-6 lg:m-8">
+      <SubHeading>Welcome to S.K. Home Traders</SubHeading>
 
-      <p className="text-base">
+      <p className="text-base lg:text-lg lg:mt-16">
         We have been providing quality services to our customers since 2016.
         That&apos;s 8 years of excellent trust between us and our customers.
       </p>

@@ -1,5 +1,5 @@
 import Categories from "@/components/Categories";
-import ProductsSection from "@/components/ProductsSection";
+import ProductsList from "@/components/ProductsList";
 import PromoSlides from "@/components/PromoSlides";
 import { prisma } from "@/lib/database";
 
@@ -17,7 +17,7 @@ export default async function Home() {
         </h2>
         {/* <h3 className="text-xl mb-2 font-semibold">Featured Products</h3> */}
 
-        <ProductsSection products={products} />
+        <ProductsList products={products} />
       </div>
     </>
   );

@@ -1,6 +1,6 @@
 import Images from "@/components/ProductPage/Images";
 import ProductSidebar from "@/components/ProductSidebar";
-import ProductsSection from "@/components/ProductsSection";
+import ProductsList from "@/components/ProductsList";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/database";
@@ -75,7 +75,7 @@ export default async function ProductPage(props: {
           Similar products
         </h3>
 
-        <ProductsSection products={similar} />
+        <ProductsList products={similar} />
       </div>
     </>
   );

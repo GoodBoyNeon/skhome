@@ -1,8 +1,8 @@
-import ProductsSection from "@/components/ProductsSection";
 import { prisma } from "@/lib/database";
 import { redirect } from "next/navigation";
 import React from "react";
 import { SearchIcon } from "lucide-react";
+import ProductsList from "@/components/ProductsList";
 
 const Search = async ({
   searchParams,
@@ -49,7 +49,7 @@ const Search = async ({
       </div>
 
       {searchResults.length > 0 ? (
-        <ProductsSection products={searchResults} />
+        <ProductsList products={searchResults} />
       ) : (
         <div className="h-screen m-12 flex flex-col items-center justify-center">
           <SearchIcon className="m-2 size-20" />
