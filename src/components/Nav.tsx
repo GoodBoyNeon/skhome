@@ -58,23 +58,25 @@ export default function Nav() {
           </DrawerHeader>
 
           {navItems.map(({ name, href }, i) => (
-            <Link prefetch className="p-4 text-base" href={href} key={i}>
-              {name}
-            </Link>
+            <div className="p-4 text-base" key={i}>
+              <Link prefetch className="" href={href}>
+                {name}
+              </Link>
+            </div>
           ))}
 
           <hr />
 
-          <Link prefetch href={"/me"} className="flex flex-row-reverse m-4">
-            <Avatar className="max-w-9 max-h-9">
-              <AvatarImage
-                src={
-                  "https://cdn.discordapp.com/attachments/1125984275158806658/1231965185942753362/dc.png?ex=6638dffd&is=66266afd&hm=7d049393a184aeba513a9b68abd48a4beef54aa212f47fe66e2c67529e95d579&"
-                }
-              />
-              <AvatarFallback>GBN</AvatarFallback>
-            </Avatar>
-          </Link>
+          {/* <Link prefetch href={"/me"} className="flex flex-row-reverse m-4"> */}
+          {/*   <Avatar className="max-w-9 max-h-9"> */}
+          {/*     <AvatarImage */}
+          {/*       src={ */}
+          {/*         "https://cdn.discordapp.com/attachments/1125984275158806658/1231965185942753362/dc.png?ex=6638dffd&is=66266afd&hm=7d049393a184aeba513a9b68abd48a4beef54aa212f47fe66e2c67529e95d579&" */}
+          {/*       } */}
+          {/*     /> */}
+          {/*     <AvatarFallback>GBN</AvatarFallback> */}
+          {/*   </Avatar> */}
+          {/* </Link> */}
         </DrawerContent>
       </Drawer>
     </>

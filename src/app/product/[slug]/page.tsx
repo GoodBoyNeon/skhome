@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/database";
 import { notFound } from "next/navigation";
 
-export default async function Page(props: {
+export default async function ProductPage(props: {
   params: Promise<{ slug: string }>;
 }) {
   const params = await props.params;
@@ -16,7 +16,7 @@ export default async function Page(props: {
     (p) => p.urlSlug.toLowerCase() === params.slug.toLowerCase(),
   );
 
-  if (!product) notFound();
+  if (!product) return notFound();
 
   const similar = allProducts.filter(
     (p) => p.categoryId === product.categoryId,
@@ -66,7 +66,7 @@ export default async function Page(props: {
             {product.description.replace(/\\n/gm, "\n")}
           </p>
         </div>
-        <div className="m-auto w-0 h-0">
+        <div className="m-auto">
           <ProductSidebar />
         </div>
       </div>

@@ -2,18 +2,21 @@
 import { Search } from "lucide-react";
 import Nav from "./Nav";
 import { Input } from "./ui/input";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");
+  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
   const handleSearch = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (searchQuery.trim()) {
-      router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
+    if (searchQuery.trim().length === 0 && inputRef.current) {
+      inputRef.current.focus();
+      return;
     }
+    router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
   };
 
   return (
@@ -23,13 +26,16 @@ function Header() {
       <form className="flex-1 max-w-" onSubmit={handleSearch}>
         <div className="relative flex items-center w-full bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-400 dark:focus-within:text-gray-400">
           <Input
-            className="appearance-none w-full bg-transparent border-none focus:outline-hidden"
+            className="appearance-none w-full bg-transparent border-none outline-hidden"
             id="search"
+            ref={inputRef}
             placeholder="Search for products"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <Search className="absolute w-4 h-4 m-3 inset-y-0 right-0 z-10" />
+          <button className="cursor-pointer" type="submit">
+            <Search className="w-4 h-4 m-3 inset-y-0 right-0 z-10" />
+          </button>
         </div>
       </form>
 

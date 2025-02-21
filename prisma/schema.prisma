@@ -29,11 +29,12 @@ model Product {
   name        String
   description String
   urlSlug     String     @unique
-  MRP         Int
   price       Int
   categoryId  Int
   images      String[]
+  tags        String[]
   stock       Int
+  MRP         Int
   CartItem    CartItem[]
   category    Category   @relation(fields: [categoryId], references: [id])
 }

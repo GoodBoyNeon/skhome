@@ -1,7 +1,7 @@
 "use client";
 
 import { Phone, Mail } from "lucide-react";
-import { Button } from "./ui/button";
+import { Button, buttonVariants } from "./ui/button";
 import {
   TooltipContent,
   Tooltip,
@@ -18,7 +18,8 @@ const PHONE_TWO = "9849508186";
 const EMAIL = "skhome2072@gmail.com";
 
 export default function ProductSidebar() {
-  const isDesktop = useMediaQuery("(min-width: 768px)");
+  // const isDesktop = useMediaQuery("(min-width: 768px)");
+
   function handleClick(i: number) {
     navigator.clipboard.writeText(
       i === 1 ? PHONE_ONE : i === 2 ? PHONE_TWO : EMAIL,
@@ -27,69 +28,64 @@ export default function ProductSidebar() {
   }
 
   return (
-    isDesktop ?? (
-      <div className="border rounded-lg w-72 p-4 h-full">
-        <h2 className="text-2xl mb-2 font-semibold">Contact Us</h2>
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant={"link"}
-                onClick={() => handleClick(1)}
-                className="flex gap-1"
-              >
-                <Phone /> {PHONE_ONE}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Copy to Clipboard</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+    <div className="border rounded-lg w-72 p-4 h-full">
+      <h2 className="text-2xl mb-2 font-semibold">Contact Us</h2>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger
+            onClick={() => handleClick(1)}
+            className={"flex gap-1 text-blue-400"}
+          >
+            <Phone /> {PHONE_ONE}
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Copy to Clipboard</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant={"link"}
-                onClick={() => handleClick(2)}
-                className="flex gap-1"
-              >
-                <Phone /> {PHONE_TWO}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Copy to Clipboard</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              variant={"link"}
+              onClick={() => handleClick(2)}
+              className="flex gap-1"
+            >
+              <Phone /> {PHONE_TWO}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Copy to Clipboard</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
-        <TooltipProvider>
-          <Tooltip>
-            <TooltipTrigger>
-              <Button
-                variant={"link"}
-                onClick={() => handleClick(2)}
-                className="flex gap-1"
-              >
-                <Mail /> {EMAIL}
-              </Button>
-            </TooltipTrigger>
-            <TooltipContent>
-              <p>Copy to Clipboard</p>
-            </TooltipContent>
-          </Tooltip>
-        </TooltipProvider>
+      <TooltipProvider>
+        <Tooltip>
+          <TooltipTrigger>
+            <Button
+              variant={"link"}
+              onClick={() => handleClick(2)}
+              className="flex gap-1"
+            >
+              <Mail /> {EMAIL}
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent>
+            <p>Copy to Clipboard</p>
+          </TooltipContent>
+        </Tooltip>
+      </TooltipProvider>
 
-        <Toaster />
+      <Toaster />
 
-        <Separator className="my-2" />
+      <Separator className="my-2" />
 
-        <p className="text-muted-foreground text-base tracking-tight">
-          We are a Authorized Dealer of CG, trusted by thousands of satisfied
-          customers.
-        </p>
-      </div>
-    )
+      <p className="text-muted-foreground text-base tracking-tight">
+        We are a Authorized Dealer of CG, trusted by thousands of satisfied
+        customers.
+      </p>
+    </div>
   );
 }
