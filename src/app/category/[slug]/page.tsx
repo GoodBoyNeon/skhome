@@ -1,4 +1,5 @@
 import ProductsList from "@/components/ProductsList";
+import SubHeading from "@/components/SubHeading";
 import { prisma } from "@/lib/database";
 import { notFound } from "next/navigation";
 import React from "react";
@@ -16,8 +17,8 @@ const Page = async (props: { params: Promise<{ slug: string }> }) => {
   });
   return (
     <div className="m-6">
-      <h2 className="my-4 text-2xl font-semibold">{category?.name}s</h2>
-
+      {/* <h2 className="my-4 text-2xl font-semibold">{category?.name}s</h2> */}
+      <SubHeading>{category?.name}</SubHeading>
       <ProductsList products={products} />
     </div>
   );
