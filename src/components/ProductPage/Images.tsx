@@ -14,13 +14,13 @@ const Images = ({ images }: { images: string[] }) => {
   const isDesktop = useMediaQuery("(min-width: 768px)");
 
   return isDesktop ? (
-    <div className="flex items-center justify-center">
+    <div className="flex items-center border rounded-xl overflow-hidden justify-center">
       <Carousel className="">
         <CarouselContent>
           {images.map((img, i) => (
             <CarouselItem key={i}>
-              <div className="p-1 flex items-center justify-center">
-                <Image src={img} alt={`image-${i}`} width={450} height={675} />
+              <div className="flex items-center justify-center">
+                <Image src={img} alt={`${i}-image`} width={450} height={450} />
               </div>
             </CarouselItem>
           ))}

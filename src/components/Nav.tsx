@@ -15,7 +15,6 @@ import {
 import logo from "../../public/logo.png";
 import { MouseEvent, useState } from "react";
 import { redirect } from "next/navigation";
-import ProductsListLoading from "./ProductsListLoading";
 
 const navItems = [
   {

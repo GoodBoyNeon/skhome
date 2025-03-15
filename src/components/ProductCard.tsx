@@ -1,11 +1,13 @@
-import { Product } from "@prisma/client";
+"use client";
+
+import { Brand, Category, Product } from "@prisma/client";
 import Link from "next/link";
 import React from "react";
 import Image from "next/image";
 import { Check, X } from "lucide-react";
-import { prisma } from "@/lib/database";
+import { useQuery } from "@tanstack/react-query";
 
-export default async function ProductCard({
+export default function ProductCard({
   name,
   MRP,
   price,
@@ -13,10 +15,44 @@ export default async function ProductCard({
   images,
   urlSlug,
   categoryId,
+  brandId,
 }: Product) {
-  const category = await prisma.category.findUnique({
-    where: { id: categoryId },
+  const categoryRes = useQuery({
+    queryKey: ["category"],
+    queryFn: async (): Promise<Category> => {
+      const res = await fetch(`/api/category?id=${categoryId}`);
+      return res.json();
+    },
   });
+
+  const brandRes = useQuery({
+    queryKey: ["brand"],
+    queryFn: async (): Promise<Brand> => {
+      const res = await fetch(`/api/brand?id=${brandId}`);
+      return res.json();
+    },
+  });
+
+  if (categoryRes.error || brandRes.error) {
+    return "An unexpected error occured.";
+  }
+
+  if (categoryRes.isLoading || brandRes.isLoading) {
+  }
+
+  const { data: category } = categoryRes;
+  const { data: brand } = brandRes;
+
+  // const category = await prisma.category.findUnique({
+  //   where: {
+  //     id: categoryId,
+  //   },
+  // });
+  // const brand = await prisma.brand.findUnique({
+  //   where: {
+  //     id: brandId,
+  //   },
+  // });
 
   const discountPercentage = Math.round(((MRP - price) / MRP) * 100);
 
@@ -27,22 +63,23 @@ export default async function ProductCard({
         className="flex flex-col gap-1"
         href={`/product/${urlSlug}`}
       >
-        <Image src={images[0]} alt={`${name} image`} width={300} height={300} />
+        <Image src={images[0]} alt={name} width={300} height={300} />
 
         <div>
-          {category && (
+          {category && brand && (
             <h2 className="text-xs tracking-tight text-muted-foreground">
-              {category.name}
+              {brand.name} &bull; {category.name}
             </h2>
           )}
           <h2 className="font-medium line-clamp-2">{name}</h2>
         </div>
 
         <div>
-          <h3 className="text-base font-medium text-accent">
+          <h3 className="text-base font-medium text-main">
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "npr",
+              // trailingZeroDisplay: "stripIfInteger",
             }).format(price)}
           </h3>
 
@@ -51,6 +88,7 @@ export default async function ProductCard({
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "npr",
+                // trailingZeroDisplay: "stripIfInteger",
               }).format(MRP)}
             </s>
 

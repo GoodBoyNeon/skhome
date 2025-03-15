@@ -3,17 +3,9 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
-}
-
-model User {
-  id     Int     @id @default(autoincrement())
-  userId String  @unique
-  name   String
-  email  String  @unique
-  phone  String? @unique
-  Cart   Cart?
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
 }
 
 model Category {
@@ -24,33 +16,27 @@ model Category {
   products Product[]
 }
 
+model Brand {
+  id       Int       @id @default(autoincrement())
+  name     String
+  urlSlug  String    @unique
+  image    String?
+  products Product[]
+}
+
 model Product {
-  id          Int        @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   name        String
   description String
-  urlSlug     String     @unique
+  urlSlug     String   @unique
+  MRP         Int
   price       Int
-  categoryId  Int
+  stock       Int
   images      String[]
   tags        String[]
-  stock       Int
-  MRP         Int
-  CartItem    CartItem[]
-  category    Category   @relation(fields: [categoryId], references: [id])
-}
-
-model Cart {
-  id       Int        @id @default(autoincrement())
-  userId   String     @unique
-  User     User       @relation(fields: [userId], references: [userId])
-  CartItem CartItem[]
-}
-
-model CartItem {
-  id        Int     @id @default(autoincrement())
-  quantity  Int
-  cartId    Int
-  productId Int
-  Cart      Cart    @relation(fields: [cartId], references: [id])
-  Product   Product @relation(fields: [productId], references: [id])
+  pIndex      Int      @default(0)
+  categoryId  Int
+  brandId     Int
+  brand       Brand    @relation(fields: [brandId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
 }

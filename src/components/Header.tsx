@@ -20,13 +20,13 @@ function Header() {
   };
 
   return (
-    <header className="flex items-center h-14 px-4 border-b gap-4 sm:gap-10 lg:px-6 bg-white">
+    <header className="sticky top-0 z-50 flex items-center h-16 w-full backdrop-blur supports-[backdrop-filter]:bg-background/60 bg-white px-4 border-b gap-4 sm:gap-10 lg:px-6">
       <Nav />
 
-      <form className="flex-1 max-w-" onSubmit={handleSearch}>
+      <form className="flex-1 min-h-max" onSubmit={handleSearch}>
         <div className="relative flex items-center w-full bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-400 dark:focus-within:text-gray-400">
           <Input
-            className="appearance-none w-full bg-transparent border-none outline-hidden"
+            className="appearance-none w-full bg-transparent border-none"
             id="search"
             ref={inputRef}
             placeholder="Search for products"

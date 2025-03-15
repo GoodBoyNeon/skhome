@@ -1,7 +1,5 @@
 "use client";
-
 import { Phone, Mail } from "lucide-react";
-import { Button, buttonVariants } from "./ui/button";
 import {
   TooltipContent,
   Tooltip,
@@ -11,80 +9,82 @@ import {
 import { Toaster } from "./ui/sonner";
 import { toast } from "sonner";
 import { Separator } from "./ui/separator";
-import { useMediaQuery } from "@/hooks/useMediaQuery";
+import Link from "next/link";
 
-const PHONE_ONE = "9851181186";
-const PHONE_TWO = "9849508186";
+const PHONEI = "9851181186";
+const PHONEII = "9849508186";
 const EMAIL = "skhome2072@gmail.com";
 
 export default function ProductSidebar() {
   // const isDesktop = useMediaQuery("(min-width: 768px)");
 
-  function handleClick(i: number) {
-    navigator.clipboard.writeText(
-      i === 1 ? PHONE_ONE : i === 2 ? PHONE_TWO : EMAIL,
-    );
+  function handleClick(type: "PhoneI" | "PhoneII" | "Email") {
+    const lot: Record<typeof type, string> = {
+      PhoneI: PHONEI,
+      PhoneII: PHONEII,
+      Email: EMAIL,
+    };
+
+    navigator.clipboard.writeText(lot[type]);
     toast("Copied to Clipboard!");
   }
 
   return (
     <div className="border rounded-lg w-72 p-4 h-full">
-      <h2 className="text-2xl mb-2 font-semibold">Contact Us</h2>
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger
-            onClick={() => handleClick(1)}
-            className={"flex gap-1 text-blue-400"}
-          >
-            <Phone /> {PHONE_ONE}
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Copy to Clipboard</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
-
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <Button
-              variant={"link"}
-              onClick={() => handleClick(2)}
-              className="flex gap-1"
+      <h2 className="text-2xl mb-6 font-semibold">Contact Us</h2>
+      <div className="space-y-2">
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              onClick={() => handleClick("PhoneI")}
+              className={"flex gap-1 text-primary"}
             >
-              <Phone /> {PHONE_TWO}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Copy to Clipboard</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+              <Phone /> {PHONEI}
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy to Clipboard</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
 
-      <TooltipProvider>
-        <Tooltip>
-          <TooltipTrigger>
-            <Button
-              variant={"link"}
-              onClick={() => handleClick(2)}
-              className="flex gap-1"
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              onClick={() => handleClick("PhoneII")}
+              className={"flex gap-1 text-primary"}
+            >
+              <Phone /> {PHONEII}
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy to Clipboard</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+
+        <TooltipProvider>
+          <Tooltip>
+            <TooltipTrigger
+              onClick={() => handleClick("Email")}
+              className={"flex gap-1 text-primary"}
             >
               <Mail /> {EMAIL}
-            </Button>
-          </TooltipTrigger>
-          <TooltipContent>
-            <p>Copy to Clipboard</p>
-          </TooltipContent>
-        </Tooltip>
-      </TooltipProvider>
+            </TooltipTrigger>
+            <TooltipContent>
+              <p>Copy to Clipboard</p>
+            </TooltipContent>
+          </Tooltip>
+        </TooltipProvider>
+      </div>
 
       <Toaster />
 
       <Separator className="my-2" />
 
       <p className="text-muted-foreground text-base tracking-tight">
-        We are a Authorized Dealer of CG, trusted by thousands of satisfied
-        customers.
+        You may also visit our store at Radhe Radhe, Bhaktapur.{" "}
+        <Link prefetch className="text-primary hover:underline" href={"/visit"}>
+          Click here
+        </Link>
       </p>
     </div>
   );

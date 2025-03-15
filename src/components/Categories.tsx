@@ -12,13 +12,15 @@ export default function Categories({ categories }: { categories: Category[] }) {
             href={`category/${category.urlSlug}`}
             className="flex items-center justify-center flex-col"
           >
-            <Image
-              src={category.image}
-              alt={`${category.name}-image`}
-              className="object-cover"
-              width={60}
-              height={60}
-            />
+            {category.image != "" && (
+              <Image
+                src={category.image}
+                alt={`${category.name}-image`}
+                className="object-cover"
+                width={60}
+                height={60}
+              />
+            )}
             <h3 className="font-normal tracking-tight text-sm">
               {category.name}
             </h3>

@@ -4,10 +4,10 @@ import { prisma } from "@/lib/database";
 import { notFound } from "next/navigation";
 import React from "react";
 
-const Page = async (props: { params: Promise<{ slug: string }> }) => {
+const Page = async (props: { params: Promise<{ categorySlug: string }> }) => {
   const params = await props.params;
   const category = await prisma.category.findUnique({
-    where: { urlSlug: params.slug },
+    where: { urlSlug: params.categorySlug },
   });
   if (!category) notFound();
   const products = await prisma.product.findMany({
@@ -16,7 +16,7 @@ const Page = async (props: { params: Promise<{ slug: string }> }) => {
     },
   });
   return (
-    <div className="m-6">
+    <div className="lg:mx-16 min-h-screen">
       {/* <h2 className="my-4 text-2xl font-semibold">{category?.name}s</h2> */}
       <SubHeading>{category?.name}</SubHeading>
       <ProductsList products={products} />

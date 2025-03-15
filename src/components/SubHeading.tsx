@@ -1,11 +1,28 @@
-interface Props {
+import { subtitleFont, titleFont } from "@/app/fonts";
+import { cn } from "@/lib/utils";
+import React from "react";
+
+export interface SubHeadingProps
+  extends React.HTMLAttributes<HTMLHeadingElement> {
   children: React.ReactNode;
 }
 
-const SubHeading: React.FC<Props> = ({ children }) => {
-  return (
-    <h2 className="text-3xl font-bold mb-6 mt-10 text-center">{children}</h2>
-  );
-};
+const SubHeading = React.forwardRef<HTMLHeadingElement, SubHeadingProps>(
+  ({ children, className }, _ref) => {
+    return (
+      <h3
+        className={cn(
+          `text-3xl font-semibold mb-6 mt-10 text-center lg:text-4xl`,
+          subtitleFont.className,
+          className,
+        )}
+      >
+        {children}
+      </h3>
+    );
+  },
+);
+
+SubHeading.displayName = "Sub Heading (h3)";
 
 export default SubHeading;

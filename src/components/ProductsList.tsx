@@ -13,8 +13,8 @@ const ProductsList = React.forwardRef<HTMLDivElement, ProductsListProps>(
     return (
       <div
         className={cn(
-          className,
           "grid gap-4 sm:gap-6 grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 place-items-center sm:place-items-start",
+          className,
         )}
         ref={ref}
         {...props}

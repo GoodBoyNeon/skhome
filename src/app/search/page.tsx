@@ -38,7 +38,7 @@ const Search = async ({
   });
 
   return (
-    <div className="m-6">
+    <div className="m-6 h-screen">
       <div className="my-4">
         <h2 className="text-xl font-medium">
           Search Results for &quot;{query}&quot;
@@ -51,7 +51,7 @@ const Search = async ({
       {searchResults.length > 0 ? (
         <ProductsList products={searchResults} />
       ) : (
-        <div className="h-screen m-12 flex flex-col items-center justify-center">
+        <div className="m-10 lg:m-16 flex flex-col items-center justify-center">
           <SearchIcon className="m-2 size-20" />
           <h2 className="m-2 font-bold text-3xl">
             Sorry, we couldn&apos;t find anything :(

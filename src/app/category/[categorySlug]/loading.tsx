@@ -1,14 +1,14 @@
 import ProductsListLoading from "@/components/ProductsListLoading";
-import SubHeading from "@/components/SubHeading";
+import { Skeleton } from "@/components/ui/skeleton";
 import React from "react";
 
-const ProductsLoading = () => {
+const CategoryLoading = () => {
   return (
     <div className="m-6 lg:m-16">
-      <SubHeading>Our Products</SubHeading>
+      <Skeleton className="w-24 h-4"></Skeleton>
       <ProductsListLoading />
     </div>
   );
 };
 
-export default ProductsLoading;
+export default CategoryLoading;
