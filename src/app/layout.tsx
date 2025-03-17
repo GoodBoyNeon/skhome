@@ -13,6 +13,18 @@ export const metadata: Metadata = {
   },
   description:
     "Buy quality home appliances in Nepal at reasonable prices. Visit us at Radhe Radhe, Bhaktapur.",
+  keywords: [
+    "sk home traders",
+    "home appliance",
+    "home appliances",
+    "appliances",
+    "solar",
+    "chimney",
+    "water purfier",
+    "water filter",
+    "fridge",
+    "refrigerator",
+  ],
 };
 
 export default function RootLayout({

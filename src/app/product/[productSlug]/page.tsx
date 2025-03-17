@@ -1,6 +1,7 @@
 import Images from "@/components/ProductPage/Images";
 import ProductSidebar from "@/components/ProductSidebar";
 import ProductsList from "@/components/ProductsList";
+import SubHeading from "@/components/SubHeading";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/database";
@@ -102,10 +103,10 @@ export default async function ProductPage(props: {
         </div>
       </div>
 
-      <div className="p-4 md:p-8">
-        <h3 className="text-xl font-semibold mb-4 md:text-2xl">
+      <div className="lg:mx-16 md:mx-12 sm:mx-8">
+        <SubHeading className="text-xl font-semibold mb-4 md:text-2xl">
           Similar products
-        </h3>
+        </SubHeading>
 
         <ProductsList products={similar} />
       </div>
