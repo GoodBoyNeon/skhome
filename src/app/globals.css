@@ -40,9 +40,9 @@
   --animate-accordion-up: accordion-up 0.2s ease-out;
 
   /* Customs */
-  --animate-scroll-25: scroll 25s linear infinite;
+  --animate-scroll-10: scroll 3s linear infinite;
+  --animate-scroll-20: scroll 20s linear infinite;
   --animate-scroll-30: scroll 30s linear infinite;
-  --animate-scroll-35: scroll 35s linear infinite;
   --animate-scroll-40: scroll 40s linear infinite;
   --animate-scroll-50: scroll 50s linear infinite;
   --animate-scroll-100: scroll 100s linear infinite;
@@ -65,11 +65,12 @@
   }
 
   @keyframes scroll {
-    from {
+    0% {
       transform: translateX(0);
     }
-    to {
-      transform: translateX(-100%);
+    100% {
+      /* transform: translateX(calc(-100% - 256px)); */
+      transform: translateX(calc(-50% - 512px));
     }
   }
 }

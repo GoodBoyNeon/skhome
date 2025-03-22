@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import QueryProvider from "@/components/QueryProvider";
 import { bodyFont } from "./fonts";
+import MarqueeBar from "@/components/MarqueeBar";
 
 export const metadata: Metadata = {
   title: {
@@ -36,6 +37,7 @@ export default function RootLayout({
     <html lang="en" /*className="bg-[#f3f4f6]"*/>
       <body className={cn(bodyFont.className, "overflow-x-hidden")}>
         <QueryProvider>
+          <MarqueeBar />
           <Header />
           {children}
           <Footer />

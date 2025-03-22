@@ -4,6 +4,14 @@ import { prisma } from "@/lib/database";
 import { notFound } from "next/navigation";
 import React from "react";
 
+export async function generateStaticParams() {
+  const categories = await prisma.category.findMany();
+
+  return categories.map(({ urlSlug }) => ({
+    categorySlug: urlSlug,
+  }));
+}
+
 const Page = async (props: { params: Promise<{ categorySlug: string }> }) => {
   const params = await props.params;
   const category = await prisma.category.findUnique({

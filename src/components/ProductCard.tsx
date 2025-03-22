@@ -43,17 +43,6 @@ export default function ProductCard({
   const { data: category } = categoryRes;
   const { data: brand } = brandRes;
 
-  // const category = await prisma.category.findUnique({
-  //   where: {
-  //     id: categoryId,
-  //   },
-  // });
-  // const brand = await prisma.brand.findUnique({
-  //   where: {
-  //     id: brandId,
-  //   },
-  // });
-
   const discountPercentage = Math.round(((MRP - price) / MRP) * 100);
 
   return (
@@ -71,15 +60,15 @@ export default function ProductCard({
               {brand.name} &bull; {category.name}
             </h2>
           )}
-          <h2 className="font-medium line-clamp-2">{name}</h2>
+          <h2 className="font-normal text-base line-clamp-2">{name}</h2>
         </div>
 
         <div>
-          <h3 className="text-base font-medium text-main">
+          <h3 className="text-base font-semibold">
             {new Intl.NumberFormat("en-US", {
               style: "currency",
               currency: "npr",
-              // trailingZeroDisplay: "stripIfInteger",
+              trailingZeroDisplay: "stripIfInteger",
             }).format(price)}
           </h3>
 
@@ -88,11 +77,11 @@ export default function ProductCard({
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
                 currency: "npr",
-                // trailingZeroDisplay: "stripIfInteger",
+                trailingZeroDisplay: "stripIfInteger",
               }).format(MRP)}
             </s>
 
-            <p className="text-red-400">-{discountPercentage}%</p>
+            <p className="text-red-500">-{discountPercentage}%</p>
           </div>
 
           {stock && stock > 0 ? (

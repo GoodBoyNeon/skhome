@@ -7,6 +7,14 @@ import { Button } from "@/components/ui/button";
 import { prisma } from "@/lib/database";
 import { notFound } from "next/navigation";
 
+export async function generateStaticParams() {
+  const products = await prisma.product.findMany();
+
+  return products.map(({ urlSlug }) => ({
+    productSlug: urlSlug,
+  }));
+}
+
 export default async function ProductPage(props: {
   params: Promise<{ productSlug: string }>;
 }) {
