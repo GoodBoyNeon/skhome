@@ -5,7 +5,7 @@ import Nav from "./Nav";
 import { Input } from "./ui/input";
 import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-// import Link from "next/link";
+import Cart from "./Cart";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -41,9 +41,7 @@ function Header() {
         </div>
       </form>
 
-      {/* <Link prefetch href={"/cart"} aria-label="Open the Cart"> */}
-      {/*   <ShoppingCart /> */}
-      {/* </Link> */}
+      <Cart />
 
       {/* <DropdownMenu> */}
       {/*   <DropdownMenuTrigger> */}
