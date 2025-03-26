@@ -1,6 +1,6 @@
 # ⚡ S.K Home Traders
 
-> Visit at **https://skhome.vercel.app**
+> Visit at **https://skhometraders.com.np** or **https://skhome.vercel.app** (if you trust vercel domain more for some reason...)
 
 ### Made with:
 
