@@ -1,9 +1,11 @@
 "use client";
+
 import { Search } from "lucide-react";
 import Nav from "./Nav";
 import { Input } from "./ui/input";
 import { FormEvent, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+// import Link from "next/link";
 
 function Header() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -39,7 +41,7 @@ function Header() {
         </div>
       </form>
 
-      {/* <Link href={"/cart"} aria-label="Open the Cart"> */}
+      {/* <Link prefetch href={"/cart"} aria-label="Open the Cart"> */}
       {/*   <ShoppingCart /> */}
       {/* </Link> */}
 

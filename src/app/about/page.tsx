@@ -1,5 +1,5 @@
 import Features from "@/components/features";
-import Testimonials from "@/components/testimonials";
+import Testimonials from "@/components/Testimonials";
 import Heading from "@/components/Heading";
 import { Metadata } from "next";
 import React from "react";

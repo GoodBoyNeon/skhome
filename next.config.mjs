@@ -6,7 +6,7 @@ const nextConfig = {
         hostname: "cdn.discordapp.com",
       },
       {
-        hostname: "*",
+        hostname: "imgur.com",
       },
     ],
   },

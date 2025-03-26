@@ -16,8 +16,6 @@ const PHONEII = "9849508186";
 const EMAIL = "skhome2072@gmail.com";
 
 export default function ProductSidebar() {
-  // const isDesktop = useMediaQuery("(min-width: 768px)");
-
   function handleClick(type: "PhoneI" | "PhoneII" | "Email") {
     const lot: Record<typeof type, string> = {
       PhoneI: PHONEI,
@@ -30,7 +28,7 @@ export default function ProductSidebar() {
   }
 
   return (
-    <div className="border rounded-lg w-72 p-4 h-full">
+    <div className="border-x py-8 bg-background max-w-72 p-4 h-full">
       <h2 className="text-2xl mb-6 font-semibold">Contact Us</h2>
       <div className="space-y-2">
         <TooltipProvider>
