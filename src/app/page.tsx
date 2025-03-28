@@ -26,11 +26,7 @@ export default async function Home() {
 
           <ProductsList products={products} />
 
-          <Button
-            className="max-w-fit m-auto text-base"
-            asChild
-            variant={"link"}
-          >
+          <Button className="max-w-fit text-base m-2" asChild variant={"link"}>
             <Link prefetch href="/products">
               Show All
             </Link>

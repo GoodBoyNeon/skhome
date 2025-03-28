@@ -6,6 +6,7 @@ import Footer from "@/components/Footer";
 import QueryProvider from "@/components/QueryProvider";
 import { bodyFont } from "./fonts";
 import MarqueeBar from "@/components/MarqueeBar";
+import { Toaster } from "@/components/ui/sonner";
 
 export const metadata: Metadata = {
   title: {
@@ -34,12 +35,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" /*className="bg-[#f3f4f6]"*/>
+    <html lang="en">
       <body className={cn(bodyFont.className, "overflow-x-hidden")}>
         <QueryProvider>
           <MarqueeBar />
           <Header />
           {children}
+          <Toaster richColors theme="light" />
           <Footer />
         </QueryProvider>
       </body>
