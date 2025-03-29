@@ -64,7 +64,6 @@
       height: 0;
     }
   }
-
   @keyframes scroll {
     0% {
       transform: translateX(0);

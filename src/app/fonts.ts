@@ -11,18 +11,25 @@ import {
   // Montserrat as BodyFont,
   // Inter as BodyFont,
   // Lato as BodyFont,
+  JetBrains_Mono as MonoFont,
 } from "next/font/google";
 
 export const titleFont = TitleFont({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
 export const subtitleFont = SubtitleFont({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });
+
 export const bodyFont = BodyFont({
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-  // weight: ["300", "400", "700"],
+});
+
+export const monoFont = MonoFont({
+  subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700"],
 });

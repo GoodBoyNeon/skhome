@@ -4,10 +4,10 @@ import { Product } from "@prisma/client";
 import React, { useState } from "react";
 import { Button } from "./ui/button";
 import Link from "next/link";
-import { MapPin, ShoppingCart, Minus, Plus } from "lucide-react";
+import { MapPin, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/hooks/useCart";
 import { toast } from "sonner";
-import { Input } from "./ui/input";
+import QuantityInput from "./QuantityInput";
 
 const ProductViewCTO = ({ product }: { product: Product }) => {
   const { items, addItem, removeItem } = useCartStore();
@@ -47,36 +47,29 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
   return (
     <div>
       <div className="space-y-2">
-        <div className="flex gap-0.5">
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            className="h-8 w-8 px-2 cursor-pointer"
-            disabled={quantity < 2}
-            onClick={() => setQuantity(quantity - 1)}
-          >
-            <Minus />
-          </Button>
-          <Input
-            type="number"
-            className="w-10 text-center h-8 font-mono rounded-none bg-white border-none focus:outline-hidden outline-none focus:outline-none"
-            value={quantity}
-            onChange={(e) => {
-              setQuantity(parseInt(e.target.value));
-            }}
-          ></Input>
-          <Button
-            variant={"secondary"}
-            size={"sm"}
-            className="h-8 w-8 px-2 cursor-pointer"
-            onClick={() => setQuantity(quantity + 1)}
-          >
-            <Plus />
-          </Button>
-        </div>
+        <QuantityInput
+          quantity={quantity}
+          // setQuantity={setQuantity}
+          decOnClick={() => setQuantity(quantity - 1)}
+          incOnClick={() => setQuantity(quantity + 1)}
+          onChange={(e) => {
+            setQuantity(parseInt(e.target.value));
+          }}
+        />
         {stock > 0 ? (
-          <Button className="bg-cyan-700 hover:bg-cyan-600 cursor-pointer w-full md:h-12 text-lg md:text-xl">
-            Buy Now
+          <Button
+            asChild
+            className="bg-cyan-700 hover:bg-cyan-600 cursor-pointer w-full md:h-12 text-lg md:text-xl"
+          >
+            <Link
+              prefetch
+              href={`/checkout?${new URLSearchParams({
+                t: "single",
+                p: `${product.id}q${quantity}`,
+              })}`}
+            >
+              Buy Now
+            </Link>
           </Button>
         ) : (
           <Button variant={"destructive"} disabled>

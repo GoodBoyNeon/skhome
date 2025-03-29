@@ -4,6 +4,7 @@ import { ShoppingCart, X } from "lucide-react";
 import React from "react";
 import {
   Sheet,
+  SheetClose,
   SheetContent,
   SheetHeader,
   SheetTitle,
@@ -14,6 +15,7 @@ import { ScrollArea } from "@radix-ui/react-scroll-area";
 import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
+import QuantityInput from "./QuantityInput";
 
 const Cart = () => {
   const { items } = useCartStore();
@@ -31,7 +33,7 @@ const Cart = () => {
         </div>
       </SheetTrigger>
 
-      <SheetContent className="flex pr-0 flex-col w-full sm:max-w-lg">
+      <SheetContent className="flex bg-white pr-0 flex-col w-full sm:max-w-lg">
         <SheetHeader>
           <SheetTitle className="text-2xl font-semibold">
             Cart {count > 0 ? `- ${count} items` : ""}
@@ -73,9 +75,21 @@ const Cart = () => {
                 </p>
               </div>
 
-              <Button className="w-full cursor-pointer text-base">
-                Checkout
-              </Button>
+              <SheetClose asChild>
+                <Button asChild className="w-full cursor-pointer text-base">
+                  <Link
+                    prefetch
+                    href={`/checkout?t=cart&${new URLSearchParams(
+                      items.map((item) => [
+                        "p",
+                        `${item.product.id}q${item.quantity}`,
+                      ]),
+                    )}`}
+                  >
+                    Checkout
+                  </Link>
+                </Button>
+              </SheetClose>
             </div>
           </div>
         ) : (
@@ -83,13 +97,15 @@ const Cart = () => {
             <h3 className="font-bold text-2xl">No items in cart...</h3>
             <p className="text-center">
               Explore and add products to your cart from the{" "}
-              <Link
-                prefetch
-                href={"/products"}
-                className="font-semibold hover:underline text-primary"
-              >
-                Products Page
-              </Link>
+              <SheetClose asChild>
+                <Link
+                  prefetch
+                  href={"/products"}
+                  className="font-semibold hover:underline text-primary"
+                >
+                  Products Page
+                </Link>
+              </SheetClose>
             </p>
           </div>
         )}
@@ -99,28 +115,43 @@ const Cart = () => {
 };
 
 export const CartItemWrapper = ({ item }: { item: CartItem }) => {
-  const { removeItem } = useCartStore();
+  const { removeItem, setQuantity } = useCartStore();
   const { quantity, product } = item;
   return (
     <>
       <div className="flex m-2 gap-4 justify-between">
-        <Link
-          prefetch
-          href={`/product/${product.urlSlug}`}
-          className="flex min-w-0 cursor-pointer gap-2 w-full rounded p-2 hover:bg-black/10"
-        >
+        <div className="flex min-w-0 gap-2 w-full rounded p-2">
           <div className="relative aspect-square h-16 w-16 min-w-fit overflow-hidden rounded">
-            <Image
-              src={product.images[0]}
-              alt={product.name}
-              className="absolute"
-              width={64}
-              height={64}
-            />
+            <Link
+              prefetch
+              className="cursor-pointer absolute"
+              href={`/product/${product.urlSlug}`}
+            >
+              <Image
+                src={product.images[0]}
+                alt={product.name}
+                width={64}
+                height={64}
+              />
+            </Link>
           </div>
           <div className="min-w-0 w-full">
-            <p className="truncate">{product.name}</p>
-            <p className="text-muted-foreground text-sm">Qty: {quantity}</p>
+            <Link
+              prefetch
+              className="cursor-pointer"
+              href={`/product/${product.urlSlug}`}
+            >
+              <p className="truncate mb-1.5">{product.name}</p>
+            </Link>
+            <QuantityInput
+              size="sm"
+              quantity={quantity}
+              decOnClick={() => setQuantity(product, quantity - 1)}
+              incOnClick={() => setQuantity(product, quantity + 1)}
+              onChange={(e) => {
+                setQuantity(product, parseInt(e.target.value));
+              }}
+            />
             <p className="text-sm font-semibold text-right">
               {new Intl.NumberFormat("en-US", {
                 style: "currency",
@@ -129,7 +160,7 @@ export const CartItemWrapper = ({ item }: { item: CartItem }) => {
               }).format(product.price)}
             </p>
           </div>
-        </Link>
+        </div>
         <button
           className="cursor-pointer w-6 h-6 text-muted-foreground hover:text-red-500 transition"
           onClick={(e) => {
