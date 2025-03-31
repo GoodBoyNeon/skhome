@@ -6,6 +6,7 @@ import React from "react";
 import Image from "next/image";
 import { Check, X } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
+import { pricify } from "@/lib/utils";
 
 export default function ProductCard({
   name,
@@ -64,21 +65,11 @@ export default function ProductCard({
         </div>
 
         <div>
-          <h3 className="text-base font-semibold">
-            {new Intl.NumberFormat("en-US", {
-              style: "currency",
-              currency: "npr",
-              trailingZeroDisplay: "stripIfInteger",
-            }).format(price)}
-          </h3>
+          <h3 className="text-base font-semibold">{pricify(price, true)}</h3>
 
           <div className="flex text-sm gap-2">
             <s className="text-sm text-muted-foreground">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "npr",
-                trailingZeroDisplay: "stripIfInteger",
-              }).format(MRP)}
+              {pricify(price, true)}
             </s>
 
             <p className="text-red-500">-{discountPercentage}%</p>

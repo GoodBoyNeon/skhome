@@ -1,23 +1,17 @@
-import { CartItem } from "@/hooks/useCart";
+import SubHeading from "@/components/SubHeading";
+import type { CartItem } from "@/hooks/useCart";
 import { prisma } from "@/lib/database";
-import { Product } from "@prisma/client";
-import React from "react";
+import CheckoutContainer from "@/components/CheckoutContainer";
 
 type CheckoutType = "single" | "cart";
-
-type CheckoutParams = {
-  t: CheckoutType;
-  p: CartItem;
-};
 
 const CheckoutPage = async ({
   searchParams,
 }: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+  searchParams: { [key: string]: string | string[] | undefined };
 }) => {
-  const params = await searchParams;
-  const type = params.t as CheckoutType;
-  const cartIds = params.p;
+  const type = (await searchParams).t as CheckoutType;
+  const cartIds = (await searchParams).p;
 
   const selectedItems: CartItem[] = [];
   if (typeof cartIds === "object") {
@@ -44,13 +38,11 @@ const CheckoutPage = async ({
       quantity: parseInt(cartIds.split("q")[1]),
     });
   }
+
   return (
-    <div>
-      {selectedItems.map((item) => (
-        <div key={item.product.id}>
-          {item.quantity}x {item.product.name}
-        </div>
-      ))}
+    <div className="max-w-7xl mx-auto px-4 py-8">
+      <SubHeading>Checkout</SubHeading>
+      <CheckoutContainer items={selectedItems} />
     </div>
   );
 };

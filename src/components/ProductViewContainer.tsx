@@ -6,6 +6,7 @@ import { notFound } from "next/navigation";
 import React from "react";
 import { Product } from "@prisma/client";
 import ProductViewCTO from "./ProductViewCTO";
+import { pricify } from "@/lib/utils";
 
 const ProductViewContainer = async ({
   product,
@@ -48,18 +49,11 @@ const ProductViewContainer = async ({
 
             <div className="my-1.5 md:my-2.5 ">
               <h2 className="text-cyan-800 text-2xl md:text-3xl font-bold">
-                {new Intl.NumberFormat("en-US", {
-                  style: "currency",
-                  currency: "npr",
-                }).format(price)}
+                {pricify(price)}
               </h2>
               <div className="flex text-sm gap-2">
                 <s className="text-lg text-muted-foreground">
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "npr",
-                    trailingZeroDisplay: "stripIfInteger",
-                  }).format(MRP)}
+                  {pricify(price, true)}
                 </s>
 
                 <p className="text-red-600 text-lg">-{discountPercentage}%</p>

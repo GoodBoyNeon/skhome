@@ -1,0 +1,62 @@
+{
+  "information": {
+    "firstName": "aaaaaaaaaaa",
+    "lastName": "aaaaaaaaaaaaaaaaaaa",
+    "phone": "aaaaaaaaaaaaaaaaaa",
+    "address": "values",
+    "city": "aaaaaaaaaaaaa",
+    "appartment": "values",
+    "postalCode": "aaaaaaaaaaaaa",
+    "shippingMethod": "InsideValley",
+    "paymentMethod": "COD"
+  },
+  "order": [
+    {
+      "product": {
+        "id": 5,
+        "name": "Kent Grand Star Mineral Ro Water Purifier 11 Litre",
+        "description": "Advanced purification with RO + UV + UF + TDS Controller\\nSuitable for brackish, tap, and municipal corporation water\\nHigh purification rate of 20 L/hr\\nMade from durable ABS food-grade plastic\\nWall-mounted design with 11L storage capacity\\nFeatures a digital display screen for real-time monitoring\\nRetains essential minerals with Mineral RO™ technology\\nCompact and stylish for modern kitchens",
+        "urlSlug": "kent-grand-star",
+        "MRP": 56290,
+        "price": 44999,
+        "stock": 8,
+        "images": ["https://imgur.com/7OuwoLI.png"],
+        "tags": [
+          "kent",
+          "grand star",
+          "touch screen",
+          "filter",
+          "filter",
+          "water purifier"
+        ],
+        "pIndex": 11,
+        "categoryId": 1,
+        "brandId": 1,
+        "createdAt": "2025-03-30T13:54:55.570Z",
+        "updatedAt": "2025-03-30T13:49:26.220Z"
+      },
+      "quantity": 1
+    },
+    {
+      "product": {
+        "id": 2,
+        "name": "Kent Pearl RO Water Purifier 8 Litre",
+        "description": "RO + UV + UF + TDS CONTROLLER\\nDetachable Tank\\nWall mount or Counter Top\\n20L/HR Purification Rate\\n",
+        "urlSlug": "kent-pearl",
+        "MRP": 42590,
+        "price": 33999,
+        "stock": 10,
+        "images": ["https://imgur.com/iN58nA5.png"],
+        "tags": ["kent", "water", "purifier", "filter"],
+        "pIndex": 9,
+        "categoryId": 1,
+        "brandId": 1,
+        "createdAt": "2025-03-18T14:13:58.563Z",
+        "updatedAt": "2025-03-18T14:13:58.563Z"
+      },
+      "quantity": 4
+    }
+  ]
+}
+
+{"information":{"firstName":"adfdda","lastName":"","phone":"dfkajfaldskfjasdf","address":"adsfdaafs","city":"adslkjf","appartment":"kljadf","postalCode":"kljadf","shippingMethod":"InsideValley","paymentMethod":"COD"},"order":[{"product":{"id":5,"name":"Kent Grand Star Mineral Ro Water Purifier 11 Litre","description":"Advanced purification with RO + UV + UF + TDS Controller\\nSuitable for brackish, tap, and municipal corporation water\\nHigh purification rate of 20 L/hr\\nMade from durable ABS food-grade plastic\\nWall-mounted design with 11L storage capacity\\nFeatures a digital display screen for real-time monitoring\\nRetains essential minerals with Mineral RO™ technology\\nCompact and stylish for modern kitchens","urlSlug":"kent-grand-star","MRP":56290,"price":44999,"stock":8,"images":["https://imgur.com/7OuwoLI.png"],"tags":["kent","grand star","touch screen","filter","filter","water purifier"],"pIndex":11,"categoryId":1,"brandId":1,"createdAt":"2025-03-30T13:54:55.570Z","updatedAt":"2025-03-30T13:49:26.220Z"},"quantity":1},{"product":{"id":2,"name":"Kent Pearl RO Water Purifier 8 Litre","description":"RO + UV + UF + TDS CONTROLLER\\nDetachable Tank\\nWall mount or Counter Top\\n20L/HR Purification Rate\\n","urlSlug":"kent-pearl","MRP":42590,"price":33999,"stock":10,"images":["https://imgur.com/iN58nA5.png"],"tags":["kent","water","purifier","filter"],"pIndex":9,"categoryId":1,"brandId":1,"createdAt":"2025-03-18T14:13:58.563Z","updatedAt":"2025-03-18T14:13:58.563Z"},"quantity":4}]}{"information":{"firstName":"adfdda","lastName":"","phone":"dfkajfaldskfjasdf","address":"adsfdaafs","city":"adslkjf","appartment":"kljadf","postalCode":"kljadf","shippingMethod":"InsideValley","paymentMethod":"COD"},"order":[{"product":{"id":5,"name":"Kent Grand Star Mineral Ro Water Purifier 11 Litre","description":"Advanced purification with RO + UV + UF + TDS Controller\\nSuitable for brackish, tap, and municipal corporation water\\nHigh purification rate of 20 L/hr\\nMade from durable ABS food-grade plastic\\nWall-mounted design with 11L storage capacity\\nFeatures a digital display screen for real-time monitoring\\nRetains essential minerals with Mineral RO™ technology\\nCompact and stylish for modern kitchens","urlSlug":"kent-grand-star","MRP":56290,"price":44999,"stock":8,"images":["https://imgur.com/7OuwoLI.png"],"tags":["kent","grand star","touch screen","filter","filter","water purifier"],"pIndex":11,"categoryId":1,"brandId":1,"createdAt":"2025-03-30T13:54:55.570Z","updatedAt":"2025-03-30T13:49:26.220Z"},"quantity":1},{"product":{"id":2,"name":"Kent Pearl RO Water Purifier 8 Litre","description":"RO + UV + UF + TDS CONTROLLER\\nDetachable Tank\\nWall mount or Counter Top\\n20L/HR Purification Rate\\n","urlSlug":"kent-pearl","MRP":42590,"price":33999,"stock":10,"images":["https://imgur.com/iN58nA5.png"],"tags":["kent","water","purifier","filter"],"pIndex":9,"categoryId":1,"brandId":1,"createdAt":"2025-03-18T14:13:58.563Z","updatedAt":"2025-03-18T14:13:58.563Z"},"quantity":4}]}{"information":{"firstName":"adfdda","lastName":"","phone":"dfkajfaldskfjasdf","address":"adsfdaafs","city":"adslkjf","appartment":"kljadf","postalCode":"kljadf","shippingMethod":"InsideValley","paymentMethod":"COD"},"order":[{"product":{"id":5,"name":"Kent Grand Star Mineral Ro Water Purifier 11 Litre","description":"Advanced purification with RO + UV + UF + TDS Controller\\nSuitable for brackish, tap, and municipal corporation water\\nHigh purification rate of 20 L/hr\\nMade from durable ABS food-grade plastic\\nWall-mounted design with 11L storage capacity\\nFeatures a digital display screen for real-time monitoring\\nRetains essential minerals with Mineral RO™ technology\\nCompact and stylish for modern kitchens","urlSlug":"kent-grand-star","MRP":56290,"price":44999,"stock":8,"images":["https://imgur.com/7OuwoLI.png"],"tags":["kent","grand star","touch screen","filter","filter","water purifier"],"pIndex":11,"categoryId":1,"brandId":1,"createdAt":"2025-03-30T13:54:55.570Z","updatedAt":"2025-03-30T13:49:26.220Z"},"quantity":1},{"product":{"id":2,"name":"Kent Pearl RO Water Purifier 8 Litre","description":"RO + UV + UF + TDS CONTROLLER\\nDetachable Tank\\nWall mount or Counter Top\\n20L/HR Purification Rate\\n","urlSlug":"kent-pearl","MRP":42590,"price":33999,"stock":10,"images":["https://imgur.com/iN58nA5.png"],"tags":["kent","water","purifier","filter"],"pIndex":9,"categoryId":1,"brandId":1,"createdAt":"2025-03-18T14:13:58.563Z","updatedAt":"2025-03-18T14:13:58.563Z"},"quantity":4}]}{"information":{"firstName":"adsfffffffffffff","lastName":"","phone":"adsfffffffffffff","address":"adsffffffffffffffffff","city":"","appartment":"dasffffffffff","postalCode":"","shippingMethod":"InsideValley","paymentMethod":"COD"},"order":[{"product":{"id":5,"name":"Kent Grand Star Mineral Ro Water Purifier 11 Litre","description":"Advanced purification with RO + UV + UF + TDS Controller\\nSuitable for brackish, tap, and municipal corporation water\\nHigh purification rate of 20 L/hr\\nMade from durable ABS food-grade plastic\\nWall-mounted design with 11L storage capacity\\nFeatures a digital display screen for real-time monitoring\\nRetains essential minerals with Mineral RO™ technology\\nCompact and stylish for modern kitchens","urlSlug":"kent-grand-star","MRP":56290,"price":44999,"stock":8,"images":["https://imgur.com/7OuwoLI.png"],"tags":["kent","grand star","touch screen","filter","filter","water purifier"],"pIndex":11,"categoryId":1,"brandId":1,"createdAt":"2025-03-30T13:54:55.570Z","updatedAt":"2025-03-30T13:49:26.220Z"},"quantity":1},{"product":{"id":2,"name":"Kent Pearl RO Water Purifier 8 Litre","description":"RO + UV + UF + TDS CONTROLLER\\nDetachable Tank\\nWall mount or Counter Top\\n20L/HR Purification Rate\\n","urlSlug":"kent-pearl","MRP":42590,"price":33999,"stock":10,"images":["https://imgur.com/iN58nA5.png"],"tags":["kent","water","purifier","filter"],"pIndex":9,"categoryId":1,"brandId":1,"createdAt":"2025-03-18T14:13:58.563Z","updatedAt":"2025-03-18T14:13:58.563Z"},"quantity":4}]}

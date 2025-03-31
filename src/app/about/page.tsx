@@ -1,4 +1,4 @@
-import Features from "@/components/features";
+import Features from "@/components/Features";
 import Testimonials from "@/components/Testimonials";
 import Heading from "@/components/Heading";
 import { Metadata } from "next";

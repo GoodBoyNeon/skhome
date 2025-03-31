@@ -16,6 +16,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Button } from "./ui/button";
 import QuantityInput from "./QuantityInput";
+import { pricify } from "@/lib/utils";
 
 const Cart = () => {
   const { items } = useCartStore();
@@ -52,13 +53,7 @@ const Cart = () => {
 
               <div className="flex justify-between">
                 <p>Sub-total</p>
-                <p>
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "npr",
-                    trailingZeroDisplay: "stripIfInteger",
-                  }).format(totalPrice)}
-                </p>
+                <p>{pricify(totalPrice, true)}</p>
               </div>
               <div className="flex justify-between">
                 <p>Delivery fee</p>
@@ -66,13 +61,7 @@ const Cart = () => {
               </div>
               <div className="flex justify-between text-black font-semibold pt-1 pb-4">
                 <p>Total</p>
-                <p>
-                  {new Intl.NumberFormat("en-US", {
-                    style: "currency",
-                    currency: "npr",
-                    trailingZeroDisplay: "stripIfInteger",
-                  }).format(totalPrice)}
-                </p>
+                <p>{pricify(totalPrice, true)}</p>
               </div>
 
               <SheetClose asChild>
@@ -153,11 +142,7 @@ export const CartItemWrapper = ({ item }: { item: CartItem }) => {
               }}
             />
             <p className="text-sm font-semibold text-right">
-              {new Intl.NumberFormat("en-US", {
-                style: "currency",
-                currency: "npr",
-                trailingZeroDisplay: "stripIfInteger",
-              }).format(product.price)}
+              {pricify(product.price, true)}
             </p>
           </div>
         </div>
