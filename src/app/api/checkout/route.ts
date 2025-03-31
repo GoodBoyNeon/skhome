@@ -2,7 +2,7 @@ import { searchParamsToProducts } from "@/lib/utils";
 import { writeFileSync } from "fs";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: NextRequest, res: NextResponse) {
+export async function POST(req: NextRequest) {
   const url = req.nextUrl.searchParams.getAll("p");
   const items = await searchParamsToProducts(url);
 
