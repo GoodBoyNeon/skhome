@@ -8,7 +8,7 @@ type CheckoutType = "single" | "cart";
 const CheckoutPage = async ({
   searchParams,
 }: {
-  searchParams: { [key: string]: string | string[] | undefined };
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
   const type = (await searchParams).t as CheckoutType;
   const cartIds = (await searchParams).p;
