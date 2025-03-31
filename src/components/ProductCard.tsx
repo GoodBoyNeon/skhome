@@ -69,7 +69,7 @@ export default function ProductCard({
 
           <div className="flex text-sm gap-2">
             <s className="text-sm text-muted-foreground">
-              {pricify(price, true)}
+              {pricify(MRP, true)}
             </s>
 
             <p className="text-red-500">-{discountPercentage}%</p>

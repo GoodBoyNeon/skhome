@@ -53,7 +53,7 @@ const ProductViewContainer = async ({
               </h2>
               <div className="flex text-sm gap-2">
                 <s className="text-lg text-muted-foreground">
-                  {pricify(price, true)}
+                  {pricify(MRP, true)}
                 </s>
 
                 <p className="text-red-600 text-lg">-{discountPercentage}%</p>
