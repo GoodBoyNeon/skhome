@@ -1,12 +1,14 @@
-import type { Metadata } from "next";
 import "./globals.css";
-import { cn } from "@/lib/utils";
-import Header from "@/components/Header";
+
 import Footer from "@/components/Footer";
-import QueryProvider from "@/components/QueryProvider";
-import { bodyFont } from "./fonts";
+import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";
+import QueryProvider from "@/components/QueryProvider";
 import { Toaster } from "@/components/ui/sonner";
+import { cn } from "@/lib/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import type { Metadata } from "next";
+import { bodyFont } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -44,6 +46,7 @@ export default function RootLayout({
           <Toaster richColors theme="light" />
           <Footer />
         </QueryProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
