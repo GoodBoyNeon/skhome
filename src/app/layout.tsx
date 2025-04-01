@@ -6,6 +6,7 @@ import MarqueeBar from "@/components/MarqueeBar";
 import QueryProvider from "@/components/QueryProvider";
 import { Toaster } from "@/components/ui/sonner";
 import { cn } from "@/lib/utils";
+import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { bodyFont } from "./fonts";
@@ -43,10 +44,11 @@ export default function RootLayout({
           <MarqueeBar />
           <Header />
           {children}
+          <SpeedInsights />
+          <Analytics />
           <Toaster richColors theme="light" />
           <Footer />
         </QueryProvider>
-        <SpeedInsights />
       </body>
     </html>
   );
