@@ -28,13 +28,19 @@ const Cart = () => {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <div className="cursor-pointer flex items-center hover:bg-black/10 transition gap-1 rounded-md p-2">
+        <Button
+          variant={"ghost"}
+          className="flex cursor-pointer items-center gap-1 rounded-md p-2"
+        >
           <ShoppingCart aria-hidden={true} className="shrink-0" />
           <span>{count}</span>
-        </div>
+        </Button>
       </SheetTrigger>
 
-      <SheetContent className="flex bg-white pr-0 flex-col w-full sm:max-w-lg">
+      <SheetContent
+        className="bg-background flex w-full flex-col pr-0 sm:max-w-lg"
+        onOpenAutoFocus={(e) => e.preventDefault()}
+      >
         <SheetHeader>
           <SheetTitle className="text-2xl font-semibold">
             Cart {count > 0 ? `- ${count} items` : ""}
@@ -42,7 +48,7 @@ const Cart = () => {
         </SheetHeader>
 
         {count > 0 ? (
-          <div className="flex p-4 flex-col justify-between h-screen">
+          <div className="flex h-screen flex-col justify-between p-4">
             <ScrollArea className="">
               {items.map((item) => (
                 <CartItemWrapper key={item.product.id} item={item} />
@@ -59,7 +65,7 @@ const Cart = () => {
                 <p>Delivery fee</p>
                 <p>Free (inside valley)</p>
               </div>
-              <div className="flex justify-between text-black font-semibold pt-1 pb-4">
+              <div className="flex justify-between pt-1 pb-4 font-semibold text-black">
                 <p>Total</p>
                 <p>{pricify(totalPrice, true)}</p>
               </div>
@@ -82,15 +88,15 @@ const Cart = () => {
             </div>
           </div>
         ) : (
-          <div className="w-full h-full flex flex-col items-center justify-center p-4 md:p-8 lg:p-12">
-            <h3 className="font-bold text-2xl">No items in cart...</h3>
-            <p className="text-center">
+          <div className="flex h-full w-full flex-col items-center justify-center p-4 md:p-8 lg:p-12">
+            <h3 className="text-2xl font-bold">Uh oh... Your cart is empty!</h3>
+            <p className="text-muted-foreground text-center">
               Explore and add products to your cart from the{" "}
               <SheetClose asChild>
                 <Link
                   prefetch
                   href={"/products"}
-                  className="font-semibold hover:underline text-primary"
+                  className="text-primary font-medium hover:underline"
                 >
                   Products Page
                 </Link>
@@ -108,12 +114,12 @@ export const CartItemWrapper = ({ item }: { item: CartItem }) => {
   const { quantity, product } = item;
   return (
     <>
-      <div className="flex m-2 gap-4 justify-between">
-        <div className="flex min-w-0 gap-2 w-full rounded p-2">
+      <div className="m-2 flex justify-between gap-4">
+        <div className="flex w-full min-w-0 gap-2 rounded p-2">
           <div className="relative aspect-square h-16 w-16 min-w-fit overflow-hidden rounded">
             <Link
               prefetch
-              className="cursor-pointer absolute"
+              className="absolute cursor-pointer"
               href={`/product/${product.urlSlug}`}
             >
               <Image
@@ -124,13 +130,13 @@ export const CartItemWrapper = ({ item }: { item: CartItem }) => {
               />
             </Link>
           </div>
-          <div className="min-w-0 w-full">
+          <div className="w-full min-w-0">
             <Link
               prefetch
               className="cursor-pointer"
               href={`/product/${product.urlSlug}`}
             >
-              <p className="truncate mb-1.5">{product.name}</p>
+              <p className="mb-1.5 truncate">{product.name}</p>
             </Link>
             <QuantityInput
               size="sm"
@@ -141,13 +147,13 @@ export const CartItemWrapper = ({ item }: { item: CartItem }) => {
                 setQuantity(product, parseInt(e.target.value));
               }}
             />
-            <p className="text-sm font-semibold text-right">
+            <p className="text-right text-sm font-semibold">
               {pricify(product.price, true)}
             </p>
           </div>
         </div>
         <button
-          className="cursor-pointer w-6 h-6 text-muted-foreground hover:text-red-500 transition"
+          className="text-muted-foreground h-6 w-6 cursor-pointer transition hover:text-red-500"
           onClick={(e) => {
             e.preventDefault();
             removeItem(item.product.id);

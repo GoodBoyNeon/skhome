@@ -7,7 +7,9 @@ import {
   // Fira_Sans as SubtitleFont,
   // Inconsolata as SubtitleFont,
   Dosis as SubtitleFont,
-  Nunito as BodyFont,
+
+  // Nunito as BodyFont,
+  Geist as BodyFont,
   // Montserrat as BodyFont,
   // Inter as BodyFont,
   // Lato as BodyFont,

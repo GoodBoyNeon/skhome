@@ -59,7 +59,7 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
         {stock > 0 ? (
           <Button
             asChild
-            className="bg-cyan-700 hover:bg-cyan-600 cursor-pointer w-full md:h-12 text-lg md:text-xl"
+            className="cursor-pointer w-full md:h-12 text-lg md:text-xl"
           >
             <Link
               prefetch

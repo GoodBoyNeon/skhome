@@ -38,8 +38,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(bodyFont.className, "overflow-x-hidden")}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={cn(bodyFont.className, "overflow-x-hidden bg-base-bg")}>
         <QueryProvider>
           <MarqueeBar />
           <Header />

@@ -7,6 +7,7 @@ import React from "react";
 import { Product } from "@prisma/client";
 import ProductViewCTO from "./ProductViewCTO";
 import { pricify } from "@/lib/utils";
+import { formatText } from "@/lib/formatText";
 
 const ProductViewContainer = async ({
   product,
@@ -31,16 +32,16 @@ const ProductViewContainer = async ({
   return (
     <div>
       <div>
-        <div className="md:bg-white border-b md:gap-6 md:flex md:justify-center">
+        <div className="md:bg-background border-b md:gap-6 md:flex md:justify-center">
           <div className="md:my-8">
             <Carousel images={images} />
           </div>
 
-          <div className="bg-white lg:max-w-xl px-3 py-8 space-y-12">
+          <div className="bg-background lg:max-w-xl px-3 py-8 space-y-12">
             <div className="space-y-0.5">
               <h2 className="font-semibold text-2xl md:text-4xl">{name}</h2>
 
-              <p className="font-bold text-muted-foreground">
+              <p className="font-medium text-muted-foreground">
                 Brand: {brand?.name}
               </p>
 
@@ -48,7 +49,7 @@ const ProductViewContainer = async ({
             </div>
 
             <div className="my-1.5 md:my-2.5 ">
-              <h2 className="text-cyan-800 text-2xl md:text-3xl font-bold">
+              <h2 className="text-black text-2xl md:text-3xl font-semibold">
                 {pricify(price)}
               </h2>
               <div className="flex text-sm gap-2">
@@ -68,7 +69,7 @@ const ProductViewContainer = async ({
             <div>
               <h3 className="text-xl font-semibold mt-6">Product Details</h3>
               <p className="text-muted-foreground pb-4 whitespace-pre-wrap">
-                {description.replace(/\\n/gm, "\n")}
+                {formatText(description)}
               </p>
             </div>
           </div>

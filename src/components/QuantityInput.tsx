@@ -30,7 +30,7 @@ const QuantityInput = ({
   const inputVariants = cva(
     cn(
       monoFont.className,
-      "text-center rounded-none bg-white border-none focus:outline-hidden outline-none focus:outline-none",
+      "text-center rounded-none bg-background border-none focus:outline-hidden outline-none focus:outline-none [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none",
     ),
     {
       variants: {
@@ -45,7 +45,6 @@ const QuantityInput = ({
     <div className="flex gap-0.5">
       <Button
         variant={"secondary"}
-        // className="h-8 w-8 px-2 cursor-pointer"
         className={updateButtonVariants({ size })}
         disabled={quantity < 2}
         onClick={decOnClick}
@@ -54,14 +53,12 @@ const QuantityInput = ({
       </Button>
       <Input
         type="number"
-        // className="w-10 text-center h-8 font-mono rounded-none bg-white border-none focus:outline-hidden outline-none focus:outline-none"
         className={inputVariants({ size })}
         value={quantity}
         onChange={onChange}
       ></Input>
       <Button
         variant={"secondary"}
-        // className="h-8 w-8 px-2 cursor-pointer"
         className={updateButtonVariants({ size })}
         onClick={incOnClick}
       >

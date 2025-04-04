@@ -4,10 +4,10 @@ import React from "react";
 
 const Visit = () => {
   return (
-    <div className="min-h-screen md:m-12 lg:m-16">
+    <div className="min-h-screen mx-4 my-12 md:mx-18 lg:my-16 lg:mx-36">
       <Heading>Visit Us</Heading>
 
-      <p className="m-4 text-center text-muted-foreground lg:text-lg md:m-6 lg:m-8">
+      <p className="text-justify my-4 md:text-center text-muted-foreground lg:text-lg md:m-6 lg:m-8">
         Our physical store is located at Radhe Radhe, Bhaktapur. We always
         recommend you visit us to learn more about the products you&apos;d like
         to buy or to see it in action. You may also give us a call on
@@ -25,7 +25,7 @@ const Visit = () => {
       <SubHeading className="text-center text-2xl lg:text-3xl">
         Check us out on Google Maps
       </SubHeading>
-      <div className="flex items-center justify-center m-2 md:m-4 lg:m-6 rounded-lg">
+      <div className="flex items-center justify-center rounded-lg">
         <iframe
           className="w-full aspect-video rounded-lg border shadow-md max-w-3xl"
           loading="lazy"

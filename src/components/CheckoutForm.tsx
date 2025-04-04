@@ -12,6 +12,7 @@ import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { CartItem, useCartStore } from "@/hooks/useCart";
 import { redirect } from "next/navigation";
+import { CheckoutType } from "@/app/checkout/page";
 
 const shippingMethodSchema = z.enum(["InsideValley", "OutsideValley"]);
 type ShippingMethod = z.infer<typeof shippingMethodSchema>;
@@ -68,8 +69,10 @@ type FormValues = z.infer<typeof formSchema>;
 const CheckoutForm = ({
   items,
   setShipping,
+  checkoutType,
 }: {
   items: CartItem[];
+  checkoutType: CheckoutType;
   setShipping: Dispatch<SetStateAction<number>>;
 }) => {
   const { clear } = useCartStore();
@@ -102,7 +105,9 @@ const CheckoutForm = ({
         information: values,
       },
     );
-    clear();
+
+    if (checkoutType === "cart") clear();
+
     redirect("/thankyou");
   }
 

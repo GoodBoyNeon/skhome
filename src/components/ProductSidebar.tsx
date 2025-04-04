@@ -28,14 +28,16 @@ export default function ProductSidebar() {
 
   return (
     <>
-      <div className="border-x py-8 bg-background max-w-72 p-4 h-full">
+      <div className="border-x py-8 bg-base-bg max-w-72 p-4 h-full">
         <h2 className="text-2xl mb-6 font-semibold">Contact Us</h2>
         <div className="space-y-2">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger
                 onClick={() => handleClick("PhoneI")}
-                className={"flex gap-1 cursor-pointer text-primary"}
+                className={
+                  "flex gap-1 cursor-pointer text-primary hover:text-blue-600 transition"
+                }
               >
                 <Phone /> {PHONE_I}
               </TooltipTrigger>
@@ -49,7 +51,7 @@ export default function ProductSidebar() {
             <Tooltip>
               <TooltipTrigger
                 onClick={() => handleClick("PhoneII")}
-                className={"flex gap-1 text-primary cursor-pointer"}
+                className="flex gap-1 text-primary cursor-pointer hover:text-blue-600 transition"
               >
                 <Phone /> {PHONE_II}
               </TooltipTrigger>
@@ -63,7 +65,7 @@ export default function ProductSidebar() {
             <Tooltip>
               <TooltipTrigger
                 onClick={() => handleClick("Email")}
-                className={"flex gap-1 text-primary cursor-pointer"}
+                className="flex gap-1 text-primary cursor-pointer hover:text-blue-600 transition"
               >
                 <Mail /> {EMAIL}
               </TooltipTrigger>

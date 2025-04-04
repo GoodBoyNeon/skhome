@@ -3,7 +3,7 @@ import type { CartItem } from "@/hooks/useCart";
 import { prisma } from "@/lib/database";
 import CheckoutContainer from "@/components/CheckoutContainer";
 
-type CheckoutType = "single" | "cart";
+export type CheckoutType = "single" | "cart";
 
 const CheckoutPage = async ({
   searchParams,
@@ -42,7 +42,7 @@ const CheckoutPage = async ({
   return (
     <div className="max-w-7xl mx-auto px-4 py-8">
       <SubHeading>Checkout</SubHeading>
-      <CheckoutContainer items={selectedItems} />
+      <CheckoutContainer items={selectedItems} checkoutType={type} />
     </div>
   );
 };

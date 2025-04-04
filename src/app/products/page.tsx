@@ -1,42 +1,30 @@
-"use client";
-
 import ProductsList from "@/components/ProductsList";
 import SubHeading from "@/components/SubHeading";
-import LoadingSkeleton from "./loading";
-import { useQuery } from "@tanstack/react-query";
-import { Product } from "@prisma/client";
 import SortMenu, { SortType } from "@/components/SortMenu";
-import { refineProducts } from "@/lib/refineProducts";
-import { useState } from "react";
+import { sortProducts } from "@/lib/sortProducts";
+import { prisma } from "@/lib/database";
 
-const Page = () => {
-  const [sortType, setSortType] = useState<SortType>("Featured");
+const ProductsPage = async ({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) => {
+  const products = await prisma.product.findMany();
+  const sortType = ((await searchParams).sort || "featured") as SortType;
 
-  const { data, error, isLoading } = useQuery({
-    queryKey: ["products"],
-    queryFn: async (): Promise<Product[]> =>
-      (await fetch("/api/product")).json(),
-  });
-
-  if (error) {
-    console.log("Error: ", error);
-    return <div>failed to load</div>;
-  }
-  if (!data || isLoading) return <LoadingSkeleton />;
-
-  const refinedProducts = refineProducts(data, sortType);
+  const sortedProducts = sortProducts(products, sortType);
 
   return (
-    <div className="m-6 lg:m-16">
+    <div className="m-6 md:m-12 lg:m-16">
       <SubHeading>Our Products</SubHeading>
-      <div className="flex flex-row-reverse justify-between my-4">
-        <div>
-          <SortMenu sortType={sortType} setSortType={setSortType} />
+      <div className="flex">
+        <div className="my-6 ml-auto">
+          <SortMenu />
         </div>
       </div>
-      <ProductsList products={refinedProducts} />
+      <ProductsList products={sortedProducts} />
     </div>
   );
 };
 
-export default Page;
+export default ProductsPage;

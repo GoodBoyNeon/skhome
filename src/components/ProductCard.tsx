@@ -1,91 +1,74 @@
 "use client";
 
-import { Brand, Category, Product } from "@prisma/client";
-import Link from "next/link";
-import React from "react";
-import Image from "next/image";
-import { Check, X } from "lucide-react";
-import { useQuery } from "@tanstack/react-query";
+import { useCartStore } from "@/hooks/useCart";
 import { pricify } from "@/lib/utils";
+import { Product } from "@prisma/client";
+import Image from "next/image";
+import Link from "next/link";
+import { toast } from "sonner";
+import ProductCardSubHead from "./ProductCardSubHead";
+import { Button } from "./ui/button";
 
-export default function ProductCard({
-  name,
-  MRP,
-  price,
-  stock,
-  images,
-  urlSlug,
-  categoryId,
-  brandId,
-}: Product) {
-  const categoryRes = useQuery({
-    queryKey: ["category"],
-    queryFn: async (): Promise<Category> => {
-      const res = await fetch(`/api/category?id=${categoryId}`);
-      return res.json();
-    },
-  });
-
-  const brandRes = useQuery({
-    queryKey: ["brand"],
-    queryFn: async (): Promise<Brand> => {
-      const res = await fetch(`/api/brand?id=${brandId}`);
-      return res.json();
-    },
-  });
-
-  if (categoryRes.error || brandRes.error) {
-    return "An unexpected error occured.";
-  }
-
-  if (categoryRes.isLoading || brandRes.isLoading) {
-  }
-
-  const { data: category } = categoryRes;
-  const { data: brand } = brandRes;
-
+export default function ProductCard(product: Product) {
+  const { name, MRP, price, images, urlSlug, categoryId, brandId } = product;
+  const { items, addItem } = useCartStore();
   const discountPercentage = Math.round(((MRP - price) / MRP) * 100);
 
+  const handleAddToCartOnClick = () => {
+    if (items.find((item) => item.product.id === product.id)) {
+      toast.info("Item already exists in cart!");
+      return;
+    }
+    addItem(product, 1);
+    toast.success("Added to cart!");
+  };
+
   return (
-    <div className="bg-white border transition hover:shadow-md max-w-md p-2 rounded-lg">
-      <Link
-        prefetch
-        className="flex flex-col gap-1"
-        href={`/product/${urlSlug}`}
-      >
-        <Image src={images[0]} alt={name} width={300} height={300} />
-
-        <div>
-          {category && brand && (
-            <h2 className="text-xs tracking-tight text-muted-foreground">
-              {brand.name} &bull; {category.name}
-            </h2>
-          )}
-          <h2 className="font-normal text-base line-clamp-2">{name}</h2>
-        </div>
-
-        <div>
-          <h3 className="text-base font-semibold">{pricify(price, true)}</h3>
-
-          <div className="flex text-sm gap-2">
-            <s className="text-sm text-muted-foreground">
-              {pricify(MRP, true)}
-            </s>
-
-            <p className="text-red-500">-{discountPercentage}%</p>
+    <div className="max-w-md rounded-lg border">
+      <div className="bg-background rounded-t-lg p-2 transition hover:shadow-md">
+        <Link
+          prefetch
+          className="flex flex-col gap-1"
+          href={`/product/${urlSlug}`}
+        >
+          <div className="overflow-hidden">
+            <Image
+              src={images[0]}
+              alt={name}
+              width={300}
+              height={300}
+              className="transition delay-0 duration-[400ms] hover:scale-110"
+            />
           </div>
 
-          {stock && stock > 0 ? (
-            <h2 className="tracking-tight text-sm flex gap-1 text-green">
-              <Check width={"0.875rem"} /> In stock
-            </h2>
-          ) : (
-            <h2 className="tracking-tight text-sm flex gap-1 text-red-500">
-              <X width={"0.875rem"} /> Out of stock
-            </h2>
-          )}
-        </div>
-      </Link>
+          <div className="mt-3">
+            <div>
+              <ProductCardSubHead categoryId={categoryId} brandId={brandId} />
+              <h2 className="line-clamp-2 text-base font-normal">{name}</h2>
+            </div>
+            <div>
+              <h3 className="text-base font-medium">{pricify(price, true)}</h3>
+
+              <div className="flex gap-2 text-sm">
+                <s className="text-muted-foreground text-sm">
+                  {pricify(MRP, true)}
+                </s>
+
+                <p className="text-red-500">-{discountPercentage}%</p>
+              </div>
+            </div>
+          </div>
+        </Link>
+      </div>
+      <Button
+        className="w-full cursor-pointer rounded-t-none"
+        size={"sm"}
+        onClick={() => {
+          handleAddToCartOnClick();
+        }}
+      >
+        Add to Cart
+      </Button>
     </div>
   );
 }

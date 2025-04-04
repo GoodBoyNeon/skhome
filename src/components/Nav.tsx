@@ -1,29 +1,29 @@
 "use client";
 
-import { useMediaQuery } from "@/hooks/useMediaQuery";
-import { Menu } from "lucide-react";
+import { cn } from "@/lib/utils";
+import { Category, Product } from "@prisma/client";
+import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import Link from "next/link";
-import {
-  Drawer,
-  DrawerContent,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "./ui/drawer";
-
 import logo from "../../public/logo.png";
-import { MouseEvent, useState } from "react";
-import { redirect } from "next/navigation";
+import NavDrawer from "./NavDrawer";
+import {
+  NavigationMenu,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  navigationMenuTriggerStyle,
+} from "./ui/navigation-menu";
+import NavMenuWrapper from "./NavMenuWrapper";
 
 const navItems = [
   {
-    name: "About Us",
-    href: "/about",
+    name: "All Products",
+    href: "/products",
   },
   {
-    name: "Products",
-    href: "/products",
+    name: "About",
+    href: "/about",
   },
   {
     name: "Visit Us",
@@ -32,81 +32,90 @@ const navItems = [
 ];
 
 export default function Nav() {
-  const [isOpen, setIsOpen] = useState(false);
+  const productsRes = useQuery({
+    queryKey: ["products"],
+    queryFn: async (): Promise<Product[]> => {
+      const res = await fetch(`/api/product`);
+      return res.json();
+    },
+  });
+  const categoriesRes = useQuery({
+    queryKey: ["categories"],
+    queryFn: async (): Promise<Category[]> => {
+      const res = await fetch(`/api/category`);
+      return res.json();
+    },
+  });
 
-  const drawerItemOnClick = (e: MouseEvent, href: string) => {
-    e.preventDefault();
+  if (productsRes.error || categoriesRes.error) {
+    return "An unexpected error occured!";
+  }
+  if (productsRes.isLoading || categoriesRes.isLoading) {
+    return "Loading...";
+  }
 
-    setIsOpen(false);
-    redirect(href);
-  };
+  const { data: products } = productsRes;
+  const { data: categories } = categoriesRes;
 
-  const isDesktop = useMediaQuery("(min-width: 768px)");
-  return isDesktop ? (
+  const waterPurifers = products
+    ?.filter(
+      (p) =>
+        p.categoryId ===
+        categories?.find((c) => c.urlSlug === "water-purifier")?.id,
+    )
+    .sort((a, b) => b.pIndex - a.pIndex);
+
+  const chimneys = products
+    ?.filter(
+      (p) =>
+        p.categoryId ===
+        categories?.find((c) => c.urlSlug === "kitchen-chimney")?.id,
+    )
+    .sort((a, b) => b.pIndex - a.pIndex);
+
+  if (!waterPurifers) return;
+  if (!chimneys) return;
+
+  return (
     <>
-      <Link prefetch href={"/"} className="flex shrink-0 items-center max-w-40">
-        {/* S.K. Home Traders */}
-        <Image src={logo} alt={"logo"} />
-      </Link>
-      <nav className="flex gap-2 sm:gap-4">
-        {navItems.map(({ name, href }, i) => (
-          <Link
-            prefetch
-            href={href}
-            key={i}
-            className="text-muted-foreground hover:text-black transition"
-          >
-            {name}
-          </Link>
-        ))}
-      </nav>
-    </>
-  ) : (
-    <>
-      <Drawer open={isOpen} onOpenChange={setIsOpen}>
-        <DrawerTrigger aria-label="Nav Button">
-          <Menu />
-        </DrawerTrigger>
-        <DrawerContent>
-          <DrawerHeader>
-            <DrawerTitle>S.K. Home Traders</DrawerTitle>
-          </DrawerHeader>
+      <div className="hidden gap-6 lg:flex">
+        <Link
+          prefetch
+          href={"/"}
+          className="flex max-w-40 shrink-0 items-center"
+        >
+          <Image src={logo} alt={"logo"} />
+        </Link>
+        <div className="flex items-center">
+          <NavigationMenu>
+            <NavigationMenuList>
+              <NavMenuWrapper
+                title="Water Purifiers"
+                products={waterPurifers}
+              />
+              <NavMenuWrapper title="Chimneys" products={chimneys} />
 
-          <Link
-            prefetch
-            className="p-4 text-base"
-            href={"/"}
-            onClick={(e) => drawerItemOnClick(e, "/")}
-          >
-            Home
-          </Link>
-
-          {navItems.map(({ name, href }, i) => (
-            <Link
-              prefetch
-              className="p-4 text-base"
-              key={i}
-              href={href}
-              onClick={(e) => drawerItemOnClick(e, href)}
-            >
-              {name}
-            </Link>
-          ))}
-
-          <hr />
-
-          {/* <Link prefetch href={"/me"} className="flex flex-row-reverse m-4"> */}
-          {/*   <Avatar className="max-w-9 max-h-9"> */}
-          {/*     <AvatarImage */}
-          {/*       src={ */}
-          {/*         "https://cdn.discordapp.com/attachments/1125984275158806658/1231965185942753362/dc.png?ex=6638dffd&is=66266afd&hm=7d049393a184aeba513a9b68abd48a4beef54aa212f47fe66e2c67529e95d579&" */}
-          {/*       } */}
-          {/*     /> */}
-          {/*     <AvatarFallback>GBN</AvatarFallback> */}
-          {/*   </Avatar> */}
-          {/* </Link> */}
-        </DrawerContent>
-      </Drawer>
+              {navItems.map(({ name, href }, i) => (
+                <NavigationMenuItem key={i}>
+                  <Link prefetch href={href} passHref legacyBehavior>
+                    <NavigationMenuLink
+                      className={cn(
+                        navigationMenuTriggerStyle(),
+                        "bg-transparent",
+                      )}
+                    >
+                      {name}
+                    </NavigationMenuLink>
+                  </Link>
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
+        </div>
+      </div>
+      <div className="lg:hidden">
+        <NavDrawer navItems={navItems} />
+      </div>
     </>
   );
 }
