@@ -8,7 +8,7 @@ import {
   DrawerHeader,
   DrawerTitle,
   DrawerTrigger,
-} from "./ui/drawer";
+} from "@/components/ui/drawer";
 import Link from "next/link";
 import { Menu } from "lucide-react";
 

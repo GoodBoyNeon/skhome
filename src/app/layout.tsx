@@ -39,7 +39,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={cn(bodyFont.className, "overflow-x-hidden bg-base-bg")}>
+      <body className={cn(bodyFont.className, "bg-base-bg overflow-x-hidden")}>
         <QueryProvider>
           <MarqueeBar />
           <Header />

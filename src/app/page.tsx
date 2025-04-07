@@ -1,10 +1,10 @@
-import Categories from "@/components/Categories";
+import Categories from "@/components/CategoriesBar";
+import LogoTicker from "@/components/LogoTicker";
 import ProductsList from "@/components/ProductsList";
 import PromoSlides from "@/components/PromoSlides";
 import SubHeading from "@/components/SubHeading";
-import { prisma } from "@/lib/database";
-import LogoTicker from "@/components/LogoTicker";
 import { Button } from "@/components/ui/button";
+import { prisma } from "@/lib/database";
 import Link from "next/link";
 
 export default async function Home() {

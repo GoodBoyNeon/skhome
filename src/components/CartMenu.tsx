@@ -1,7 +1,13 @@
 "use client";
 
+import { type CartItem, useCartStore } from "@/hooks/useCart";
+import { pricify } from "@/lib/utils";
+import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ShoppingCart, X } from "lucide-react";
-import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import QuantityInput from "./QuantityInput";
+import { Button } from "./ui/button";
 import {
   Sheet,
   SheetClose,
@@ -10,13 +16,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { type CartItem, useCartStore } from "@/hooks/useCart";
-import { ScrollArea } from "@radix-ui/react-scroll-area";
-import Image from "next/image";
-import Link from "next/link";
-import { Button } from "./ui/button";
-import QuantityInput from "./QuantityInput";
-import { pricify } from "@/lib/utils";
 
 const Cart = () => {
   const { items } = useCartStore();

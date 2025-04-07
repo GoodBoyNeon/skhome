@@ -3,7 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import Image from "next/image";
 import { FaStar } from "react-icons/fa";
 import AvatarDefault from "@/../public/avatar-default.png";
-import SubHeading from "./SubHeading";
+import SubHeading from "@/components/SubHeading";
 
 type Testimonial = {
   name: string;
@@ -100,7 +100,7 @@ export default function WallOfLoveSection() {
 
                       <div>
                         <h3 className="font-medium">{name}</h3>
-                        <span className="flex text-xs gap-0.5 text-yellow-400">
+                        <span className="flex gap-0.5 text-xs text-yellow-400">
                           <FaStar />
                           <FaStar />
                           <FaStar />

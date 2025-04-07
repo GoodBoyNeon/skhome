@@ -1,18 +1,18 @@
 "use client";
+import { CheckoutType } from "@/app/checkout/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { CartItem, useCartStore } from "@/hooks/useCart";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Record } from "@prisma/client/runtime/library";
 import axios from "axios";
+import { redirect } from "next/navigation";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { CartItem, useCartStore } from "@/hooks/useCart";
-import { redirect } from "next/navigation";
-import { CheckoutType } from "@/app/checkout/page";
 
 const shippingMethodSchema = z.enum(["InsideValley", "OutsideValley"]);
 type ShippingMethod = z.infer<typeof shippingMethodSchema>;
@@ -34,9 +34,9 @@ const shippingTypes: ShippingType[] = [
   },
 ] as const;
 
-const shippingCostLookup: Record<ShippingMethod, number> = {
+const shippingCostLookup: Record<ShippingMethod, number | null> = {
   InsideValley: 0,
-  OutsideValley: -1,
+  OutsideValley: null,
 };
 
 const paymentMethodSchema = z.enum(["COD"]);
@@ -68,12 +68,20 @@ type FormValues = z.infer<typeof formSchema>;
 
 const CheckoutForm = ({
   items,
+  shipping,
   setShipping,
+  subtotal,
+  discount,
+  total,
   checkoutType,
 }: {
   items: CartItem[];
   checkoutType: CheckoutType;
-  setShipping: Dispatch<SetStateAction<number>>;
+  shipping: number | null;
+  subtotal: number;
+  discount: number;
+  total: number;
+  setShipping: Dispatch<SetStateAction<number | null>>;
 }) => {
   const { clear } = useCartStore();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("COD");
@@ -95,20 +103,24 @@ const CheckoutForm = ({
     },
   });
 
-  function onSubmit(values: FormValues) {
+  async function onSubmit(values: FormValues) {
     console.log(values);
-    axios.post(
+    const res = await axios.post(
       `/api/checkout?${new URLSearchParams(
         items.map((item) => ["p", `${item.product.id}q${item.quantity}`]),
       )}`,
       {
-        information: values,
+        information: { shipping, subtotal, discount, total, ...values },
       },
     );
 
+    if (res.status !== 200) {
+      return "An unexpected error occured!";
+    }
+
     if (checkoutType === "cart") clear();
 
-    redirect("/thankyou");
+    // redirect("/thankyou");
   }
 
   const handleShippingMethodChange = (value: ShippingMethod) => {
@@ -124,50 +136,52 @@ const CheckoutForm = ({
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <div>
-          <h2 className="text-xl font-semibold mb-4">Contact</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 space-y-4">
+          <h2 className="mb-4 text-xl font-semibold">Contact</h2>
+          <div className="space-y-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="firstName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="First Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="lastName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder="Last Name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+
             <FormField
               control={form.control}
-              name="firstName"
+              name="phone"
               render={({ field }) => (
                 <FormItem>
                   <FormControl>
-                    <Input placeholder="First Name" {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={form.control}
-              name="lastName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input placeholder="Last Name" {...field} />
+                    <Input placeholder="Phone number" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
-          <FormField
-            control={form.control}
-            name="phone"
-            render={({ field }) => (
-              <FormItem>
-                <FormControl>
-                  <Input placeholder="Phone number" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
         </div>
 
         <div>
-          <h2 className="text-xl font-semibold mb-4">Delivery</h2>
+          <h2 className="mb-4 text-xl font-semibold">Delivery</h2>
           <div className="space-y-4">
             <FormField
               control={form.control}
@@ -198,7 +212,7 @@ const CheckoutForm = ({
               )}
             />
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
               <FormField
                 control={form.control}
                 name="city"
@@ -230,7 +244,7 @@ const CheckoutForm = ({
 
         {/* Shipping Method */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">Shipping method</h2>
+          <h2 className="mb-4 text-xl font-semibold">Shipping method</h2>
           <div className="space-y-3">
             <RadioGroup
               defaultValue="InsideValley"
@@ -239,7 +253,7 @@ const CheckoutForm = ({
               {shippingTypes.map((s) => (
                 <div
                   key={s.id}
-                  className={`flex items-center justify-between border p-4 rounded-md ${shippingMethod === s.id ? "bg-blue-50" : ""}`}
+                  className={`flex items-center justify-between rounded-md border p-4 ${shippingMethod === s.id ? "bg-blue-50" : ""}`}
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value={s.id} id={s.id}></RadioGroupItem>
@@ -254,7 +268,7 @@ const CheckoutForm = ({
 
         {/* Payment */}
         <div>
-          <h2 className="text-xl font-semibold mb-4">Payment</h2>
+          <h2 className="mb-4 text-xl font-semibold">Payment</h2>
           <div className="space-y-3">
             <RadioGroup
               defaultValue="COD"
@@ -263,7 +277,7 @@ const CheckoutForm = ({
               {paymentTypes.map((p) => (
                 <div
                   key={p.id}
-                  className={`flex items-center justify-between border p-4 rounded-md ${paymentMethod === p.id ? "bg-blue-50" : ""}`}
+                  className={`flex items-center justify-between rounded-md border p-4 ${paymentMethod === p.id ? "bg-blue-50" : ""}`}
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value={p.id} id={p.id}></RadioGroupItem>
@@ -275,7 +289,7 @@ const CheckoutForm = ({
           </div>
         </div>
 
-        <Button type="submit" className="w-full py-6 text-lg cursor-pointer">
+        <Button type="submit" className="w-full cursor-pointer py-6 text-lg">
           Place Order
         </Button>
       </form>

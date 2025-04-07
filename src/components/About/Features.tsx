@@ -1,7 +1,7 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Wallet, ShoppingCart, Zap } from "lucide-react";
 import { ReactNode } from "react";
-import SubHeading from "./SubHeading";
+import SubHeading from "@/components/SubHeading";
 
 export default function Features() {
   return (
@@ -13,7 +13,7 @@ export default function Features() {
             At S.K Home, we value your satisfaction the most
           </p>
         </div>
-        <div className="@min-4xl:max-w-full @min-4xl:grid-cols-3 mx-auto mt-8 grid max-w-sm gap-6 [--color-background:var(--color-muted)] [--color-card:var(--color-muted)] *:text-center md:mt-16 dark:[--color-muted:var(--color-zinc-900)]">
+        <div className="mx-auto mt-8 grid max-w-sm gap-6 [--color-background:var(--color-muted)] [--color-card:var(--color-muted)] *:text-center md:mt-16 @min-4xl:max-w-full @min-4xl:grid-cols-3 dark:[--color-muted:var(--color-zinc-900)]">
           <Card className="group border-0 shadow-none">
             <CardHeader className="pb-3">
               <CardDecorator>
@@ -78,9 +78,9 @@ const CardDecorator = ({ children }: { children: ReactNode }) => (
     />
     <div
       aria-hidden
-      className="bg-radial to-background absolute inset-0 from-transparent to-75%"
+      className="to-background absolute inset-0 bg-radial from-transparent to-75%"
     />
-    <div className="dark:bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-l border-t bg-white">
+    <div className="dark:bg-background absolute inset-0 m-auto flex size-12 items-center justify-center border-t border-l bg-white">
       {children}
     </div>
   </div>

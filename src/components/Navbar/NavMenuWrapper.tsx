@@ -7,15 +7,31 @@ import {
   NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuTrigger,
-} from "./ui/navigation-menu";
+} from "@/components/ui/navigation-menu";
+import { Skeleton } from "../ui/skeleton";
 
 const NavMenuWrapper = ({
   title,
   products,
+  isLoading,
 }: {
   title: string;
-  products: Product[];
+  products?: Product[];
+  isLoading?: boolean;
 }) => {
+  if (isLoading ?? !products) {
+    return (
+      <NavigationMenuItem>
+        <NavigationMenuTrigger className="bg-transparent">
+          {title}
+        </NavigationMenuTrigger>
+        <NavigationMenuContent className="bg-popover text-popover-foreground">
+          <Skeleton className="h-96 lg:w-2xl xl:w-[980px]" />
+        </NavigationMenuContent>
+      </NavigationMenuItem>
+    );
+  }
+
   const productOnDisplay = products[0];
   return (
     <NavigationMenuItem>

@@ -22,16 +22,17 @@ export type SortType = z.infer<typeof sortTypeEnum>;
 
 const SortMenu = () => {
   const searchParams = useSearchParams();
+  const router = useRouter();
   let currentSort = (searchParams.get("sort") || "featured") as SortType;
 
   if (!sortType.includes(currentSort)) {
     currentSort = "featured";
   }
 
-  const router = useRouter();
-
   const handleSortChange = (newValue: string) => {
-    router.push(`?sort=${newValue}`, { scroll: false });
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sort", newValue);
+    router.push(`?${params.toString()}`, { scroll: false });
   };
 
   return (

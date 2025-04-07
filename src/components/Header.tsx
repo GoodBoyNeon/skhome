@@ -1,8 +1,8 @@
 "use client";
 
-import Nav from "./Nav";
+import Nav from "./Navbar";
 import { useEffect, useState } from "react";
-import Cart from "./Cart";
+import Cart from "./CartMenu";
 import SearchBar from "./SearchBar";
 
 function Header() {

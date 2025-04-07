@@ -3,6 +3,16 @@ import SubHeading from "@/components/SubHeading";
 import SortMenu, { SortType } from "@/components/SortMenu";
 import { sortProducts } from "@/lib/sortProducts";
 import { prisma } from "@/lib/database";
+import FilterSidebar from "@/components/FilterSidebar";
+import { filterProducts } from "@/lib/filterProducts";
+import ProductsFilterTags from "@/components/ProductsFilterTags";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
+import { Filter } from "lucide-react";
+import { AccordionItem } from "@/components/ui/accordion";
 
 const ProductsPage = async ({
   searchParams,
@@ -11,18 +21,54 @@ const ProductsPage = async ({
 }) => {
   const products = await prisma.product.findMany();
   const sortType = ((await searchParams).sort || "featured") as SortType;
+  const categoryFilter = (await searchParams).category;
+  const brandFilter = (await searchParams).brand;
 
   const sortedProducts = sortProducts(products, sortType);
+  let finalProducts = sortedProducts;
+  if (typeof categoryFilter === "string")
+    finalProducts = filterProducts(
+      finalProducts,
+      "category",
+      parseInt(categoryFilter),
+    );
+  if (typeof brandFilter === "string")
+    finalProducts = filterProducts(
+      finalProducts,
+      "brand",
+      parseInt(brandFilter),
+    );
 
   return (
-    <div className="m-6 md:m-12 lg:m-16">
+    <div className="m-3 md:m-8 lg:mx-8 lg:my-16 xl:mx-12">
       <SubHeading>Our Products</SubHeading>
-      <div className="flex">
-        <div className="my-6 ml-auto">
-          <SortMenu />
+      <div className="flex flex-col gap-8 md:grid md:grid-cols-9 md:grid-rows-1">
+        <div className="col-span-3 hidden md:block lg:col-span-2">
+          <FilterSidebar />
+        </div>
+        <div className="md:hidden">
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>
+                <div className="flex items-center gap-2">
+                  <Filter size={18} />
+                  <span>Filters</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <FilterSidebar />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+        <div className="h-full md:col-span-6 lg:col-span-7">
+          <div className="h-vh mb-6 flex w-full justify-between">
+            <ProductsFilterTags />
+            <SortMenu />
+          </div>
+          <ProductsList products={finalProducts} />
         </div>
       </div>
-      <ProductsList products={sortedProducts} />
     </div>
   );
 };

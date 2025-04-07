@@ -12,25 +12,19 @@ const OrderSummary = ({
   selectedItems,
   shipping,
   discount,
+  subtotal,
+  total,
 }: {
   selectedItems: CartItem[];
-  shipping: number;
+  shipping: number | null;
   discount: number;
+  subtotal: number;
+  total: number;
 }) => {
-  const subtotal = selectedItems
-    .map((item) => item.product.price * item.quantity)
-    .reduce((price, total) => total + price, 0);
-
-  let variable = false;
-  if (shipping === -1) {
-    shipping = 0;
-    variable = true;
-  }
-
-  const total = subtotal + shipping - discount;
+  const variable = shipping === null;
   return (
-    <div className="bg-[#f4f5f6] p-6 md:col-span-6 rounded-lg">
-      <h3 className="text-2xl font-bold mb-4">Order Summary</h3>
+    <div className="rounded-lg bg-[#f4f5f6] p-6 md:col-span-6">
+      <h3 className="mb-4 text-2xl font-bold">Order Summary</h3>
       <div className="">
         <ScrollArea className="space-y-4">
           {selectedItems.map((item) => (
@@ -41,11 +35,11 @@ const OrderSummary = ({
         <Separator className="mt-4 mb-6" />
 
         <div className="space-y-2">
-          <div className="flex justify-between text-muted-foreground">
+          <div className="text-muted-foreground flex justify-between">
             <span>Subtotal</span>
             <span>{pricify(subtotal)}</span>
           </div>
-          <div className="flex justify-between text-muted-foreground">
+          <div className="text-muted-foreground flex justify-between">
             <span>Shipping</span>
             <span>{variable ? "Variable" : pricify(shipping)}</span>
           </div>
@@ -55,7 +49,7 @@ const OrderSummary = ({
               <span>- {pricify(discount)}</span>
             </div>
           )}
-          <div className="flex justify-between font-bold text-lg pt-2">
+          <div className="flex justify-between pt-2 text-lg font-bold">
             <span>Total</span>
             <div className="text-right">
               <div>{`${pricify(total)}${variable ? "*" : ""}`}</div>
@@ -63,7 +57,7 @@ const OrderSummary = ({
           </div>
 
           {variable && (
-            <p className="flex gap-1 text-muted-foreground font-semibold">
+            <p className="text-muted-foreground flex gap-1 font-semibold">
               <span>*</span>
               <span className="text-muted-foreground font-semibold">
                 Additional shipping charge will be notified to you via a phone
@@ -81,7 +75,7 @@ const CheckoutItemWrapper = ({ item }: CheckoutItemWrapperProps) => {
   return (
     <div className="flex items-center gap-4 py-4">
       <div className="relative">
-        <div className="w-16 h-16 bg-gray-200 rounded-md overflow-hidden relative">
+        <div className="relative h-16 w-16 overflow-hidden rounded-md bg-gray-200">
           <Image
             src={item.product.images[0]}
             alt={item.product.name}
@@ -90,14 +84,14 @@ const CheckoutItemWrapper = ({ item }: CheckoutItemWrapperProps) => {
             className="object-cover"
           />
         </div>
-        <span className="absolute -top-2 -right-2 bg-gray-500 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
+        <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center rounded-full bg-gray-500 text-xs text-white">
           {item.quantity}
         </span>
       </div>
 
       <div className="flex gap-8">
         <div className="flex">
-          <p className="text-wrap truncate">{item.product.name}</p>
+          <p className="truncate text-wrap">{item.product.name}</p>
         </div>
 
         <div className="shrink-0 font-medium">
