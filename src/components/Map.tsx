@@ -3,6 +3,7 @@
 import { useCallback, useState } from "react";
 
 import { GoogleMap, useJsApiLoader } from "@react-google-maps/api";
+import { env } from "@/data/env/server";
 
 const containerStyle = {
   width: "400px",
@@ -17,10 +18,10 @@ const center = {
 export default function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
-    googleMapsApiKey: process.env.GOOGLE_API_KEY ?? "",
+    googleMapsApiKey: env.GOOGLE_API_KEY ?? "",
   });
 
-  const [map, setMap] = useState<unknown | null>(null);
+  const [_map, setMap] = useState<unknown | null>(null);
 
   const onLoad = useCallback((map: unknown) => {
     const bounds = new window.google.maps.LatLngBounds(center);
@@ -37,7 +38,7 @@ export default function Map() {
     setMap(map);
   }, []);
 
-  const onUnmount = useCallback((map: unknown) => {
+  const onUnmount = useCallback((_map: unknown) => {
     setMap(null);
   }, []);
 

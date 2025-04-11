@@ -1,10 +1,10 @@
-import React, { Dispatch, SetStateAction } from "react";
-import { Button } from "./ui/button";
-import { Minus, Plus } from "lucide-react";
-import { Input } from "./ui/input";
-import { cva } from "class-variance-authority";
+import { monoFont } from "@/app/(public)/fonts";
 import { cn } from "@/lib/utils";
-import { monoFont } from "@/app/fonts";
+import { cva } from "class-variance-authority";
+import { Minus, Plus } from "lucide-react";
+import React from "react";
+import { Button } from "./ui/button";
+import { Input } from "./ui/input";
 
 const QuantityInput = ({
   quantity,

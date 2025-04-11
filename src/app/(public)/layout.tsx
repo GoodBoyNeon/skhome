@@ -1,5 +1,6 @@
-import "./globals.css";
+import "@/app/globals.css";
 
+import { bodyFont } from "@/app/(public)/fonts";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";
@@ -9,7 +10,6 @@ import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { bodyFont } from "./fonts";
 
 export const metadata: Metadata = {
   title: {
@@ -38,7 +38,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <body className={cn(bodyFont.className, "bg-base-bg overflow-x-hidden")}>
         <QueryProvider>
           <MarqueeBar />

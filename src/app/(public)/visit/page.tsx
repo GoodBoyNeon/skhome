@@ -1,13 +1,14 @@
 import Heading from "@/components/Heading";
 import SubHeading from "@/components/SubHeading";
+import { env } from "@/data/env/server";
 import React from "react";
 
 const Visit = () => {
   return (
-    <div className="min-h-screen mx-4 my-12 md:mx-18 lg:my-16 lg:mx-36">
+    <div className="mx-4 my-12 min-h-screen md:mx-18 lg:mx-36 lg:my-16">
       <Heading>Visit Us</Heading>
 
-      <p className="text-justify my-4 md:text-center text-muted-foreground lg:text-lg md:m-6 lg:m-8">
+      <p className="text-muted-foreground my-4 text-justify md:m-6 md:text-center lg:m-8 lg:text-lg">
         Our physical store is located at Radhe Radhe, Bhaktapur. We always
         recommend you visit us to learn more about the products you&apos;d like
         to buy or to see it in action. You may also give us a call on
@@ -27,10 +28,10 @@ const Visit = () => {
       </SubHeading>
       <div className="flex items-center justify-center rounded-lg">
         <iframe
-          className="w-full aspect-video rounded-lg border shadow-md max-w-3xl"
+          className="aspect-video w-full max-w-3xl rounded-lg border shadow-md"
           loading="lazy"
           allowFullScreen
-          src={`https://www.google.com/maps/embed/v1/place?key=${process.env.GOOGLE_API_KEY}&q=S.K Home Traders`}
+          src={`https://www.google.com/maps/embed/v1/place?key=${env.GOOGLE_API_KEY}&q=S.K Home Traders`}
         ></iframe>
       </div>
     </div>

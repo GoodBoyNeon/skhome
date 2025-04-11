@@ -1,3 +1,5 @@
+import { env as clientEnv } from "@/data/env/client";
+import { env } from "@/data/env/server";
 import { saveOrder } from "@/lib/saveOrder";
 import { searchParamsToProducts } from "@/lib/utils";
 import axios from "axios";
@@ -23,33 +25,18 @@ export async function POST(req: NextRequest) {
   saveOrder(orderData);
 
   const res = await axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/api/place_order`,
+    `${clientEnv.NEXT_PUBLIC_BASE_URL}/api/place_order`,
     {
       message: JSON.stringify(orderData),
     },
     {
       headers: {
-        Authorization: `Bearer ${process.env.WHATSAPP_MESSAGE_AUTH_TOKEN}`,
+        Authorization: `Bearer ${env.PLACE_ORDER_AUTH_TOKEN}`,
       },
     },
   );
 
   console.log(res.data);
 
-  // const res = await axios.post(
-  //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/place_order`,
-  //   {
-  //     phone: process.env.WHATSAPP_ORDER_PLACEMENT_PHONE_NUMBER,
-  //     message: "Test Message from skhometraders.com.np",
-  //   },
-  //   {
-  //     headers: {
-  //       Authorization: `Bearer ${process.env.WHATSAPP_MESSAGE_AUTH_TOKEN}`,
-  //     },
-  //   },
-  // );
-  //
   return NextResponse.json(res.data, { status: res.status });
-
-  return NextResponse.json({ status: 200 });
 }
