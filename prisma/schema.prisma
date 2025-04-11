@@ -19,11 +19,11 @@ model Category {
 }
 
 model Brand {
-  id       Int       @id @default(autoincrement())
-  name     String
-  urlSlug  String    @unique
-  image    String?
-  products Product[]
+  id        Int       @id @default(autoincrement())
+  name      String
+  urlSlug   String    @unique
+  image     String?
+  products  Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
 }
@@ -43,6 +43,6 @@ model Product {
   brandId     Int
   brand       Brand    @relation(fields: [brandId], references: [id])
   category    Category @relation(fields: [categoryId], references: [id])
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }

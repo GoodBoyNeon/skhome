@@ -2,7 +2,7 @@
 
 import { env } from "@/data/env/server";
 import { FormState, LoginFormSchema } from "@/lib/definitions";
-import { createSession } from "@/lib/session";
+import { createSession, deleteSession } from "@/lib/session";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 
@@ -36,4 +36,9 @@ export async function login(
 
   await createSession({ role: "admin" });
   redirect("/admin/dashboard");
+}
+
+export async function logout() {
+  await deleteSession();
+  redirect("/admin/login");
 }
