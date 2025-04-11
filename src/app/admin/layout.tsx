@@ -8,6 +8,7 @@ import { AdminSidebar } from "@/components/Admin/admin-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
 import { decrypt, sessionCookieHelper } from "@/lib/session";
 import { cookies } from "next/headers";
+import AdminHeader from "@/components/Admin/admin-header";
 
 const AdminLayout = async ({
   children,
@@ -22,6 +23,7 @@ const AdminLayout = async ({
         {token ? (
           <SidebarProvider>
             <AdminSidebar />
+            <AdminHeader />
             {children}
           </SidebarProvider>
         ) : (
