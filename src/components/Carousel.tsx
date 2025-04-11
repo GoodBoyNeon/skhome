@@ -27,14 +27,14 @@ const Carousel = ({
   } = usePrevNextButtons(emblaApi);
 
   return (
-    <section className="w-auto h-auto">
-      <div className="flex items-center relative">
+    <section className="h-auto w-auto">
+      <div className="relative flex items-center">
         <PrevButton onClick={onPrevButtonClick} disabled={prevBtnDisabled} />
-        <div className="overflow-hidden lg:border lg:rounded-xl" ref={emblaRef}>
-          <div className="flex touch-pan-y touch-pinch-zoom md:w-[350px] md:h-[350px] lg:w-[450px] lg:h-[450px] rounded-xl">
+        <div className="overflow-hidden lg:rounded-xl lg:border" ref={emblaRef}>
+          <div className="flex touch-pan-y touch-pinch-zoom rounded-xl md:h-[350px] md:w-[350px] lg:h-[450px] lg:w-[450px]">
             {images.map((img, i) => (
               <Image
-                className="translate-3d flex-[0_0_100%] min-w-0"
+                className="min-w-0 flex-[0_0_100%] translate-3d"
                 key={i}
                 src={img}
                 alt="image"
@@ -50,7 +50,7 @@ const Carousel = ({
       <div className="">
         <div
           className={cn(
-            "flex flex-wrap justify-center items-center",
+            "flex flex-wrap items-center justify-center",
             scrollSnaps.length === 1 ? "hidden" : "",
           )}
         >
@@ -59,7 +59,7 @@ const Carousel = ({
               key={index}
               onClick={() => onDotButtonClick(index)}
               className={cn(
-                "appearance-none bg-black/10 touch-manipulation inline-flex cursor-pointer mx-1 my-5 w-2.5 h-2.5 items-center justify-center rounded-full",
+                "mx-1 my-5 inline-flex h-2.5 w-2.5 cursor-pointer touch-manipulation appearance-none items-center justify-center rounded-full bg-black/10",
                 index === selectedIndex ? "bg-black/70" : "",
               )}
             />
@@ -120,7 +120,7 @@ export const PrevButton: React.FC<ButtonPropType> = (props) => {
 
   return (
     <button
-      className="absolute bg-white/40 text-black/70 disabled:hidden touch-manipulation flex cursor-pointer border-0 p-0 m-2 w-6 h-6 z-10 rounded-full items-center justify-center embla__button--prev"
+      className="embla__button--prev absolute z-10 m-2 flex h-6 w-6 cursor-pointer touch-manipulation items-center justify-center rounded-full border-0 bg-white/40 p-0 text-black/70 disabled:hidden"
       type="button"
       {...restProps}
     >
@@ -135,7 +135,7 @@ export const NextButton: React.FC<ButtonPropType> = (props) => {
 
   return (
     <button
-      className="absolute right-0 bg-white/40 text-black/70 disabled:hidden touch-manipulation flex cursor-pointer border-0 p-0 m-2 w-6 h-6 z-10 rounded-full items-center justify-center embla__button--next"
+      className="embla__button--next absolute right-0 z-10 m-2 flex h-6 w-6 cursor-pointer touch-manipulation items-center justify-center rounded-full border-0 bg-white/40 p-0 text-black/70 disabled:hidden"
       type="button"
       {...restProps}
     >
@@ -154,7 +154,6 @@ type UseDotButtonType = {
 export const useDotButton = (
   emblaApi: EmblaCarouselType | undefined,
 ): UseDotButtonType => {
-  console.log("checkpoit");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const [scrollSnaps, setScrollSnaps] = useState<number[]>([]);
 

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+export type CheckoutType = "single" | "cart";
+
 export const LoginFormSchema = z.object({
   username: z
     .string()

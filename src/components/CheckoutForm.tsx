@@ -1,13 +1,12 @@
 "use client";
-import { CheckoutType } from "@/app/checkout/page";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CartItem, useCartStore } from "@/hooks/useCart";
+import { CheckoutType } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Record } from "@prisma/client/runtime/library";
 import axios from "axios";
-import { redirect } from "next/navigation";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -104,7 +103,6 @@ const CheckoutForm = ({
   });
 
   async function onSubmit(values: FormValues) {
-    console.log(values);
     const res = await axios.post(
       `/api/checkout?${new URLSearchParams(
         items.map((item) => ["p", `${item.product.id}q${item.quantity}`]),

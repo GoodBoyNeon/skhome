@@ -1,4 +1,4 @@
-import { titleFont } from "@/app/fonts";
+import { titleFont } from "@/app/(public)/fonts";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -11,7 +11,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     return (
       <h2
         className={cn(
-          `text-4xl font-bold mb-6 mt-10 text-center lg:text-5xl`,
+          `mt-10 mb-6 text-center text-4xl font-bold lg:text-5xl`,
           titleFont.className,
           className,
         )}

@@ -1,10 +1,10 @@
 "use client";
 
-import { CheckoutType } from "@/app/checkout/page";
 import { CartItem } from "@/hooks/useCart";
 import { useState } from "react";
 import CheckoutForm from "./CheckoutForm";
 import OrderSummary from "./CheckoutSidebar";
+import { CheckoutType } from "@/lib/definitions";
 
 const CheckoutContainer = ({
   items,
