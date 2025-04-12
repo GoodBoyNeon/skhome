@@ -1,18 +1,42 @@
+import { Information } from "@/components/CheckoutForm";
 import { env as clientEnv } from "@/data/env/client";
 import { env } from "@/data/env/server";
+import { searchParamsToProducts } from "@/lib/productParamHelper";
 import { saveOrder } from "@/lib/saveOrder";
-import { searchParamsToProducts } from "@/lib/utils";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
+export type CheckoutItem = {
+  product: {
+    id: number;
+    name: string;
+    price: number;
+  };
+  quantity: number;
+};
+
 export async function POST(req: NextRequest) {
   const url = req.nextUrl.searchParams.getAll("p");
-  const items = await searchParamsToProducts(url);
-  const data = await req.json();
+  const items = (await searchParamsToProducts(url)) ?? [];
 
-  const orderData = {
-    information: data.information,
-    order: items?.map((item) => ({
+  if (!items) {
+    return NextResponse.json(
+      { error: "An unexpected error occured..." },
+      { status: 400 },
+    );
+  }
+  const {
+    information,
+  }: {
+    information: Information;
+  } = await req.json();
+
+  const orderData: {
+    information: Information;
+    items: CheckoutItem[];
+  } = {
+    information: information,
+    items: items?.map((item) => ({
       product: {
         id: item.product.id,
         name: item.product.name,

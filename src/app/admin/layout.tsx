@@ -2,7 +2,7 @@ import "@/app/globals.css";
 
 import React from "react";
 import { Toaster } from "sonner";
-import { bodyFont } from "@/app/(public)/fonts";
+import { bodyFont } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { AdminSidebar } from "@/components/Admin/admin-sidebar";
 import { SidebarProvider } from "@/components/ui/sidebar";
@@ -22,14 +22,17 @@ const AdminLayout = async ({
       <body className={cn(bodyFont.className, "bg-base-bg overflow-x-hidden")}>
         {token ? (
           <SidebarProvider>
-            <AdminSidebar />
-            <AdminHeader />
-            {children}
+            <AdminSidebar variant="inset" />
+
+            <div className="m-2 w-full rounded-xl bg-white shadow-sm">
+              <AdminHeader />
+              {children}
+            </div>
           </SidebarProvider>
         ) : (
           <>{children}</>
         )}
-        <Toaster richColors theme="light" />
+        <Toaster closeButton richColors theme="light" />
       </body>
     </html>
   );

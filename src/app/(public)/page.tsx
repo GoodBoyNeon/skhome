@@ -18,14 +18,13 @@ export default async function Home() {
   return (
     <>
       <Categories categories={categories}></Categories>
+
       <PromoSlides />
 
       <div className="m-6 space-y-4 lg:mx-16">
         <div className="flex flex-col items-center justify-center">
           <SubHeading>Featured Products</SubHeading>
-
           <ProductsList products={products} />
-
           <Button className="m-2 max-w-fit text-base" asChild variant={"link"}>
             <Link prefetch href="/products">
               Show All

@@ -1,4 +1,5 @@
 export const config = {
+  contact: ["9851181186", "skhome2072@gmail.com"],
   baseUrl: "https://skhometraders.com.np",
   title: "S.K. Home Traders",
   description:

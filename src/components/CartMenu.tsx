@@ -16,6 +16,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
+import { productsToSearchParams } from "@/lib/productParamHelper";
 
 const Cart = () => {
   const { items } = useCartStore();
@@ -73,12 +74,7 @@ const Cart = () => {
                 <Button asChild className="w-full cursor-pointer text-base">
                   <Link
                     prefetch
-                    href={`/checkout?t=cart&${new URLSearchParams(
-                      items.map((item) => [
-                        "p",
-                        `${item.product.id}q${item.quantity}`,
-                      ]),
-                    )}`}
+                    href={`/checkout?t=cart&${productsToSearchParams(items)}`}
                   >
                     Checkout
                   </Link>

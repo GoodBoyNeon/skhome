@@ -1,4 +1,4 @@
-import { monoFont } from "@/app/(public)/fonts";
+import { monoFont } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import { cva } from "class-variance-authority";
 import { Minus, Plus } from "lucide-react";

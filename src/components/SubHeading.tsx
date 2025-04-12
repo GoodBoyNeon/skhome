@@ -1,4 +1,4 @@
-import { subtitleFont } from "@/app/(public)/fonts";
+import { subtitleFont } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import React from "react";
 

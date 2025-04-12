@@ -1,6 +1,6 @@
 import "@/app/globals.css";
 
-import { bodyFont } from "@/app/(public)/fonts";
+import { bodyFont } from "@/app/fonts";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";

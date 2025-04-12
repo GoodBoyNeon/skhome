@@ -3,6 +3,7 @@ import type { CartItem } from "@/hooks/useCart";
 import { prisma } from "@/lib/database";
 import CheckoutContainer from "@/components/CheckoutContainer";
 import { CheckoutType } from "@/lib/definitions";
+import { redirect } from "next/navigation";
 
 const CheckoutPage = async ({
   searchParams,

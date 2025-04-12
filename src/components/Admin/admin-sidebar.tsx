@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChartBar, Command, Frame, Package, Home } from "lucide-react";
+import { ChartBar, Command, Home, Package } from "lucide-react";
 import * as React from "react";
 
 const data = {

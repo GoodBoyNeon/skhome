@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CartItem, useCartStore } from "@/hooks/useCart";
-import { CheckoutType } from "@/lib/definitions";
+import { CheckoutFormSchema, CheckoutType } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Record } from "@prisma/client/runtime/library";
 import axios from "axios";
@@ -12,30 +12,31 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import { ShippingMethod } from "@prisma/client";
+import { redirect } from "next/navigation";
+import { productsToSearchParams } from "@/lib/productParamHelper";
 
-const shippingMethodSchema = z.enum(["InsideValley", "OutsideValley"]);
-type ShippingMethod = z.infer<typeof shippingMethodSchema>;
 type ShippingType = {
   id: ShippingMethod;
   label: string;
-  price: string;
+  priceLabel: string;
 };
 const shippingTypes: ShippingType[] = [
   {
-    id: "InsideValley",
+    id: "INSIDE_VALLEY",
     label: "Inside Kathmandu Valley",
-    price: "FREE",
+    priceLabel: "FREE",
   },
   {
-    id: "OutsideValley",
+    id: "OUTSIDE_VALLEY",
     label: "Outside Kathmandu Valley",
-    price: "variable",
+    priceLabel: "variable",
   },
 ] as const;
 
 const shippingCostLookup: Record<ShippingMethod, number | null> = {
-  InsideValley: 0,
-  OutsideValley: null,
+  INSIDE_VALLEY: 0,
+  OUTSIDE_VALLEY: null,
 };
 
 const paymentMethodSchema = z.enum(["COD"]);
@@ -51,19 +52,14 @@ const paymentTypes: PaymentType[] = [
   },
 ] as const;
 
-const formSchema = z.object({
-  firstName: z.string(),
-  lastName: z.string(),
-  phone: z.string().min(10),
-  address: z.string().min(3),
-  city: z.string(),
-  appartment: z.string().optional(),
-  postalCode: z.string().optional(),
-  shippingMethod: shippingMethodSchema,
-  paymentMethod: paymentMethodSchema,
-});
+type FormFields = z.infer<typeof CheckoutFormSchema>;
 
-type FormValues = z.infer<typeof formSchema>;
+export type Information = FormFields & {
+  shipping: number;
+  subtotal: number;
+  discount: number;
+  total: number;
+};
 
 const CheckoutForm = ({
   items,
@@ -85,10 +81,10 @@ const CheckoutForm = ({
   const { clear } = useCartStore();
   const [paymentMethod, setPaymentMethod] = useState<PaymentMethod>("COD");
   const [shippingMethod, setShippingMethod] =
-    useState<ShippingMethod>("InsideValley");
+    useState<ShippingMethod>("INSIDE_VALLEY");
 
-  const form = useForm<FormValues>({
-    resolver: zodResolver(formSchema),
+  const form = useForm<FormFields>({
+    resolver: zodResolver(CheckoutFormSchema),
     defaultValues: {
       firstName: "",
       lastName: "",
@@ -97,42 +93,49 @@ const CheckoutForm = ({
       city: "",
       appartment: "",
       postalCode: "",
-      shippingMethod: "InsideValley",
+      shippingMethod: "INSIDE_VALLEY",
       paymentMethod: "COD",
     },
   });
+  const { handleSubmit, setValue } = form;
 
-  async function onSubmit(values: FormValues) {
+  async function onSubmit(values: FormFields) {
     const res = await axios.post(
       `/api/checkout?${new URLSearchParams(
         items.map((item) => ["p", `${item.product.id}q${item.quantity}`]),
       )}`,
       {
-        information: { shipping, subtotal, discount, total, ...values },
+        information: {
+          shipping,
+          subtotal,
+          discount,
+          total,
+          ...values,
+        } as Information,
       },
     );
 
-    if (res.status !== 200) {
-      return "An unexpected error occured!";
-    }
-
     if (checkoutType === "cart") clear();
 
-    // redirect("/thankyou");
+    if (res.status !== 200 || !res.data.orderId) {
+      return "An unexpected error occured!";
+    } else {
+      redirect(`/order/confirmed?orderId=${res.data.orderId}`);
+    }
   }
 
   const handleShippingMethodChange = (value: ShippingMethod) => {
     setShippingMethod(value);
     setShipping(shippingCostLookup[value]);
-    form.setValue("shippingMethod", value);
+    setValue("shippingMethod", value);
   };
   const handlePaymentMethodChange = (value: PaymentMethod) => {
     setPaymentMethod(value);
-    form.setValue("paymentMethod", value);
+    setValue("paymentMethod", value);
   };
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
         <div>
           <h2 className="mb-4 text-xl font-semibold">Contact</h2>
           <div className="space-y-4">
@@ -245,7 +248,7 @@ const CheckoutForm = ({
           <h2 className="mb-4 text-xl font-semibold">Shipping method</h2>
           <div className="space-y-3">
             <RadioGroup
-              defaultValue="InsideValley"
+              defaultValue="INSIDE_VALLEY"
               onValueChange={handleShippingMethodChange}
             >
               {shippingTypes.map((s) => (
@@ -257,7 +260,7 @@ const CheckoutForm = ({
                     <RadioGroupItem value={s.id} id={s.id}></RadioGroupItem>
                     <Label htmlFor={s.id}>{s.label}</Label>
                   </div>
-                  <div className="font-semibold">{s.price}</div>
+                  <div className="font-semibold">{s.priceLabel}</div>
                 </div>
               ))}
             </RadioGroup>

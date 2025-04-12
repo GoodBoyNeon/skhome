@@ -6,6 +6,7 @@ export const env = createEnv({
     NODE_ENV: z.enum(["production", "development", "test"]),
     GOOGLE_API_KEY: z.string().min(1),
     SUPABASE_API_KEY: z.string().min(1),
+    ARCJET_KEY: z.string().min(1),
     DATABASE_URL: z.string().url(),
     DIRECT_URL: z.string().url(),
     ADMIN_USERNAME: z.string().min(1),
