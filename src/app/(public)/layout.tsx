@@ -5,7 +5,7 @@ import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";
 import QueryProvider from "@/components/QueryProvider";
-import { Toaster } from "@/components/ui/sonner";
+import { Toaster } from "sonner";
 import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
@@ -46,7 +46,7 @@ export default function RootLayout({
           {children}
           <SpeedInsights />
           <Analytics />
-          <Toaster richColors theme="light" />
+          <Toaster closeButton richColors theme="light" />
           <Footer />
         </QueryProvider>
       </body>
