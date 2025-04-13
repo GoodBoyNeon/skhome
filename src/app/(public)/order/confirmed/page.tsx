@@ -6,15 +6,17 @@ import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { ArrowRight, CheckCircle, Home } from "lucide-react";
 import Link from "next/link";
-import { redirect, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { redirect } from "next/navigation";
+import { use, useEffect, useState } from "react";
 
-export default function ThankYouPage() {
-  const searchParams = useSearchParams();
-  console.log(searchParams);
-  const orderId = searchParams.get("orderId");
+export default function ThankYouPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const orderId = use(searchParams).orderId;
 
-  if (!orderId) {
+  if (!orderId || typeof orderId !== "string") {
     redirect("/");
   }
 
