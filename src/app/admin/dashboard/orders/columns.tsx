@@ -1,12 +1,13 @@
 "use client";
 
-import { Order, ShippingMethod, OrderStatus } from "@prisma/client";
-import { Info, Check, Waypoints, ArrowUpDown, Clipboard } from "lucide-react";
-import { ColumnDef } from "@tanstack/react-table";
+import { monoFont } from "@/app/fonts";
+import ClipboardIcon from "@/components/ClipboardIcon";
 import { Button } from "@/components/ui/button";
 import { cn, pricify } from "@/lib/utils";
-import { monoFont } from "@/app/fonts";
-import { toast } from "sonner";
+import { Order, OrderStatus, ShippingMethod } from "@prisma/client";
+import { ColumnDef } from "@tanstack/react-table";
+import { ArrowUpDown } from "lucide-react";
+import FormatOrderStatus from "../FormatOrderStatus";
 
 export const columns: ColumnDef<Order>[] = [
   {
@@ -34,17 +35,7 @@ export const columns: ColumnDef<Order>[] = [
       return (
         <div className={cn(monoFont.className, "text flex items-center gap-2")}>
           <p>{orderId}</p>
-          <Button
-            size="sm"
-            variant="ghost"
-            onClick={() => {
-              navigator.clipboard.writeText(orderId);
-              toast.info("Copied to clipboard");
-            }}
-            className="cursor-pointer"
-          >
-            <Clipboard className="text-muted-foreground h-4 w-4 transition hover:text-black" />
-          </Button>
+          <ClipboardIcon text={orderId} />
         </div>
       );
     },
@@ -87,25 +78,7 @@ export const columns: ColumnDef<Order>[] = [
     cell: ({ getValue }) => {
       const status = getValue() as OrderStatus;
 
-      if (status === "PENDING") {
-        return (
-          <div className="flex items-center gap-1 font-medium text-red-500">
-            <Info className="size-4" /> {status}
-          </div>
-        );
-      } else if (status === "PROCESSING") {
-        return (
-          <div className="flex items-center gap-1 font-medium text-orange-500">
-            <Waypoints className="size-4" /> {status}
-          </div>
-        );
-      } else if (status === "COMPLETED") {
-        return (
-          <div className="flex items-center gap-1 font-medium text-green-500">
-            <Check className="size-4" /> {status}
-          </div>
-        );
-      }
+      return <FormatOrderStatus status={status} />;
     },
   },
 ];
