@@ -48,15 +48,15 @@ export default function Nav() {
 
               {navItems.map(({ name, href }, i) => (
                 <NavigationMenuItem key={i}>
-                  <Link prefetch href={href} passHref legacyBehavior>
-                    <NavigationMenuLink
-                      className={cn(
-                        navigationMenuTriggerStyle(),
-                        "bg-transparent",
-                      )}
-                    >
-                      {name}
-                    </NavigationMenuLink>
+                  <Link
+                    prefetch
+                    href={href}
+                    className={cn(
+                      navigationMenuTriggerStyle(),
+                      "bg-transparent",
+                    )}
+                  >
+                    {name}
                   </Link>
                 </NavigationMenuItem>
               ))}
