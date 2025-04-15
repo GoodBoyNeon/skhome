@@ -3,6 +3,7 @@
 import { env } from "@/data/env/server";
 import { FormState, LoginFormSchema } from "@/lib/definitions";
 import { createSession, deleteSession } from "@/lib/session";
+import axios from "axios";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 
@@ -34,11 +35,35 @@ export async function login(
 
   if (!isValid) return errorMsg;
 
-  await createSession({ role: "admin" });
-  redirect("/admin/dashboard");
+  // await createSession({ role: "admin" });
+  // redirect("/admin/dashboard");
+
+  await authenticate();
 }
 
 export async function logout() {
   await deleteSession();
   redirect("/admin/login");
+}
+
+export async function authenticate() {
+  await createSession({ role: "admin" });
+  redirect("/admin/dashboard");
+  // const resp = await axios.post(
+  //   `${process.env.NEXT_PUBLIC_BASE_URL}/api/admin/auth/login`,
+  //   {
+  //     access_token: process.env.ADMIN_PASSWORD_HASH,
+  //   },
+  //   {
+  //     headers: {
+  //       Authorization: `Bearer ${process.env.ADMIN_PASSWORD_HASH}`,
+  //     },
+  //   },
+  // );
+  //
+  // if (resp.status === 200) {
+  //   redirect("/admin/dashboard");
+  // } else {
+  //   alert("Error occured");
+  // }
 }

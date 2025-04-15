@@ -2,7 +2,6 @@ import { Information } from "@/components/CheckoutForm";
 import { env as clientEnv } from "@/data/env/client";
 import { env } from "@/data/env/server";
 import { searchParamsToProducts } from "@/lib/productParamHelper";
-import { saveOrder } from "@/lib/saveOrder";
 import axios from "axios";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -45,8 +44,6 @@ export async function POST(req: NextRequest) {
       quantity: item.quantity,
     })),
   };
-
-  saveOrder(orderData);
 
   const res = await axios.post(
     `${clientEnv.NEXT_PUBLIC_BASE_URL}/api/place_order`,

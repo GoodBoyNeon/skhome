@@ -2,9 +2,9 @@ import { Separator } from "@/components/ui/separator";
 import { pricify } from "@/lib/utils";
 import { Item, Order, Product } from "@prisma/client";
 import Image from "next/image";
+import FormatOrderStatus from "../../FormatOrderStatus";
 import OrderStatusSection from "./OrderStatus";
 import OrderViewTitle from "./OrderViewTitle";
-import FormatOrderStatus from "../../FormatOrderStatus";
 
 type OrderType = {
   items: ({

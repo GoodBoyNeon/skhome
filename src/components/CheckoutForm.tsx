@@ -1,20 +1,21 @@
 "use client";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { CartItem, useCartStore } from "@/hooks/useCart";
 import { CheckoutFormSchema, CheckoutType } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { ShippingMethod } from "@prisma/client";
 import { Record } from "@prisma/client/runtime/library";
 import axios from "axios";
+import { redirect } from "next/navigation";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { ShippingMethod } from "@prisma/client";
-import { redirect } from "next/navigation";
-import { productsToSearchParams } from "@/lib/productParamHelper";
+import { Loader2, ShoppingBag } from "lucide-react";
 
 type ShippingType = {
   id: ShippingMethod;
@@ -290,7 +291,16 @@ const CheckoutForm = ({
           </div>
         </div>
 
-        <Button type="submit" className="w-full cursor-pointer py-6 text-lg">
+        <Button
+          type="submit"
+          disabled={form.formState.isSubmitting}
+          className="w-full cursor-pointer gap-2 py-6 text-lg"
+        >
+          {form.formState.isSubmitting ? (
+            <Loader2 className="animate-spin" />
+          ) : (
+            <ShoppingBag />
+          )}{" "}
           Place Order
         </Button>
       </form>
