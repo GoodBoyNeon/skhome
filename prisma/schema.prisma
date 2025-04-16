@@ -93,8 +93,8 @@ enum OrderStatus {
 }
 
 model ServicingBooking {
-  id         Int                  @id @default(autoincrement())
-  bookingId  String               @unique
+  id         Int                    @id @default(autoincrement())
+  bookingId  String                 @unique
   name       String
   phone      String
   address    String
@@ -102,6 +102,7 @@ model ServicingBooking {
   appartment String?
   postalCode String?
   appliances ServicingAppliance[]
+  status     ServicingBookingStatus
 }
 
 enum ServicingBookingStatus {

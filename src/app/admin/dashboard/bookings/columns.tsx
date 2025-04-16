@@ -3,13 +3,13 @@
 import { monoFont } from "@/app/fonts";
 import ClipboardIcon from "@/components/ClipboardIcon";
 import { Button } from "@/components/ui/button";
-import { cn, pricify } from "@/lib/utils";
-import { Order, OrderStatus, ShippingMethod } from "@prisma/client";
+import { cn } from "@/lib/utils";
+import { ServicingBooking, ServicingBookingStatus } from "@prisma/client";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import FormatStatus from "../FormatStatus";
 
-export const columns: ColumnDef<Order>[] = [
+export const columns: ColumnDef<ServicingBooking>[] = [
   {
     accessorKey: "id",
     cell: ({ getValue }) => {
@@ -28,20 +28,20 @@ export const columns: ColumnDef<Order>[] = [
     },
   },
   {
-    header: "Order ID",
-    accessorKey: "orderId",
+    header: "Booking ID",
+    accessorKey: "bookingId",
     cell: ({ getValue }) => {
-      const orderId = getValue() as string;
+      const bookingId = getValue() as string;
       return (
         <div className={cn(monoFont.className, "text flex items-center gap-2")}>
-          <p>{orderId}</p>
-          <ClipboardIcon text={orderId} />
+          <p>{bookingId}</p>
+          <ClipboardIcon text={bookingId} />
         </div>
       );
     },
   },
   {
-    header: "Ordered By",
+    header: "Booked By",
     accessorKey: "name",
   },
   {
@@ -49,34 +49,10 @@ export const columns: ColumnDef<Order>[] = [
     accessorKey: "phone",
   },
   {
-    header: "Shipping Method",
-    accessorKey: "shippingMethod",
-    cell: ({ getValue }) => {
-      const method = getValue() as ShippingMethod;
-
-      if (method === "INSIDE_VALLEY") {
-        return <div className="font-medium text-blue-600">Inside Valley</div>;
-      } else if (method === "OUTSIDE_VALLEY") {
-        return (
-          <div className="font-medium text-yellow-500">Outside Valley</div>
-        );
-      }
-    },
-  },
-  {
-    header: "Receivable Amount",
-    accessorKey: "total",
-    cell: ({ getValue }) => {
-      return (
-        <div className="font-medium">{pricify(Number(getValue()), false)}</div>
-      );
-    },
-  },
-  {
     accessorKey: "status",
     header: "Status",
     cell: ({ getValue }) => {
-      const status = getValue() as OrderStatus;
+      const status = getValue() as ServicingBookingStatus;
 
       return <FormatStatus status={status} />;
     },

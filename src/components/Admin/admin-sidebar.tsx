@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChartBar, Command, Home, Package } from "lucide-react";
+import { ChartBar, Command, Home, Notebook, Package } from "lucide-react";
 import * as React from "react";
 
 const data = {
@@ -30,6 +30,11 @@ const data = {
       name: "Orders",
       url: "/admin/dashboard/orders",
       icon: Package,
+    },
+    {
+      name: "Servicing Bookings",
+      url: "/admin/dashboard/bookings",
+      icon: Notebook,
     },
     {
       name: "Statistics",

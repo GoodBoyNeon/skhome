@@ -2,7 +2,7 @@ import { Separator } from "@/components/ui/separator";
 import { pricify } from "@/lib/utils";
 import { Item, Order, Product } from "@prisma/client";
 import Image from "next/image";
-import FormatOrderStatus from "../../FormatOrderStatus";
+import FormatStatus from "../../FormatStatus";
 import OrderStatusSection from "./OrderStatus";
 import OrderViewTitle from "./OrderViewTitle";
 
@@ -129,7 +129,7 @@ const OrderInfoContainer = ({ order }: { order: OrderType }) => {
         <div>
           <div className="flex gap-2 text-gray-600">
             <span className="font-medium">Current Status --&gt;</span>
-            <FormatOrderStatus status={order.status} />
+            <FormatStatus status={order.status} />
           </div>
         </div>
         <OrderStatusSection order={order} />

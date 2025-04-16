@@ -1,7 +1,11 @@
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus, ServicingBookingStatus } from "@prisma/client";
 import { Check, Info, Timer } from "lucide-react";
 
-const FormatOrderStatus = ({ status }: { status: OrderStatus }) => {
+const FormatStatus = ({
+  status,
+}: {
+  status: OrderStatus | ServicingBookingStatus;
+}) => {
   if (status === "PENDING") {
     return (
       <div className="flex items-center gap-1 font-medium text-red-500">
@@ -23,4 +27,4 @@ const FormatOrderStatus = ({ status }: { status: OrderStatus }) => {
   }
 };
 
-export default FormatOrderStatus;
+export default FormatStatus;
