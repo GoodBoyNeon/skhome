@@ -1,8 +1,16 @@
 import { PaymentMethod } from "@prisma/client";
+import { Record } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 
-export const generateOrderId = () => {
-  const prefix = "ORD";
+export type IdType = "order" | "booking";
+
+const prefixLookup: Record<IdType, string> = {
+  booking: "SRV",
+  order: "ORD",
+};
+
+export const generateId = (type: IdType) => {
+  const prefix = prefixLookup[type];
   const now = new Date();
   const dateCode = now.toISOString().slice(0, 10).replace(/-/g, "");
   const timeCode = now.toTimeString().slice(0, 5).replace(/:/g, "");
@@ -11,9 +19,9 @@ export const generateOrderId = () => {
   return [prefix, dateCode, timeCode, identifier].join("-");
 };
 
-export const getDateFromOrderId = (orderId: string) => {
+export const getDateFromId = (id: string) => {
   try {
-    const splitted = orderId.split("-");
+    const splitted = id.split("-");
     const dateCode = splitted[1];
     const [year, month, day] = dateCode
       .match(/^.{4}|.{2}/g)

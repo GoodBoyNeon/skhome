@@ -1,13 +1,12 @@
 import Carousel from "@/components/Carousel";
-import ProductSidebar from "@/components/ProductSidebar";
 import { Badge } from "@/components/ui/badge";
 import { prisma } from "@/lib/database";
-import { notFound } from "next/navigation";
-import React from "react";
-import { Product } from "@prisma/client";
-import ProductViewCTO from "./ProductViewCTO";
-import { pricify } from "@/lib/utils";
 import { formatText } from "@/lib/formatText";
+import { pricify } from "@/lib/utils";
+import { Product } from "@prisma/client";
+import { notFound } from "next/navigation";
+import ProductSidebar from "./ProductSidebar";
+import ProductViewCTO from "./ProductViewCTO";
 
 const ProductViewContainer = async ({
   product,
@@ -32,34 +31,34 @@ const ProductViewContainer = async ({
   return (
     <div>
       <div>
-        <div className="md:bg-background border-b md:gap-6 md:flex md:justify-center">
+        <div className="md:bg-background border-b md:flex md:justify-center md:gap-6">
           <div className="md:my-8">
             <Carousel images={images} />
           </div>
 
-          <div className="bg-background lg:max-w-xl px-3 py-8 space-y-12">
+          <div className="bg-background space-y-12 px-3 py-8 lg:max-w-xl">
             <div className="space-y-0.5">
-              <h2 className="font-semibold text-2xl md:text-4xl">{name}</h2>
+              <h2 className="text-2xl font-semibold md:text-4xl">{name}</h2>
 
-              <p className="font-medium text-muted-foreground">
+              <p className="text-muted-foreground font-medium">
                 Brand: {brand?.name}
               </p>
 
               <Badge variant={"secondary"}>{category?.name}</Badge>
             </div>
 
-            <div className="my-1.5 md:my-2.5 ">
-              <h2 className="text-black text-2xl md:text-3xl font-semibold">
+            <div className="my-1.5 md:my-2.5">
+              <h2 className="text-2xl font-semibold text-black md:text-3xl">
                 {pricify(price)}
               </h2>
-              <div className="flex text-sm gap-2">
-                <s className="text-lg text-muted-foreground">
+              <div className="flex gap-2 text-sm">
+                <s className="text-muted-foreground text-lg">
                   {pricify(MRP, true)}
                 </s>
 
-                <p className="text-red-600 text-lg">-{discountPercentage}%</p>
+                <p className="text-lg text-red-600">-{discountPercentage}%</p>
               </div>
-              <p className="text-xs text-muted-foreground">
+              <p className="text-muted-foreground text-xs">
                 Inclusive of all taxes
               </p>
             </div>
@@ -67,7 +66,7 @@ const ProductViewContainer = async ({
             <ProductViewCTO product={product} />
 
             <div>
-              <h3 className="text-xl font-semibold mt-6">Product Details</h3>
+              <h3 className="mt-6 text-xl font-semibold">Product Details</h3>
               <p className="text-muted-foreground pb-4 whitespace-pre-wrap">
                 {formatText(description)}
               </p>

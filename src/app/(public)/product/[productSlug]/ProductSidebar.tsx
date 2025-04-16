@@ -5,9 +5,9 @@ import {
   Tooltip,
   TooltipProvider,
   TooltipTrigger,
-} from "./ui/tooltip";
+} from "@/components/ui/tooltip";
 import { toast } from "sonner";
-import { Separator } from "./ui/separator";
+import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 
 const PHONE_I = "01-6635223";
@@ -28,15 +28,15 @@ export default function ProductSidebar() {
 
   return (
     <>
-      <div className="border-x py-8 bg-base-bg max-w-72 p-4 h-full">
-        <h2 className="text-2xl mb-6 font-semibold">Contact Us</h2>
+      <div className="bg-base-bg h-full max-w-72 border-x p-4 py-8">
+        <h2 className="mb-6 text-2xl font-semibold">Contact Us</h2>
         <div className="space-y-2">
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger
                 onClick={() => handleClick("PhoneI")}
                 className={
-                  "flex gap-1 cursor-pointer text-primary hover:text-blue-600 transition"
+                  "text-primary flex cursor-pointer gap-1 transition hover:text-blue-600"
                 }
               >
                 <Phone /> {PHONE_I}
@@ -51,7 +51,7 @@ export default function ProductSidebar() {
             <Tooltip>
               <TooltipTrigger
                 onClick={() => handleClick("PhoneII")}
-                className="flex gap-1 text-primary cursor-pointer hover:text-blue-600 transition"
+                className="text-primary flex cursor-pointer gap-1 transition hover:text-blue-600"
               >
                 <Phone /> {PHONE_II}
               </TooltipTrigger>
@@ -65,7 +65,7 @@ export default function ProductSidebar() {
             <Tooltip>
               <TooltipTrigger
                 onClick={() => handleClick("Email")}
-                className="flex gap-1 text-primary cursor-pointer hover:text-blue-600 transition"
+                className="text-primary flex cursor-pointer gap-1 transition hover:text-blue-600"
               >
                 <Mail /> {EMAIL}
               </TooltipTrigger>

@@ -1,16 +1,22 @@
-import { Category } from "@prisma/client";
+import { prisma } from "@/lib/database";
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Categories({ categories }: { categories: Category[] }) {
+export default async function Categories() {
+  const categories = await prisma.category.findMany({
+    orderBy: {
+      id: "asc",
+    },
+  });
+
   return (
-    <div className="bg-background flex gap-8 m-2 overflow-x-auto justify-center">
+    <div className="bg-background m-2 flex justify-center gap-8 overflow-x-auto">
       {categories.map((category) => (
-        <div key={category.id} className="text-center max-w-xl">
+        <div key={category.id} className="max-w-xl text-center">
           <Link
             prefetch
             href={`category/${category.urlSlug}`}
-            className="flex items-center justify-center p-2 flex-col rounded hover:bg-accent"
+            className="hover:bg-accent flex flex-col items-center justify-center rounded p-2"
           >
             {category.image != "" && (
               <Image
@@ -21,7 +27,7 @@ export default function Categories({ categories }: { categories: Category[] }) {
                 height={60}
               />
             )}
-            <h3 className="font-normal text-sm">{category.name}</h3>
+            <h3 className="text-sm font-normal">{category.name}</h3>
           </Link>
         </div>
       ))}

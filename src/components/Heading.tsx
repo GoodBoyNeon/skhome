@@ -11,7 +11,7 @@ const Heading = React.forwardRef<HTMLHeadingElement, HeadingProps>(
     return (
       <h2
         className={cn(
-          `mt-10 mb-6 text-center text-4xl font-bold lg:text-5xl`,
+          "mb-4 text-4xl font-bold lg:mb-6 lg:text-5xl",
           titleFont.className,
           className,
         )}

@@ -1,8 +1,8 @@
 import Image from "next/image";
 import type { CartItem } from "@/hooks/useCart";
 import { pricify } from "@/lib/utils";
-import { Separator } from "./ui/separator";
-import { ScrollArea } from "./ui/scroll-area";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 interface CheckoutItemWrapperProps {
   item: CartItem;

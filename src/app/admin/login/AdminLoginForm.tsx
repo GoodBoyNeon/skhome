@@ -18,7 +18,7 @@ import { Fingerprint, Loader2 } from "lucide-react";
 import Form from "next/form";
 import { useActionState, useState } from "react";
 
-export function LoginForm({
+export function AdminLoginForm({
   className,
   ...props
 }: React.ComponentProps<"div">) {

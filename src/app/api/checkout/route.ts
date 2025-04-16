@@ -1,4 +1,4 @@
-import { Information } from "@/components/CheckoutForm";
+import { Information } from "@/app/(public)/checkout/CheckoutForm";
 import { env as clientEnv } from "@/data/env/client";
 import { env } from "@/data/env/server";
 import { searchParamsToProducts } from "@/lib/productParamHelper";

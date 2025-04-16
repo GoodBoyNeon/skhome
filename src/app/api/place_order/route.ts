@@ -1,10 +1,10 @@
-import { Information } from "@/components/CheckoutForm";
 import { env } from "@/data/env/server";
 import { prisma } from "@/lib/database";
-import { generateOrderId } from "@/lib/orderIdHelper";
+import { generateId } from "@/lib/IdHelper";
 import { NextRequest, NextResponse } from "next/server";
 import mailer from "nodemailer";
 import { CheckoutItem } from "../checkout/route";
+import { Information } from "@/app/(public)/checkout/CheckoutForm";
 
 const transporter = mailer.createTransport({
   service: "gmail",
@@ -36,7 +36,7 @@ export async function POST(request: NextRequest) {
   const { firstName, lastName, ...reqInfo } = information;
 
   const name = `${firstName} ${lastName}`;
-  const orderId = generateOrderId();
+  const orderId = generateId("order");
 
   await prisma.order
     .create({

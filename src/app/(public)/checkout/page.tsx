@@ -1,7 +1,7 @@
 import SubHeading from "@/components/SubHeading";
 import type { CartItem } from "@/hooks/useCart";
 import { prisma } from "@/lib/database";
-import CheckoutContainer from "@/components/CheckoutContainer";
+import CheckoutContainer from "./CheckoutContainer";
 import { CheckoutType } from "@/lib/definitions";
 
 const CheckoutPage = async ({

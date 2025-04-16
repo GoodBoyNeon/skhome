@@ -2,12 +2,12 @@
 
 import { Product } from "@prisma/client";
 import React, { useState } from "react";
-import { Button } from "./ui/button";
+import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { MapPin, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/hooks/useCart";
 import { toast } from "sonner";
-import QuantityInput from "./QuantityInput";
+import QuantityInput from "@/components/QuantityInput";
 
 const ProductViewCTO = ({ product }: { product: Product }) => {
   const { items, addItem, removeItem } = useCartStore();
@@ -59,7 +59,7 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
         {stock > 0 ? (
           <Button
             asChild
-            className="cursor-pointer w-full md:h-12 text-lg md:text-xl"
+            className="w-full cursor-pointer text-lg md:h-12 md:text-xl"
           >
             <Link
               prefetch
@@ -78,7 +78,7 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
         )}
         <div className="flex space-x-2">
           <Button
-            className="w-full flex gap-1 cursor-pointer md:h-12 text-lg md:text-xl"
+            className="flex w-full cursor-pointer gap-1 text-lg md:h-12 md:text-xl"
             variant={"secondary"}
             onClick={(e) => {
               e.preventDefault();
@@ -90,7 +90,7 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
           </Button>
           <Button
             asChild
-            className="w-full flex gap-1 cursor-pointer md:h-12 text-lg md:text-xl"
+            className="flex w-full cursor-pointer gap-1 text-lg md:h-12 md:text-xl"
             variant={"secondary"}
           >
             <Link href="/visit" prefetch>

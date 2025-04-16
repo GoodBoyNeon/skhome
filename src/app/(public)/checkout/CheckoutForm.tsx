@@ -1,21 +1,27 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { CartItem, useCartStore } from "@/hooks/useCart";
 import { CheckoutFormSchema, CheckoutType } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ShippingMethod } from "@prisma/client";
 import { Record } from "@prisma/client/runtime/library";
 import axios from "axios";
+import { Loader2, ShoppingBag } from "lucide-react";
 import { redirect } from "next/navigation";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { Form, FormControl, FormField, FormItem, FormMessage } from "./ui/form";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Loader2, ShoppingBag } from "lucide-react";
 
 type ShippingType = {
   id: ShippingMethod;
@@ -101,6 +107,7 @@ const CheckoutForm = ({
   const { handleSubmit, setValue } = form;
 
   async function onSubmit(values: FormFields) {
+    // TODO: Refine this cause using params is stupid when you're doing a POST request
     const res = await axios.post(
       `/api/checkout?${new URLSearchParams(
         items.map((item) => ["p", `${item.product.id}q${item.quantity}`]),

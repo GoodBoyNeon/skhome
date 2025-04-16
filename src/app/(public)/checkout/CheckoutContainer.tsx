@@ -1,12 +1,10 @@
 "use client";
 
-import { CartItem, useCartStore } from "@/hooks/useCart";
+import { CartItem } from "@/hooks/useCart";
+import { CheckoutType } from "@/lib/definitions";
 import { useState } from "react";
 import CheckoutForm from "./CheckoutForm";
 import OrderSummary from "./CheckoutSidebar";
-import { CheckoutType } from "@/lib/definitions";
-import { redirect } from "next/navigation";
-import { productsToSearchParams } from "@/lib/productParamHelper";
 
 const CheckoutContainer = ({
   items,

@@ -58,21 +58,6 @@ model Item {
   orderId   Int?
 }
 
-enum ShippingMethod {
-  INSIDE_VALLEY
-  OUTSIDE_VALLEY
-}
-
-enum PaymentMethod {
-  COD
-}
-
-enum OrderStatus {
-  PENDING
-  PROCESSING
-  COMPLETED
-}
-
 model Order {
   id             Int            @id @default(autoincrement())
   orderId        String         @unique
@@ -90,4 +75,42 @@ model Order {
   shipping       Float?
   discount       Float
   total          Float
+}
+
+enum ShippingMethod {
+  INSIDE_VALLEY
+  OUTSIDE_VALLEY
+}
+
+enum PaymentMethod {
+  COD
+}
+
+enum OrderStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+}
+
+model ServicingBooking {
+  id         Int                  @id @default(autoincrement())
+  bookingId  String               @unique
+  name       String
+  phone      String
+  address    String
+  city       String
+  appartment String?
+  postalCode String?
+  appliances ServicingAppliance[]
+}
+
+enum ServicingBookingStatus {
+  PENDING
+  COMPLETED
+}
+
+enum ServicingAppliance {
+  WATER_PURIFIER
+  SOLAR_WATER_HEATER
+  CHIMNEY
 }
