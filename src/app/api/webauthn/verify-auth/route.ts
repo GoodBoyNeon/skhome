@@ -1,3 +1,5 @@
+import { env } from "@/data/env/server";
+import { env as clientEnv } from "@/data/env/client";
 import { AuthenticationResponseJSON } from "@simplewebauthn/browser";
 import { verifyAuthenticationResponse } from "@simplewebauthn/server";
 import { cookies } from "next/headers";
@@ -21,8 +23,14 @@ export async function POST(request: NextRequest) {
       transports: ["internal"],
       counter,
     },
-    expectedOrigin: "http://localhost:3000",
-    expectedRPID: "localhost",
+    expectedOrigin:
+      env.NODE_ENV === "production"
+        ? clientEnv.NEXT_PUBLIC_BASE_URL
+        : "http://localhost:3000",
+    expectedRPID:
+      env.NODE_ENV === "production"
+        ? clientEnv.NEXT_PUBLIC_DOMAIN
+        : "localhost",
   });
 
   if (verified) {
