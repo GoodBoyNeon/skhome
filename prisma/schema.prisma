@@ -13,19 +13,19 @@ model Category {
   name      String    @unique
   urlSlug   String    @unique
   image     String
-  products  Product[]
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  products  Product[]
 }
 
 model Brand {
   id        Int       @id @default(autoincrement())
   name      String
-  urlSlug   String    @unique
   image     String?
-  products  Product[]
+  urlSlug   String    @unique
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
+  products  Product[]
 }
 
 model Product {
@@ -41,40 +41,61 @@ model Product {
   pIndex      Int      @default(0)
   categoryId  Int
   brandId     Int
-  brand       Brand    @relation(fields: [brandId], references: [id])
-  category    Category @relation(fields: [categoryId], references: [id])
   createdAt   DateTime @default(now())
   updatedAt   DateTime @updatedAt
   Item        Item[]
+  brand       Brand    @relation(fields: [brandId], references: [id])
+  category    Category @relation(fields: [categoryId], references: [id])
 }
 
 model Item {
   id        Int     @id @default(autoincrement())
-  product   Product @relation(fields: [productId], references: [id])
   absPrice  Float
   quantity  Int
   productId Int
-  Order     Order?  @relation(fields: [orderId], references: [id])
   orderId   Int?
+  Order     Order?  @relation(fields: [orderId], references: [id])
+  product   Product @relation(fields: [productId], references: [id])
 }
 
 model Order {
   id             Int            @id @default(autoincrement())
   orderId        String         @unique
-  status         OrderStatus    @default(PENDING)
   name           String
   phone          String
   address        String
   city           String
   appartment     String?
-  postalCode     String?
-  items          Item[]
   shippingMethod ShippingMethod
   paymentMethod  PaymentMethod
   subtotal       Float
   shipping       Float?
   discount       Float
   total          Float
+  postalCode     String?
+  status         OrderStatus    @default(PENDING)
+  items          Item[]
+}
+
+model ServicingBooking {
+  id         Int                    @id @default(autoincrement())
+  bookingId  String                 @unique
+  name       String
+  phone      String
+  address    String
+  city       String
+  appartment String?
+  postalCode String?
+  status     ServicingBookingStatus @default(PENDING)
+  appliances Appliance[]
+}
+
+model Appliance {
+  id                 Int              @id @default(autoincrement())
+  brand              String
+  servicingBookingId Int
+  type               ApplianceType
+  ServicingBooking   ServicingBooking @relation(fields: [servicingBookingId], references: [id])
 }
 
 enum ShippingMethod {
@@ -92,31 +113,18 @@ enum OrderStatus {
   COMPLETED
 }
 
-model ServicingBooking {
-  id         Int                    @id @default(autoincrement())
-  bookingId  String                 @unique
-  name       String
-  phone      String
-  address    String
-  city       String
-  appartment String?
-  postalCode String?
-  appliances ServicingAppliance[]
-  status     ServicingBookingStatus
-}
-
 enum ServicingBookingStatus {
   PENDING
   COMPLETED
 }
 
-enum ServicingAppliance {
+enum ApplianceType {
   WATER_PURIFIER
   SOLAR_WATER_HEATER
   KITCHEN_CHIMNEY
   WASHING_MACHINE
   REFRIGERATOR
   WATER_DISPENSER
-  AIR_CONDITIONOR
+  AIR_CONDITIONER
   GAS_STOVE
 }

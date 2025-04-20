@@ -48,14 +48,19 @@ export const ServicingBookingFormSchema = z.object({
   appliances: z
     .array(
       z.object({
-        value: z.string().min(1, "Please select a appliance"),
+        applianceType: z.string().min(1, "Please select a appliance"),
+        brand: z.string().min(1, "Pease enter the brand of your appliance"),
       }),
     )
     .min(1, "At least one appliance must be selected")
-    .refine((items) => items.some((item) => item.value.length > 0), {
-      message: "At least one appliance must be selected",
-      path: ["appliances"],
-    }),
+    .refine(
+      (appliances) =>
+        appliances.some((appliance) => appliance.applianceType.length > 0),
+      {
+        message: "At least one appliance must be selected",
+        path: ["appliances"],
+      },
+    ),
   address: z.string().min(3, {
     message: "Please provide a valid address with at least 3 characters.",
   }),

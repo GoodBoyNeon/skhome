@@ -12,7 +12,7 @@ import Link from "next/link";
 
 const PHONE_I = "01-6635223";
 const PHONE_II = "9851181186";
-const EMAIL = "skhome2072@gmail.com";
+const EMAIL = "info@skhometraders.com.np";
 
 export default function ProductSidebar() {
   function handleClick(type: "PhoneI" | "PhoneII" | "Email") {

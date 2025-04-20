@@ -29,7 +29,7 @@ import {
 } from "@/lib/definitions";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ServicingAppliance } from "@prisma/client";
+import { ApplianceType } from "@prisma/client";
 import axios from "axios";
 import {
   ArrowRight,
@@ -43,7 +43,7 @@ import { redirect } from "next/navigation";
 import { Fragment, useState } from "react";
 import { useFieldArray, useForm } from "react-hook-form";
 
-const appliancesList = Object.keys(ServicingAppliance).map((appliance) => ({
+const appliancesList = Object.keys(ApplianceType).map((appliance) => ({
   value: appliance,
   label: capitalize(appliance.replace(/_/g, " "), "title"),
 }));
@@ -54,7 +54,7 @@ const ServicingForm = () => {
     defaultValues: {
       firstName: "",
       lastName: "",
-      appliances: [{ value: "" }],
+      appliances: [{ applianceType: "", brand: "" }],
       phone: "",
       address: "",
       city: "",
@@ -204,20 +204,59 @@ const ServicingForm = () => {
               {fields.map((field, index) => (
                 <Fragment key={field.id}>
                   <div className="flex items-center gap-2">
-                    <FormField
-                      control={form.control}
-                      name={`appliances.${index}.value`}
-                      render={({ field }) => (
-                        <FormItem className="flex-1">
-                          <FormControl>
-                            <ApplianceSelector
-                              value={field.value}
-                              onChange={field.onChange}
-                            />
-                          </FormControl>
-                        </FormItem>
-                      )}
-                    />
+                    <div className="flex flex-1 gap-2">
+                      <div className="flex-1">
+                        <FormField
+                          control={form.control}
+                          name={`appliances.${index}.applianceType`}
+                          render={({ field }) => (
+                            <FormItem className="flex-1">
+                              <FormControl>
+                                <ApplianceSelector
+                                  value={field.value}
+                                  onChange={field.onChange}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+                        {form.formState.errors.appliances && (
+                          <p className="text-destructive text-sm font-medium">
+                            {
+                              form.formState.errors.appliances[index]
+                                ?.applianceType?.message
+                            }
+                          </p>
+                        )}
+                      </div>
+
+                      <div className="flex-1">
+                        <FormField
+                          control={form.control}
+                          name={`appliances.${index}.brand`}
+                          render={({ field }) => (
+                            <FormItem className="flex-1">
+                              <FormControl>
+                                <Input
+                                  type="text"
+                                  placeholder="The Brand of appliance..."
+                                  {...field}
+                                />
+                              </FormControl>
+                            </FormItem>
+                          )}
+                        />
+
+                        {form.formState.errors.appliances && (
+                          <p className="text-destructive text-sm font-medium">
+                            {
+                              form.formState.errors.appliances[index]?.brand
+                                ?.message
+                            }
+                          </p>
+                        )}
+                      </div>
+                    </div>
                     {fields.length > 1 && (
                       <Button
                         type="button"
@@ -230,11 +269,16 @@ const ServicingForm = () => {
                       </Button>
                     )}
                   </div>
-                  {form.formState.errors.appliances && (
-                    <p className="text-destructive text-sm font-medium">
-                      {form.formState.errors.appliances[index]?.value?.message}
-                    </p>
-                  )}
+                  {/* {form.formState.errors.appliances && ( */}
+                  {/*   <> */}
+                  {/*     <p className="text-destructive text-sm font-medium"> */}
+                  {/*       { */}
+                  {/*         form.formState.errors.appliances[index]?.brand */}
+                  {/*           ?.message */}
+                  {/*       } */}
+                  {/*     </p> */}
+                  {/*   </> */}
+                  {/* )} */}
                 </Fragment>
               ))}
             </div>
@@ -242,7 +286,7 @@ const ServicingForm = () => {
               variant={"outline"}
               type="button"
               size={"lg"}
-              onClick={() => append({ value: "" })}
+              onClick={() => append({ applianceType: "", brand: "" })}
               className="cursor-pointer gap-2 border-dashed border-gray-600 py-6 text-gray-600"
             >
               <CirclePlus className="size-5" /> Add More

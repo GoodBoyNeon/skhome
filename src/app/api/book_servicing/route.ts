@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/database";
 import { ServicingBookingFormFields } from "@/lib/definitions";
 import { generateId } from "@/lib/IdHelper";
-import { ServicingAppliance } from "@prisma/client";
+import { ApplianceType } from "@prisma/client";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {
@@ -12,16 +12,27 @@ export async function POST(request: NextRequest) {
     const name = `${firstName} ${lastName}`;
     const bookingId = generateId("booking");
 
-    await prisma.servicingBooking
+    console.log(values);
+
+    const a = await prisma.servicingBooking
       .create({
         data: {
           name,
           bookingId,
-          appliances: appliances.map((v) => v.value as ServicingAppliance),
+          appliances: {
+            createMany: {
+              data: appliances.map((appliance) => ({
+                brand: appliance.brand,
+                type: appliance.applianceType as ApplianceType,
+              })),
+            },
+          },
           ...bookingInfo,
         },
       })
       .catch((err) => console.log(err));
+
+    console.log(a);
 
     return NextResponse.json({ success: true, bookingId }, { status: 200 });
   } catch (err) {
