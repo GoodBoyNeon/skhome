@@ -23,6 +23,6 @@ export default async function AdminOrderDetails({
       </div>
     );
   }
-
-  return <BookingInfoContainer booking={booking} />;
+  return <></>;
+  // return <BookingInfoContainer booking={booking} />;
 }
