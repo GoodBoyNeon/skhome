@@ -1,6 +1,8 @@
 import { config } from "@/config";
 import { prisma } from "@/lib/database";
+import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
+import { Fragment } from "react";
 import { IconType } from "react-icons";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
@@ -46,9 +48,9 @@ const socials: Array<{ name: string; icon: IconType; href: string }> = [
 
 const Footer = () => {
   return (
-    <section className="py-24 bg-[#f3f4f6]">
+    <section className="bg-[#f3f4f6] py-24">
       <div className="container mx-auto px-12 md:px-16 lg:px-24">
-        <footer className="">
+        <footer>
           <div className="flex flex-col items-start justify-between gap-10 text-center lg:flex-row lg:text-left">
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               <div className="flex items-center gap-2 lg:justify-start">
@@ -56,14 +58,14 @@ const Footer = () => {
                   <h2 className="text-xl font-semibold">{config.title}</h2>
                 </Link>
               </div>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-muted-foreground text-sm">
                 {config.description}
               </p>
-              <ul className="flex items-center space-x-6 text-muted-foreground">
+              <ul className="text-muted-foreground flex items-center space-x-6">
                 {socials.map((s, i) => (
                   <li
                     key={i}
-                    className="font-medium hover:text-accent-foreground"
+                    className="hover:text-accent-foreground font-medium"
                   >
                     <Link
                       key={i}
@@ -77,16 +79,26 @@ const Footer = () => {
                   </li>
                 ))}
               </ul>
+              <ul className="text-muted-foreground space-y-0.5 text-sm">
+                {config.phone.map((p, i) => (
+                  <li key={i} className="flex gap-1.5">
+                    <Phone className="size-5" /> {p}
+                  </li>
+                ))}
+                <li className="flex gap-1.5">
+                  <Mail className="size-5" /> {config.email}
+                </li>
+              </ul>
             </div>
             <div className="grid grid-cols-3 gap-6 lg:gap-20">
               {sections.map((section, i) => (
                 <div key={i}>
                   <h3 className="mb-6 font-bold">{section.title}</h3>
-                  <ul className="space-y-4 text-sm text-muted-foreground">
+                  <ul className="text-muted-foreground space-y-4 text-sm">
                     {section.links.map((link, i) => (
                       <li
                         key={i}
-                        className="font-medium hover:text-accent-foreground"
+                        className="hover:text-accent-foreground font-medium"
                       >
                         <a href={link.href}>{link.name}</a>
                       </li>
@@ -96,7 +108,7 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium text-muted-foreground lg:flex-row lg:items-center lg:text-left">
+          <div className="text-muted-foreground mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium lg:flex-row lg:items-center lg:text-left">
             <p>
               &copy; {new Date().getFullYear()} S.K. Home Traders. All rights
               reserved
