@@ -10,6 +10,11 @@ const nextConfig: NextConfig = {
       {
         hostname: "imgur.com",
       },
+      {
+        protocol: "https",
+        hostname: "8kqerddap4kxma1h.public.blob.vercel-storage.com",
+        port: "",
+      },
     ],
   },
 };

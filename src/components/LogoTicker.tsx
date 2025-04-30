@@ -10,8 +10,8 @@ import Link from "next/link";
 
 const LoadingSkeleton = () => {
   return (
-    <section className="mx-12 lg:mx-28 overflow-x-clip">
-      <div className="flex overflow-hidden mt-12 [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+    <section className="mx-12 overflow-x-clip lg:mx-28">
+      <div className="mt-12 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
         <motion.div
           className="flex flex-none gap-24 pr-24"
           animate={{
@@ -25,7 +25,7 @@ const LoadingSkeleton = () => {
         >
           {Array.from({ length: 32 }).map((_, i) => (
             <Fragment key={i}>
-              <Skeleton className="w-[100px] h-[100px]" />
+              <Skeleton className="h-[100px] w-[100px]" />
             </Fragment>
           ))}
         </motion.div>
@@ -53,8 +53,8 @@ export default function LogoTicker() {
   if (!brands || isLoading) return <LoadingSkeleton />;
 
   return (
-    <section className="mx-12 lg:mx-28 overflow-x-clip">
-      <div className="flex overflow-hidden mt-12 [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
+    <section className="mx-12 overflow-x-clip lg:mx-28">
+      <div className="mt-12 flex overflow-hidden [mask-image:linear-gradient(to_right,transparent,white_10%,white_90%,transparent)]">
         <motion.div
           className="flex flex-none gap-24 pr-24"
           animate={{
@@ -80,7 +80,7 @@ export default function LogoTicker() {
                       <Image
                         src={brand.image}
                         alt={brand.name}
-                        className="cursor-pointer grayscale hover:grayscale-0 transition duration-300"
+                        className="cursor-pointer grayscale transition duration-300 hover:grayscale-0"
                         width={"100"}
                         height={"100"}
                       />

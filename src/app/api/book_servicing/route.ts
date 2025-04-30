@@ -12,8 +12,6 @@ export async function POST(request: NextRequest) {
     const name = `${firstName} ${lastName}`;
     const bookingId = generateId("booking");
 
-    console.log(values);
-
     const a = await prisma.servicingBooking
       .create({
         data: {
