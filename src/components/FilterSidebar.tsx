@@ -7,7 +7,13 @@ import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { Brand, Category } from "@prisma/client";
 
-const FilterSidebar = () => {
+const FilterSidebar = ({
+  hideCategory,
+  hideBrand,
+}: {
+  hideCategory?: boolean;
+  hideBrand?: boolean;
+}) => {
   const categoriesQuery = useQuery({
     queryKey: ["categories"],
     queryFn: async (): Promise<Category[]> => {
@@ -63,11 +69,14 @@ const FilterSidebar = () => {
 
   return (
     <div className="space-y-12">
-      <div className="space-y-2">
-        <h3 className="text-base font-medium">By Category</h3>
-        <RadioGroup value={categoryValue} onValueChange={handleCategoryChange}>
-          {categories &&
-            categories.map((c) => (
+      {!hideCategory && categories && (
+        <div className="space-y-2">
+          <h3 className="text-base font-medium">By Category</h3>
+          <RadioGroup
+            value={categoryValue}
+            onValueChange={handleCategoryChange}
+          >
+            {categories.map((c) => (
               <div key={c.name} className="flex items-center space-x-1">
                 <RadioGroupItem
                   value={c.id.toString()}
@@ -78,13 +87,14 @@ const FilterSidebar = () => {
                 </Label>
               </div>
             ))}
-        </RadioGroup>
-      </div>
-      <div className="space-y-2">
-        <h3 className="text-base font-medium">By Brand</h3>
-        <RadioGroup value={brandValue} onValueChange={handleBrandChange}>
-          {brands &&
-            brands.map((c) => (
+          </RadioGroup>
+        </div>
+      )}
+      {!hideBrand && brands && (
+        <div className="space-y-2">
+          <h3 className="text-base font-medium">By Brand</h3>
+          <RadioGroup value={brandValue} onValueChange={handleBrandChange}>
+            {brands.map((c) => (
               <div key={c.id} className="flex items-center space-x-1">
                 <RadioGroupItem
                   className="decoratio"
@@ -96,8 +106,9 @@ const FilterSidebar = () => {
                 </Label>
               </div>
             ))}
-        </RadioGroup>
-      </div>
+          </RadioGroup>
+        </div>
+      )}
     </div>
   );
 };

@@ -75,19 +75,11 @@ const Search = async ({
 
   return (
     <div className="m-6 min-h-screen">
-      <div className="my-4">
-        <h2 className="text-xl font-medium">
-          Search Results for &quot;{query}&quot;
-        </h2>
-        <p className="text-muted-foreground text-sm">
-          Found {finalProducts.length} results
-        </p>
-      </div>
-
       <div className="flex flex-col gap-8 md:grid md:grid-cols-9 md:grid-rows-1">
-        <div className="col-span-3 hidden md:block lg:col-span-2">
+        <div className="col-span-3 my-4 hidden md:block lg:col-span-2">
           <FilterSidebar />
         </div>
+
         <div className="md:hidden">
           <Accordion type="single" collapsible>
             <AccordionItem value="item-1">
@@ -103,7 +95,16 @@ const Search = async ({
             </AccordionItem>
           </Accordion>
         </div>
+
         <div className="h-full md:col-span-6 lg:col-span-7">
+          <div className="my-4">
+            <h2 className="text-xl font-medium lg:text-2xl">
+              Search Results for &quot;{query}&quot;
+            </h2>
+            <p className="text-muted-foreground text-sm">
+              Found {finalProducts.length} results
+            </p>
+          </div>
           <div className="h-vh mb-6 flex w-full justify-between">
             <ProductsFilterTags />
             <SortMenu />

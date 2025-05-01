@@ -1,8 +1,18 @@
+import FilterSidebar from "@/components/FilterSidebar";
+import ProductsFilterTags from "@/components/ProductsFilterTags";
 import ProductsList from "@/components/ProductsList";
 import SortMenu, { SortType } from "@/components/SortMenu";
 import SubHeading from "@/components/SubHeading";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 import { prisma } from "@/lib/database";
+import { filterProducts } from "@/lib/filterProducts";
 import { sortProducts } from "@/lib/sortProducts";
+import { Filter } from "lucide-react";
 import { notFound } from "next/navigation";
 import React from "react";
 
@@ -14,7 +24,7 @@ export async function generateStaticParams() {
   }));
 }
 
-const Page = async ({
+const CategoryPage = async ({
   params,
   searchParams,
 }: {
@@ -34,18 +44,48 @@ const Page = async ({
   const sortType = ((await searchParams).sort || "featured") as SortType;
 
   const sortedProducts = sortProducts(products, sortType);
+
+  const brandFilter = (await searchParams).brand;
+
+  const finalProducts = filterProducts(
+    sortedProducts,
+    "brand",
+    parseInt(brandFilter as string),
+  );
+
   return (
     <div className="min-h-screen lg:mx-16">
       <SubHeading>{category?.name}</SubHeading>
 
-      <div className="flex">
-        <div className="my-6 ml-auto">
-          <SortMenu />
+      <div className="flex flex-col gap-8 md:grid md:grid-cols-9 md:grid-rows-1">
+        <div className="col-span-3 hidden md:block lg:col-span-2">
+          <FilterSidebar hideCategory />
+        </div>
+        <div className="md:hidden">
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger>
+                <div className="flex items-center gap-2">
+                  <Filter size={18} />
+                  <span>Filters</span>
+                </div>
+              </AccordionTrigger>
+              <AccordionContent>
+                <FilterSidebar />
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+        <div className="h-full md:col-span-6 lg:col-span-7">
+          <div className="h-vh mb-6 flex w-full justify-between">
+            <ProductsFilterTags />
+            <SortMenu />
+          </div>
+          <ProductsList products={finalProducts} />
         </div>
       </div>
-      <ProductsList products={sortedProducts} />
     </div>
   );
 };
 
-export default Page;
+export default CategoryPage;
