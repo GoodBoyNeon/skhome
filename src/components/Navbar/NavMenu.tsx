@@ -22,7 +22,9 @@ const NavMenu = ({ title, category }: { title: string; category: string }) => {
   });
 
   if (productsRes.isLoading || categoriesRes.isLoading) {
-    return <NavMenuWrapper title={title} isLoading={true} />;
+    return (
+      <NavMenuWrapper title={title} isLoading={true} category={category} />
+    );
   }
   if (productsRes.error || categoriesRes.error) {
     return "An unexpected error occured!";
@@ -42,7 +44,13 @@ const NavMenu = ({ title, category }: { title: string; category: string }) => {
     throw Error;
   }
 
-  return <NavMenuWrapper title={title} products={filteredProducts} />;
+  return (
+    <NavMenuWrapper
+      title={title}
+      products={filteredProducts}
+      category={category}
+    />
+  );
 };
 
 export default NavMenu;
