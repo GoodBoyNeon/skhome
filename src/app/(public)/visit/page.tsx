@@ -1,12 +1,15 @@
 import Heading from "@/components/Heading";
 import SubHeading from "@/components/SubHeading";
 import { env } from "@/data/env/server";
-import React from "react";
+
+const MAP_QUERY = "S.K. Home Traders M9HX+J8 Madhyapur Thimi";
+const MAP_CENTER = "27.6790381,85.3984865";
+const ZOOM_LEVEL = 18.5;
 
 const Visit = () => {
   return (
     <div className="mx-4 my-12 min-h-screen md:mx-18 lg:mx-36 lg:my-16">
-      <Heading>Visit Us</Heading>
+      <Heading className="text-center">Visit Us</Heading>
 
       <p className="text-muted-foreground my-4 text-justify md:m-6 md:text-center lg:m-8 lg:text-lg">
         Our physical store is located at Radhe Radhe, Bhaktapur. We always
@@ -31,7 +34,7 @@ const Visit = () => {
           className="aspect-video w-full max-w-3xl rounded-lg border shadow-md"
           loading="lazy"
           allowFullScreen
-          src={`https://www.google.com/maps/embed/v1/place?key=${env.GOOGLE_API_KEY}&q=S.K Home Traders`}
+          src={`https://www.google.com/maps/embed/v1/place?key=${env.GOOGLE_API_KEY}&q=${MAP_QUERY}&center=${MAP_CENTER}&zoom=${ZOOM_LEVEL}&maptype=roadmap`}
         ></iframe>
       </div>
     </div>
