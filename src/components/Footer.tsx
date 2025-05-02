@@ -55,11 +55,13 @@ const Footer = () => {
             <div className="flex w-full max-w-96 shrink flex-col items-center justify-between gap-6 lg:items-start">
               <div className="flex items-center gap-2 lg:justify-start">
                 <Link prefetch href="/">
-                  <h2 className="text-xl font-semibold">{config.title}</h2>
+                  <h2 className="text-xl font-semibold">
+                    {config.metadata.title}
+                  </h2>
                 </Link>
               </div>
               <p className="text-muted-foreground text-sm">
-                {config.description}
+                {config.metadata.description}
               </p>
               <ul className="text-muted-foreground flex items-center space-x-6">
                 {socials.map((s, i) => (

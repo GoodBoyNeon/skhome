@@ -10,11 +10,6 @@ const containerStyle = {
   height: "400px",
 };
 
-const center = {
-  lat: -3.745,
-  lng: -38.523,
-};
-
 export default function Map() {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -24,7 +19,7 @@ export default function Map() {
   const [_map, setMap] = useState<unknown | null>(null);
 
   const onLoad = useCallback((map: unknown) => {
-    const bounds = new window.google.maps.LatLngBounds(center);
+    const bounds = new window.google.maps.LatLngBounds();
 
     if (
       map &&
@@ -47,8 +42,6 @@ export default function Map() {
       {isLoaded && (
         <GoogleMap
           mapContainerStyle={containerStyle}
-          center={center}
-          zoom={10}
           onLoad={onLoad}
           onUnmount={onUnmount}
         />

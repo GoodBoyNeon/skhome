@@ -10,26 +10,44 @@ import { cn } from "@/lib/utils";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import { env as clientEnv } from "@/data/env/client";
+import { config } from "@/config";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(clientEnv.NEXT_PUBLIC_BASE_URL),
   title: {
-    default: "S.K Home Traders",
-    template: "%s - S.K Home Traders",
+    default: config.metadata.title,
+    template: `%s - ${config.metadata.title}`,
   },
-  description:
-    "Buy quality home appliances in Nepal at reasonable prices. Visit us at Radhe Radhe, Bhaktapur.",
-  keywords: [
-    "sk home traders",
-    "home appliance",
-    "home appliances",
-    "appliances",
-    "solar",
-    "chimney",
-    "water purfier",
-    "water filter",
-    "fridge",
-    "refrigerator",
+  description: config.metadata.description,
+  openGraph: {
+    title: config.metadata.title,
+    description: config.metadata.description,
+    url: "./",
+    siteName: config.metadata.title,
+    type: "website",
+  },
+  keywords: config.metadata.keywords,
+  creator: "Sushant Ray",
+  authors: [
+    {
+      name: "Sushant Ray",
+      url: "https://neon.is-a.dev",
+    },
+    {
+      name: "Khusbu Ray",
+    },
   ],
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
