@@ -3,7 +3,6 @@
 import { env } from "@/data/env/server";
 import { FormState, LoginFormSchema } from "@/lib/definitions";
 import { createSession, deleteSession } from "@/lib/session";
-import axios from "axios";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
 

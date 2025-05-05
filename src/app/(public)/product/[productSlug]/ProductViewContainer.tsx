@@ -36,7 +36,7 @@ const ProductViewContainer = async ({
             <Carousel images={images} />
           </div>
 
-          <div className="bg-background space-y-12 px-3 py-8 lg:max-w-xl">
+          <div className="bg-background w-full space-y-12 px-3 py-8 lg:max-w-xl">
             <div className="space-y-0.5">
               <h2 className="text-2xl font-semibold md:text-4xl">{name}</h2>
 

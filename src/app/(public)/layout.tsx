@@ -50,24 +50,19 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default function PublicLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={cn(bodyFont.className, "bg-base-bg overflow-x-hidden")}>
-        <QueryProvider>
-          <MarqueeBar />
-          <Header />
-          {children}
-          <SpeedInsights />
-          <Analytics />
-          <Toaster closeButton richColors theme="light" />
-          <Footer />
-        </QueryProvider>
-      </body>
-    </html>
+    <>
+      <MarqueeBar />
+      <Header />
+      {children}
+      <SpeedInsights />
+      <Analytics />
+      <Footer />
+    </>
   );
 }

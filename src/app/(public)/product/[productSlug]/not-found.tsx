@@ -1,10 +1,10 @@
 import ProductsList from "@/components/ProductsList";
 import SubHeading from "@/components/SubHeading";
-import { prisma } from "@/lib/database";
+import { getProducts } from "@/db";
 import { SearchIcon } from "lucide-react";
 
 export default async function NotFound() {
-  const otherProducts = await prisma.product.findMany();
+  const otherProducts = await getProducts();
   return (
     <>
       <div className="m-12 flex flex-col items-center justify-center">

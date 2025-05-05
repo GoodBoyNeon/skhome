@@ -24,7 +24,7 @@ export default function ProductCard(product: Product) {
   };
 
   return (
-    <div className="rounded-lg border">
+    <div className="max-w-xs rounded-lg border">
       <div className="bg-background rounded-t-lg p-2 transition hover:shadow-md">
         <Link
           prefetch

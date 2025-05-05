@@ -16,7 +16,6 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
-  useSidebar,
 } from "@/components/ui/sidebar";
 
 export function UserOptions({
@@ -24,7 +23,7 @@ export function UserOptions({
 }: {
   user: {
     name: string;
-    email: string;
+    subtext: string;
     avatar: string;
   };
 }) {
@@ -43,7 +42,7 @@ export function UserOptions({
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+                <span className="truncate text-xs">{user.subtext}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -62,7 +61,7 @@ export function UserOptions({
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate text-xs">{user.subtext}</span>
                 </div>
               </div>
             </DropdownMenuLabel>

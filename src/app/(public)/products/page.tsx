@@ -1,25 +1,25 @@
-import ProductsList from "@/components/ProductsList";
-import SubHeading from "@/components/SubHeading";
-import SortMenu, { SortType } from "@/components/SortMenu";
-import { sortProducts } from "@/lib/sortProducts";
-import { prisma } from "@/lib/database";
 import FilterSidebar from "@/components/FilterSidebar";
-import { filterProducts } from "@/lib/filterProducts";
 import ProductsFilterTags from "@/components/ProductsFilterTags";
+import ProductsList from "@/components/ProductsList";
+import SortMenu, { SortType } from "@/components/SortMenu";
+import SubHeading from "@/components/SubHeading";
 import {
   Accordion,
   AccordionContent,
+  AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getProducts } from "@/db";
+import { filterProducts } from "@/lib/filterProducts";
+import { sortProducts } from "@/lib/sortProducts";
 import { Filter } from "lucide-react";
-import { AccordionItem } from "@/components/ui/accordion";
 
 const ProductsPage = async ({
   searchParams,
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  const products = await prisma.product.findMany();
+  const products = await getProducts();
   const sortType = ((await searchParams).sort || "featured") as SortType;
   const categoryFilter = (await searchParams).category;
   const brandFilter = (await searchParams).brand;

@@ -75,6 +75,67 @@ export type ServicingBookingFormFields = z.infer<
   typeof ServicingBookingFormSchema
 >;
 
+export const NewProductFormSchema = z.object({
+  name: z.string().min(3, {
+    message: "Please provide a valid name with at least 3 characters.",
+  }),
+  description: z.string().min(10, {
+    message: "Please provide a valid name with at least 10 characters.",
+  }),
+  urlSlug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, {
+      message:
+        "url slug must only contain lowercase characters, numbers and - (hyphens)",
+    })
+    .min(3, {
+      message: "Please enter a valid url slug",
+    }),
+  MRP: z.coerce.number().int({
+    message: "MRP must be a whole number.",
+  }),
+  price: z.coerce.number().int({
+    message: "Price must be a whole number.",
+  }),
+  stock: z.coerce.number().int({
+    message: "Stock must be a whole number.",
+  }),
+  pIndex: z.coerce.number().int({
+    message: "Product index must be a whole number.",
+  }),
+
+  brand: z.string({
+    required_error: "Please select a brand.",
+  }),
+  category: z.string({
+    required_error: "Please select a category.",
+  }),
+  tags: z.array(z.string()).min(1, {
+    message: "Add at least one tag.",
+  }),
+});
+
+export type NewProductFormFields = z.infer<typeof NewProductFormSchema>;
+
+export type NewProductFormState = {
+  errors?: {
+    name?: string[];
+    description?: string[];
+    urlSlug?: string[];
+    MRP?: string[];
+    price?: string[];
+    stock?: string[];
+    pIndex?: string[];
+    brand?: string[];
+    category?: string[];
+    tags?: string[];
+    images?: string[];
+    _form?: string[];
+  };
+  message?: string | null;
+  success?: boolean;
+};
+
 export type FormState =
   | {
       errors?: {

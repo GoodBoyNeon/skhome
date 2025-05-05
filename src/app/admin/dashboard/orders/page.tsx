@@ -7,7 +7,7 @@ const AdminOrdersPage = async () => {
   const orders = await prisma.order.findMany();
 
   return (
-    <div className="container mx-auto py-12">
+    <div className="py-16">
       <div className="mx-12">
         <DataTable data={orders} columns={columns} />
       </div>

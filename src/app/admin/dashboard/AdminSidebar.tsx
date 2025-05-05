@@ -11,13 +11,13 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import { ChartBar, Command, Home, Notebook, Package } from "lucide-react";
+import { Book, Command, Home, Package, ShoppingBag } from "lucide-react";
 import * as React from "react";
 
 const data = {
   user: {
     name: "Admin",
-    email: "S.K. Home Traders - Admin",
+    subtext: "S.K. Home Traders - Admin",
     avatar: "https://neon.is-a.dev/_next/static/media/about-logo.75642e4c.png",
   },
   tabs: [
@@ -27,19 +27,19 @@ const data = {
       icon: Home,
     },
     {
+      name: "Products",
+      url: "/admin/dashboard/products",
+      icon: Package,
+    },
+    {
       name: "Orders",
       url: "/admin/dashboard/orders",
-      icon: Package,
+      icon: ShoppingBag,
     },
     {
       name: "Servicing Bookings",
       url: "/admin/dashboard/bookings",
-      icon: Notebook,
-    },
-    {
-      name: "Statistics",
-      url: "/admin/dashboard/stats",
-      icon: ChartBar,
+      icon: Book,
     },
   ],
 };

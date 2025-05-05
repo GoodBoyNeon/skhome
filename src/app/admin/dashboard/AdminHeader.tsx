@@ -1,7 +1,7 @@
 import React from "react";
-import { Breadcrumb, BreadcrumbList } from "../ui/breadcrumb";
-import { SidebarTrigger } from "../ui/sidebar";
-import { Separator } from "../ui/separator";
+import { Breadcrumb, BreadcrumbList } from "@/components/ui/breadcrumb";
+import { SidebarTrigger } from "@/components/ui/sidebar";
+import { Separator } from "@/components/ui/separator";
 
 const AdminHeader = () => {
   return (
