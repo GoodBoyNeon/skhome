@@ -2,7 +2,6 @@ import { config } from "@/config";
 import { prisma } from "@/lib/database";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
-import { Fragment } from "react";
 import { IconType } from "react-icons";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
 
@@ -37,7 +36,7 @@ const socials: Array<{ name: string; icon: IconType; href: string }> = [
   {
     name: "Instagram",
     icon: FaInstagram,
-    href: "https://www.instagram.com/skhometraders/",
+    href: "https://www.instagram.com/waterfilternepal/",
   },
   {
     name: "Tiktok",

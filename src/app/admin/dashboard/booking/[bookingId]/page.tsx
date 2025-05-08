@@ -13,6 +13,9 @@ export default async function AdminOrderDetails({
     where: {
       bookingId,
     },
+    include: {
+      appliances: true,
+    },
   });
 
   if (!booking) {
@@ -23,6 +26,5 @@ export default async function AdminOrderDetails({
       </div>
     );
   }
-  return <></>;
-  // return <BookingInfoContainer booking={booking} />;
+  return <BookingInfoContainer booking={booking} />;
 }

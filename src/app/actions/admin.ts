@@ -2,6 +2,7 @@
 
 import { prisma } from "@/lib/database";
 import { NewProductFormSchema, NewProductFormState } from "@/lib/definitions";
+import { ServicingBookingStatus } from "@prisma/client";
 import { del, put } from "@vercel/blob";
 import { revalidatePath, revalidateTag } from "next/cache";
 
@@ -188,5 +189,29 @@ export async function deleteProduct(productId: number) {
       success: false,
       message: "Failed to delete product. Please try again.",
     };
+  }
+}
+
+export async function updateBookingStatus(
+  _: any,
+  {
+    bookingId,
+    newStatus,
+  }: { bookingId: string; newStatus: ServicingBookingStatus },
+): Promise<unknown> {
+  try {
+    await prisma.servicingBooking.update({
+      where: {
+        bookingId,
+      },
+      data: {
+        status: newStatus,
+      },
+    });
+
+    revalidatePath(`/admin/dashboard/booking/${bookingId}`);
+    return { message: "Updated booking status" };
+  } catch (err) {
+    return { error: "Something went wrong... " + err };
   }
 }

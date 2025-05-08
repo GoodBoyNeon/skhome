@@ -2,17 +2,12 @@
 
 import { monoFont } from "@/app/fonts";
 import { Button, buttonVariants } from "@/components/ui/button";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import { prisma } from "@/lib/database";
 import { cn, pricify } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { del } from "@vercel/blob";
-import { Pencil, Plus, Trash } from "lucide-react";
+import { Pencil, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { FormEvent, startTransition } from "react";
-import { toast } from "sonner";
 import { DeleteProductDialog } from "./delete-product-dialog";
 
 const AdminProductsPage = () => {
@@ -33,24 +28,6 @@ const AdminProductsPage = () => {
 
   const products = productsResp.data?.sort((a, b) => a.id - b.id);
 
-  function handleProductDelete(
-    e: FormEvent<HTMLButtonElement>,
-    product: Product,
-  ) {
-    e.preventDefault();
-    startTransition(async () => {
-      await prisma.product.delete({
-        where: {
-          urlSlug: product.urlSlug,
-        },
-      });
-
-      await del(product.images);
-
-      toast.success("Successfully deleted product");
-    });
-  }
-
   return (
     <div className="container mx-auto py-12">
       <div className="mx-12 space-y-4">
@@ -65,7 +42,7 @@ const AdminProductsPage = () => {
           </Link>
         </div>
 
-        <ScrollArea className="rounded-lg border border-double py-4">
+        <div className="rounded-lg border border-double py-4">
           {products?.map((product, i) => (
             <div
               key={i}
@@ -123,7 +100,7 @@ const AdminProductsPage = () => {
               </div>
             </div>
           ))}
-        </ScrollArea>
+        </div>
       </div>
     </div>
   );
