@@ -12,7 +12,7 @@ export async function POST(request: NextRequest) {
     const name = `${firstName} ${lastName}`;
     const bookingId = generateId("booking");
 
-    const a = await prisma.servicingBooking
+    await prisma.servicingBooking
       .create({
         data: {
           name,
@@ -29,8 +29,6 @@ export async function POST(request: NextRequest) {
         },
       })
       .catch((err) => console.log(err));
-
-    console.log(a);
 
     return NextResponse.json({ success: true, bookingId }, { status: 200 });
   } catch (err) {

@@ -1,11 +1,28 @@
 "use client";
 
+import {
+  DropdownMenu,
+  DropdownMenuSub,
+  DropdownMenuItem,
+  DropdownMenuGroup,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+  DropdownMenuShortcut,
+  DropdownMenuRadioItem,
+  DropdownMenuSeparator,
+  DropdownMenuRadioGroup,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuCheckboxItem,
+} from "@/components/ui/dropdown-menu";
 import { monoFont } from "@/app/fonts";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn, pricify } from "@/lib/utils";
 import { Product } from "@prisma/client";
 import { useQuery } from "@tanstack/react-query";
-import { Pencil, Plus } from "lucide-react";
+import { ChevronDown, ChevronRight, Pencil, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { DeleteProductDialog } from "./delete-product-dialog";
@@ -34,12 +51,44 @@ const AdminProductsPage = () => {
         <div className="flex items-center justify-between">
           <h3 className="text-2xl font-bold">Products</h3>
 
-          <Link
-            href={"/admin/dashboard/products/new"}
-            className={buttonVariants({ variant: "ghost", className: "gap-1" })}
-          >
-            <Plus size={18} /> Add New
-          </Link>
+          <div className="hover:bg-accent flex items-center rounded-md transition">
+            <Link
+              href={"/admin/dashboard/products/new"}
+              className={buttonVariants({
+                variant: "ghost",
+                className: "gap-1",
+              })}
+            >
+              <Plus size={18} /> <span>Add New</span>
+            </Link>
+            <DropdownMenu>
+              <DropdownMenuTrigger
+                asChild
+                className="mr-1 h-full cursor-pointer rounded-md transition hover:bg-gray-200"
+              >
+                <Button variant={"ghost"}>
+                  <ChevronDown className="h-4 w-4" />
+                  <span className="sr-only">More options</span>
+                </Button>
+              </DropdownMenuTrigger>
+
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem asChild>
+                  <Link href={"/admin/dashboard/products/new"}>
+                    Add Product
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={"/admin/dashboard/category/new"}>
+                    Add Category
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
+                  <Link href={"/admin/dashboard/brand/new"}>Add Brand</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
         </div>
 
         <div className="rounded-lg border border-double py-4">

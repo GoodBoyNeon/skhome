@@ -1,7 +1,14 @@
 "use server";
 
 import { prisma } from "@/lib/database";
-import { NewProductFormSchema, NewProductFormState } from "@/lib/definitions";
+import {
+  newBrandFormSchema,
+  NewBrandFormState,
+  newCategoryFormSchema,
+  NewCategoryFormState,
+  NewProductFormSchema,
+  NewProductFormState,
+} from "@/lib/definitions";
 import { ServicingBookingStatus } from "@prisma/client";
 import { del, put } from "@vercel/blob";
 import { revalidatePath, revalidateTag } from "next/cache";
@@ -188,6 +195,160 @@ export async function deleteProduct(productId: number) {
     return {
       success: false,
       message: "Failed to delete product. Please try again.",
+    };
+  }
+}
+
+export async function createCategory(
+  _prevState: NewCategoryFormState,
+  formData: FormData,
+): Promise<NewCategoryFormState> {
+  const validatedFields = newCategoryFormSchema.safeParse({
+    name: formData.get("name"),
+    urlSlug: formData.get("urlSlug"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to create category.",
+      success: false,
+    };
+  }
+
+  const { name, urlSlug } = validatedFields.data;
+
+  const existingCategory = await prisma.category.findUnique({
+    where: { urlSlug },
+  });
+
+  if (existingCategory) {
+    return {
+      errors: {
+        urlSlug: ["A category with this URL slug already exists."],
+      },
+      message: "Failed to create category.",
+      success: false,
+    };
+  }
+
+  const imageFile = formData.get("image") as File;
+
+  if (!imageFile) {
+    return {
+      errors: {
+        image: ["Category image is required."],
+      },
+      message: "Failed to create category.",
+      success: false,
+    };
+  }
+
+  try {
+    const imageUrl = (
+      await put(`category/${urlSlug}`, imageFile, {
+        access: "public",
+      })
+    ).url;
+
+    await prisma.category.create({
+      data: {
+        name,
+        urlSlug,
+        image: imageUrl,
+      },
+    });
+
+    return {
+      errors: {},
+      message: "Category created successfully!",
+      success: true,
+    };
+  } catch (error) {
+    console.error("Failed to create category:", error);
+    return {
+      errors: {
+        _form: ["An unexpected error occurred. Please try again."],
+      },
+      message: "Database or upload error. Failed to create category.",
+      success: false,
+    };
+  }
+}
+
+export async function createBrand(
+  _prevState: NewBrandFormState,
+  formData: FormData,
+): Promise<NewBrandFormState> {
+  const validatedFields = newBrandFormSchema.safeParse({
+    name: formData.get("name"),
+    urlSlug: formData.get("urlSlug"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to create brand.",
+      success: false,
+    };
+  }
+
+  const { name, urlSlug } = validatedFields.data;
+
+  const existingBrand = await prisma.brand.findUnique({
+    where: { urlSlug },
+  });
+
+  if (existingBrand) {
+    return {
+      errors: {
+        urlSlug: ["A brand with this URL slug already exists."],
+      },
+      message: "Failed to create brand.",
+      success: false,
+    };
+  }
+
+  const imageFile = formData.get("image") as File;
+
+  if (!imageFile) {
+    return {
+      errors: {
+        image: ["Brand image is required."],
+      },
+      message: "Failed to create brand.",
+      success: false,
+    };
+  }
+
+  try {
+    const imageUrl = (
+      await put(`brand/${urlSlug}`, imageFile, {
+        access: "public",
+      })
+    ).url;
+
+    await prisma.brand.create({
+      data: {
+        name,
+        urlSlug,
+        image: imageUrl,
+      },
+    });
+
+    return {
+      errors: {},
+      message: "Brand created successfully!",
+      success: true,
+    };
+  } catch (error) {
+    console.error("Failed to create brand:", error);
+    return {
+      errors: {
+        _form: ["An unexpected error occurred. Please try again."],
+      },
+      message: "Database or upload error. Failed to create brand.",
+      success: false,
     };
   }
 }

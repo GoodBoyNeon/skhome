@@ -111,14 +111,8 @@ const AddProductForm = () => {
       if (result.success) {
         toast.success("Product created successfully!");
 
-        // Reset form and images
         form.reset();
         setImages([]);
-
-        // Redirect to products page after a short delay
-        // setTimeout(() => {
-        //   router.push("/products");
-        // }, 2000);
       } else {
         toast(result.message || "Failed to create product.");
       }

@@ -136,7 +136,63 @@ export type NewProductFormState = {
   success?: boolean;
 };
 
-export type FormState =
+export const newCategoryFormSchema = z.object({
+  name: z.string().min(3, {
+    message: "Please provide a valid name with at least 3 characters.",
+  }),
+
+  urlSlug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, {
+      message:
+        "url slug must only contain lowercase characters, numbers and - (hyphens)",
+    })
+    .min(3, {
+      message: "Please enter a valid url slug",
+    }),
+});
+export type NewCategoryFromFields = z.infer<typeof newCategoryFormSchema>;
+
+export type NewCategoryFormState = {
+  errors?: {
+    name?: string[];
+    urlSlug?: string[];
+    image?: string[];
+    _form?: string[];
+  };
+  message?: string | null;
+  success?: boolean;
+};
+
+export const newBrandFormSchema = z.object({
+  name: z.string().min(3, {
+    message: "Please provide a valid name with at least 3 characters.",
+  }),
+
+  urlSlug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, {
+      message:
+        "url slug must only contain lowercase characters, numbers and - (hyphens)",
+    })
+    .min(3, {
+      message: "Please enter a valid url slug",
+    }),
+});
+export type NewBrandFormFields = z.infer<typeof newCategoryFormSchema>;
+
+export type NewBrandFormState = {
+  errors?: {
+    name?: string[];
+    urlSlug?: string[];
+    image?: string[];
+    _form?: string[];
+  };
+  message?: string | null;
+  success?: boolean;
+};
+
+export type AdminLoginFormState =
   | {
       errors?: {
         username?: string[];

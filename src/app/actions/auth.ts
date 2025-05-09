@@ -1,7 +1,7 @@
 "use server";
 
 import { env } from "@/data/env/server";
-import { FormState, LoginFormSchema } from "@/lib/definitions";
+import { AdminLoginFormState, LoginFormSchema } from "@/lib/definitions";
 import { createSession, deleteSession } from "@/lib/session";
 import bcrypt from "bcrypt";
 import { redirect } from "next/navigation";
@@ -11,9 +11,9 @@ const validatePassword = async (password: string) => {
 };
 
 export async function login(
-  _state: FormState,
+  _state: AdminLoginFormState,
   formData: FormData,
-): Promise<FormState> {
+): Promise<AdminLoginFormState> {
   const fieldsValidation = LoginFormSchema.safeParse({
     username: formData.get("username"),
     password: formData.get("password"),
