@@ -19,16 +19,22 @@ const ProductsFilterTags = () => {
 
   const categoryQuery = useQuery({
     queryKey: [`category-${categoryId}`],
-    queryFn: async (): Promise<Category> => {
-      const res = await fetch(`/api/category?id=${categoryId}`);
-      return res.json();
+    queryFn: async (): Promise<Category | null> => {
+      if (categoryId) {
+        const res = await fetch(`/api/category?id=${categoryId}`);
+        return res.json();
+      }
+      return null;
     },
   });
   const brandQuery = useQuery({
     queryKey: [`brand-${brandId}`],
-    queryFn: async (): Promise<Brand> => {
-      const res = await fetch(`/api/brand?id=${brandId}`);
-      return res.json();
+    queryFn: async (): Promise<Brand | null> => {
+      if (brandId) {
+        const res = await fetch(`/api/brand?id=${brandId}`);
+        return res.json();
+      }
+      return null;
     },
   });
 
