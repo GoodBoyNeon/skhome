@@ -259,6 +259,8 @@ export async function createCategory(
       },
     });
 
+    revalidateTag("categories");
+
     return {
       errors: {},
       message: "Category created successfully!",
@@ -336,6 +338,7 @@ export async function createBrand(
       },
     });
 
+    revalidateTag("brands");
     return {
       errors: {},
       message: "Brand created successfully!",
