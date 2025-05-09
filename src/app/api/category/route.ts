@@ -1,3 +1,4 @@
+import { getCategories } from "@/db";
 import { prisma } from "@/lib/database";
 import { NextRequest } from "next/server";
 
@@ -16,6 +17,6 @@ export async function GET(req: NextRequest) {
             name,
           },
         })
-      : await prisma.category.findMany({});
+      : await getCategories();
   return Response.json(category);
 }

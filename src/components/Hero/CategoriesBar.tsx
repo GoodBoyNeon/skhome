@@ -1,13 +1,9 @@
-import { prisma } from "@/lib/database";
+import { getCategories } from "@/db";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Categories() {
-  const categories = await prisma.category.findMany({
-    orderBy: {
-      id: "asc",
-    },
-  });
+  const categories = await getCategories();
 
   return (
     <div className="bg-background m-2 flex justify-center gap-8 overflow-x-auto">

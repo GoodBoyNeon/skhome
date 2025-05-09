@@ -1,5 +1,5 @@
 import { config } from "@/config";
-import { prisma } from "@/lib/database";
+import { getBrands, getCategories } from "@/db";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { IconType } from "react-icons";
@@ -15,15 +15,17 @@ const sections = [
   },
   {
     title: "By Category",
-    links: (
-      await prisma.category.findMany({ select: { name: true, urlSlug: true } })
-    ).map(({ name, urlSlug }) => ({ name, href: `/category/${urlSlug}` })),
+    links: (await getCategories()).map(({ name, urlSlug }) => ({
+      name,
+      href: `/category/${urlSlug}`,
+    })),
   },
   {
     title: "By Brand",
-    links: (
-      await prisma.brand.findMany({ select: { name: true, urlSlug: true } })
-    ).map(({ name, urlSlug }) => ({ name, href: `/brand/${urlSlug}` })),
+    links: (await getBrands()).map(({ name, urlSlug }) => ({
+      name,
+      href: `/brand/${urlSlug}`,
+    })),
   },
 ];
 

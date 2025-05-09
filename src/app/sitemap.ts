@@ -1,31 +1,13 @@
-import { MetadataRoute } from "next";
 import { config } from "@/config";
-import { prisma } from "@/lib/database";
+import { getBrands, getCategories, getProducts } from "@/db";
+import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { baseUrl } = config;
 
-  const products = await prisma.product.findMany({
-    select: {
-      urlSlug: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
-  const categories = await prisma.category.findMany({
-    select: {
-      urlSlug: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
-  const brands = await prisma.brand.findMany({
-    select: {
-      urlSlug: true,
-      createdAt: true,
-      updatedAt: true,
-    },
-  });
+  const products = await getProducts();
+  const categories = await getCategories();
+  const brands = await getBrands();
 
   const productMaps: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${baseUrl}/product/${p.urlSlug}`,
@@ -50,7 +32,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     {
       url: `${baseUrl}/`,
       lastModified: new Date(),
-      changeFrequency: "monthly",
+      changeFrequency: "weekly",
       priority: 1,
     },
     {

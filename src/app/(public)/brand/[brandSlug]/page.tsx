@@ -1,38 +1,48 @@
 import FilterSidebar from "@/components/FilterSidebar";
+import ProductsFilterTags from "@/components/ProductsFilterTags";
 import ProductsList from "@/components/ProductsList";
 import SortMenu, { SortType } from "@/components/SortMenu";
 import SubHeading from "@/components/SubHeading";
-import { prisma } from "@/lib/database";
-import { filterProducts } from "@/lib/filterProducts";
-import { sortProducts } from "@/lib/sortProducts";
-import { notFound } from "next/navigation";
-import ProductsFilterTags from "@/components/ProductsFilterTags";
 import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getBrand, getBrands } from "@/db";
+import { prisma } from "@/lib/database";
+import { filterProducts } from "@/lib/filterProducts";
+import { sortProducts } from "@/lib/sortProducts";
 import { Filter } from "lucide-react";
-import React from "react";
+import { Metadata } from "next";
+import { notFound } from "next/navigation";
+
+export type Props = {
+  params: Promise<{ brandSlug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { brandSlug } = await params;
+
+  const brand = await getBrand(brandSlug);
+
+  return {
+    title: brand?.name,
+  };
+}
 
 export async function generateStaticParams() {
-  const brands = await prisma.brand.findMany();
+  const brands = await getBrands();
 
   return brands.map(({ urlSlug }) => ({
     brandSlug: urlSlug,
   }));
 }
 
-const Page = async (props: {
-  params: Promise<{ brandSlug: string }>;
-
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) => {
+const Page = async (props: Props) => {
   const params = await props.params;
-  const brand = await prisma.brand.findUnique({
-    where: { urlSlug: params.brandSlug },
-  });
+  const brand = await getBrand(params.brandSlug);
   if (!brand) notFound();
   const products = await prisma.product.findMany({
     where: {
@@ -44,13 +54,17 @@ const Page = async (props: {
 
   const sortedProducts = sortProducts(products, sortType);
 
+  let finalProducts = sortedProducts;
+
   const categoryFilter = (await props.searchParams).category;
 
-  const finalProducts = filterProducts(
-    sortedProducts,
-    "category",
-    parseInt(categoryFilter as string),
-  );
+  if (categoryFilter && typeof categoryFilter === "string") {
+    finalProducts = filterProducts(
+      sortedProducts,
+      "category",
+      parseInt(categoryFilter),
+    );
+  }
 
   return (
     <div className="min-h-screen lg:mx-16">

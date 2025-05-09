@@ -9,31 +9,39 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import { getCategories, getCategory } from "@/db";
 import { prisma } from "@/lib/database";
 import { filterProducts } from "@/lib/filterProducts";
 import { sortProducts } from "@/lib/sortProducts";
 import { Filter } from "lucide-react";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import React from "react";
+
+export type Props = {
+  params: Promise<{ categorySlug: string }>;
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { categorySlug } = await params;
+
+  const category = await getCategory(categorySlug);
+
+  return {
+    title: category?.name,
+  };
+}
 
 export async function generateStaticParams() {
-  const categories = await prisma.category.findMany();
+  const categories = await getCategories();
 
   return categories.map(({ urlSlug }) => ({
     categorySlug: urlSlug,
   }));
 }
 
-const CategoryPage = async ({
-  params,
-  searchParams,
-}: {
-  params: Promise<{ categorySlug: string }>;
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) => {
-  const category = await prisma.category.findUnique({
-    where: { urlSlug: (await params).categorySlug },
-  });
+const CategoryPage = async ({ params, searchParams }: Props) => {
+  const category = await getCategory((await params).categorySlug);
   if (!category) notFound();
   const products = await prisma.product.findMany({
     where: {
@@ -47,11 +55,15 @@ const CategoryPage = async ({
 
   const brandFilter = (await searchParams).brand;
 
-  const finalProducts = filterProducts(
-    sortedProducts,
-    "brand",
-    parseInt(brandFilter as string),
-  );
+  let finalProducts = sortedProducts;
+
+  if (brandFilter && typeof brandFilter === "string") {
+    finalProducts = filterProducts(
+      sortedProducts,
+      "brand",
+      parseInt(brandFilter),
+    );
+  }
 
   return (
     <div className="min-h-screen lg:mx-16">
