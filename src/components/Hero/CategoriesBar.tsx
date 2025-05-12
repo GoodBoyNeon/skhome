@@ -1,9 +1,9 @@
-import { getCategories } from "@/db";
+import { getAllCategories } from "@/db";
 import Image from "next/image";
 import Link from "next/link";
 
 export default async function Categories() {
-  const categories = await getCategories();
+  const categories = await getAllCategories();
 
   return (
     <div className="bg-background m-2 flex justify-center gap-8 overflow-x-auto">

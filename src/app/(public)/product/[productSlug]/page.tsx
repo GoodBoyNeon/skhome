@@ -1,6 +1,6 @@
 import ProductsList from "@/components/ProductsList";
 import SubHeading from "@/components/SubHeading";
-import { getProduct, getProducts } from "@/db";
+import { getProductBySlug, getAllProducts } from "@/db";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductViewContainer from "./ProductViewContainer";
@@ -15,7 +15,7 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { productSlug } = await params;
 
-  const product = await getProduct(productSlug);
+  const product = await getProductBySlug(productSlug);
 
   return {
     title: product?.name,
@@ -24,7 +24,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const products = await getProducts();
+  const products = await getAllProducts();
 
   return products.map(({ urlSlug }) => ({
     productSlug: urlSlug,
@@ -34,11 +34,11 @@ export async function generateStaticParams() {
 export default async function ProductPage(props: Props) {
   const params = await props.params;
 
-  const product = await getProduct(params.productSlug);
+  const product = await getProductBySlug(params.productSlug);
 
   if (!product) return notFound();
 
-  const allProducts = await getProducts();
+  const allProducts = await getAllProducts();
   const similar = allProducts.filter(
     (p) => p.categoryId === product.categoryId,
   );

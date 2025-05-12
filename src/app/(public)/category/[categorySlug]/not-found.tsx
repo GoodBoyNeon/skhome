@@ -1,10 +1,10 @@
 import ProductsList from "@/components/ProductsList";
 import SubHeading from "@/components/SubHeading";
-import { getProducts } from "@/db";
+import { getAllProducts } from "@/db";
 import { SearchIcon } from "lucide-react";
 
 export default async function NotFound() {
-  const otherProducts = await getProducts();
+  const otherProducts = await getAllProducts();
   return (
     <>
       <div className="m-12 flex flex-col items-center justify-center">

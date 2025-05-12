@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getBrand, getBrands } from "@/db";
+import { getBrandBySlug, getAllBrands } from "@/db";
 import { prisma } from "@/lib/database";
 import { filterProducts } from "@/lib/filterProducts";
 import { sortProducts } from "@/lib/sortProducts";
@@ -27,7 +27,7 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { brandSlug } = await params;
 
-  const brand = await getBrand(brandSlug);
+  const brand = await getBrandBySlug(brandSlug);
 
   return {
     title: brand?.name,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const brands = await getBrands();
+  const brands = await getAllBrands();
 
   return brands.map(({ urlSlug }) => ({
     brandSlug: urlSlug,
@@ -44,7 +44,7 @@ export async function generateStaticParams() {
 
 const Page = async (props: Props) => {
   const params = await props.params;
-  const brand = await getBrand(params.brandSlug);
+  const brand = await getBrandBySlug(params.brandSlug);
   if (!brand) notFound();
   const products = await prisma.product.findMany({
     where: {

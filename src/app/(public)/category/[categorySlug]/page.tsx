@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getCategories, getCategory } from "@/db";
+import { getAllCategories, getCategoryBySlug } from "@/db";
 import { prisma } from "@/lib/database";
 import { filterProducts } from "@/lib/filterProducts";
 import { sortProducts } from "@/lib/sortProducts";
@@ -27,7 +27,7 @@ export const revalidate = 3600;
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { categorySlug } = await params;
 
-  const category = await getCategory(categorySlug);
+  const category = await getCategoryBySlug(categorySlug);
 
   return {
     title: category?.name,
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export async function generateStaticParams() {
-  const categories = await getCategories();
+  const categories = await getAllCategories();
 
   return categories.map(({ urlSlug }) => ({
     categorySlug: urlSlug,
@@ -43,7 +43,7 @@ export async function generateStaticParams() {
 }
 
 const CategoryPage = async ({ params, searchParams }: Props) => {
-  const category = await getCategory((await params).categorySlug);
+  const category = await getCategoryBySlug((await params).categorySlug);
   if (!category) notFound();
   const products = await prisma.product.findMany({
     where: {

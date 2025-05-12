@@ -1,4 +1,4 @@
-import { getCategories } from "@/db";
+import { getAllCategories } from "@/db";
 import { prisma } from "@/lib/database";
 import { NextRequest } from "next/server";
 
@@ -17,6 +17,6 @@ export async function GET(req: NextRequest) {
             name,
           },
         })
-      : await getCategories();
+      : await getAllCategories();
   return Response.json(category);
 }

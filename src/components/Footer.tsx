@@ -1,5 +1,5 @@
 import { config } from "@/config";
-import { getBrands, getCategories } from "@/db";
+import { getAllBrands, getAllCategories } from "@/db";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
 import { IconType } from "react-icons";
@@ -15,14 +15,14 @@ const sections = [
   },
   {
     title: "By Category",
-    links: (await getCategories()).map(({ name, urlSlug }) => ({
+    links: (await getAllCategories()).map(({ name, urlSlug }) => ({
       name,
       href: `/category/${urlSlug}`,
     })),
   },
   {
     title: "By Brand",
-    links: (await getBrands()).map(({ name, urlSlug }) => ({
+    links: (await getAllBrands()).map(({ name, urlSlug }) => ({
       name,
       href: `/brand/${urlSlug}`,
     })),

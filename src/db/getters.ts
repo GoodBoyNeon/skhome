@@ -2,7 +2,7 @@ import { prisma } from "@/lib/database";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
 
-export const getProducts = unstable_cache(
+export const getAllProducts = unstable_cache(
   async () => {
     return await prisma.product.findMany();
   },
@@ -10,12 +10,12 @@ export const getProducts = unstable_cache(
   { revalidate: 3600, tags: ["products"] },
 );
 
-export const getProduct = cache(async (urlSlug: string) => {
+export const getProductBySlug = cache(async (urlSlug: string) => {
   const product = await prisma.product.findUnique({ where: { urlSlug } });
   return product;
 });
 
-export const getCategories = unstable_cache(
+export const getAllCategories = unstable_cache(
   async () => {
     return await prisma.category.findMany();
   },
@@ -23,12 +23,12 @@ export const getCategories = unstable_cache(
   { revalidate: 3600, tags: ["categories"] },
 );
 
-export const getCategory = cache(async (urlSlug: string) => {
+export const getCategoryBySlug = cache(async (urlSlug: string) => {
   const category = await prisma.category.findUnique({ where: { urlSlug } });
   return category;
 });
 
-export const getBrands = unstable_cache(
+export const getAllBrands = unstable_cache(
   async () => {
     return await prisma.brand.findMany();
   },
@@ -36,7 +36,7 @@ export const getBrands = unstable_cache(
   { revalidate: 3600, tags: ["brands"] },
 );
 
-export const getBrand = cache(async (urlSlug: string) => {
+export const getBrandBySlug = cache(async (urlSlug: string) => {
   const brand = await prisma.brand.findUnique({ where: { urlSlug } });
   return brand;
 });

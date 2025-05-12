@@ -9,7 +9,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { getProducts } from "@/db";
+import { getAllProducts } from "@/db";
 import { filterProducts } from "@/lib/filterProducts";
 import { sortProducts } from "@/lib/sortProducts";
 import { Filter } from "lucide-react";
@@ -19,7 +19,7 @@ const ProductsPage = async ({
 }: {
   searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
 }) => {
-  const products = await getProducts();
+  const products = await getAllProducts();
   const sortType = ((await searchParams).sort || "featured") as SortType;
   const categoryFilter = (await searchParams).category;
   const brandFilter = (await searchParams).brand;

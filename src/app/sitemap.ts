@@ -1,13 +1,13 @@
 import { config } from "@/config";
-import { getBrands, getCategories, getProducts } from "@/db";
+import { getAllBrands, getAllCategories, getAllProducts } from "@/db";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const { baseUrl } = config;
 
-  const products = await getProducts();
-  const categories = await getCategories();
-  const brands = await getBrands();
+  const products = await getAllProducts();
+  const categories = await getAllCategories();
+  const brands = await getAllBrands();
 
   const productMaps: MetadataRoute.Sitemap = products.map((p) => ({
     url: `${baseUrl}/product/${p.urlSlug}`,
