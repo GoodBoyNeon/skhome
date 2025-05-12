@@ -1,7 +1,7 @@
 import { monoFont } from "@/app/fonts";
 import { Separator } from "@/components/ui/separator";
 import { cn } from "@/lib/utils";
-import { Appliance, ServicingBooking } from "@prisma/client";
+import { Appliance, ServicingBooking } from "@/generated/prisma";
 import FormatStatus from "../../FormatStatus";
 import BookingStatusSection from "./BookingStatusSection";
 import { capitalize } from "@/lib/capitalize";

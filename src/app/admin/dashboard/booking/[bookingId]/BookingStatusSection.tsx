@@ -2,7 +2,7 @@
 
 import { updateBookingStatus } from "@/app/actions/admin";
 import { Button } from "@/components/ui/button";
-import { ServicingBooking } from "@prisma/client";
+import { ServicingBooking } from "@/generated/prisma";
 import { startTransition, useActionState } from "react";
 
 const BookingStatusSection = ({ booking }: { booking: ServicingBooking }) => {

@@ -4,7 +4,7 @@ import { monoFont } from "@/app/fonts";
 import ClipboardIcon from "@/components/ClipboardIcon";
 import { Button } from "@/components/ui/button";
 import { cn, pricify } from "@/lib/utils";
-import { Order, OrderStatus, ShippingMethod } from "@prisma/client";
+import { Order, OrderStatus, ShippingMethod } from "@/generated/prisma";
 import { ColumnDef } from "@tanstack/react-table";
 import { ArrowUpDown } from "lucide-react";
 import FormatStatus from "../FormatStatus";

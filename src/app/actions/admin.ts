@@ -9,7 +9,7 @@ import {
   NewProductFormSchema,
   NewProductFormState,
 } from "@/lib/definitions";
-import { ServicingBookingStatus } from "@prisma/client";
+import { ServicingBookingStatus } from "@/generated/prisma";
 import { del, put } from "@vercel/blob";
 import { revalidatePath, revalidateTag } from "next/cache";
 

@@ -2,7 +2,7 @@
 
 import { prisma } from "@/lib/database";
 import { decrypt, sessionCookieHelper } from "@/lib/session";
-import { OrderStatus } from "@prisma/client";
+import { OrderStatus } from "@/generated/prisma";
 import { revalidatePath } from "next/cache";
 import { cookies } from "next/headers";
 

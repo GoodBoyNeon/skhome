@@ -1,6 +1,6 @@
 import { Separator } from "@/components/ui/separator";
 import { pricify } from "@/lib/utils";
-import { Item, Order, Product } from "@prisma/client";
+import { Item, Order, Product } from "@/generated/prisma";
 import Image from "next/image";
 import FormatStatus from "../../FormatStatus";
 import OrderStatusSection from "./OrderStatus";

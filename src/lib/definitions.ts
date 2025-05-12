@@ -1,4 +1,4 @@
-import { PaymentMethod, ShippingMethod } from "@prisma/client";
+import { PaymentMethod, ShippingMethod } from "@/generated/prisma";
 import { z } from "zod";
 
 export type CheckoutType = "single" | "cart";

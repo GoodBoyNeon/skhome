@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Order } from "@prisma/client";
+import { Order } from "@/generated/prisma";
 import { startTransition, useActionState } from "react";
 import { updateOrderStatus } from "./actions";
 

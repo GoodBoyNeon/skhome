@@ -1,5 +1,5 @@
 import { SortType } from "@/components/SortMenu";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 
 export const sortProducts = (products: Product[], sortOption: SortType) => {
   return products.sort((a, b) => {

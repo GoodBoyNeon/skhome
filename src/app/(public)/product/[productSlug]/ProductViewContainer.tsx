@@ -3,7 +3,7 @@ import { Badge } from "@/components/ui/badge";
 import { prisma } from "@/lib/database";
 import { formatText } from "@/lib/formatText";
 import { pricify } from "@/lib/utils";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import { notFound } from "next/navigation";
 import ProductSidebar from "./ProductSidebar";
 import ProductViewCTO from "./ProductViewCTO";

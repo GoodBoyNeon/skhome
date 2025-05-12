@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/database";
 import { ServicingBookingFormFields } from "@/lib/definitions";
 import { generateId } from "@/lib/IdHelper";
-import { ApplianceType } from "@prisma/client";
+import { ApplianceType } from "@/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(request: NextRequest) {

@@ -20,7 +20,7 @@ import {
 import { monoFont } from "@/app/fonts";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { cn, pricify } from "@/lib/utils";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDown, ChevronRight, Pencil, Plus } from "lucide-react";
 import Image from "next/image";

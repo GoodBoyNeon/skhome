@@ -29,7 +29,7 @@ import {
 } from "@/lib/definitions";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ApplianceType } from "@prisma/client";
+import { ApplianceType } from "@/generated/prisma";
 import axios from "axios";
 import {
   ArrowRight,

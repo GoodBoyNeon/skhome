@@ -1,4 +1,4 @@
-import { OrderStatus, ServicingBookingStatus } from "@prisma/client";
+import { OrderStatus, ServicingBookingStatus } from "@/generated/prisma";
 import { Check, Info, Timer } from "lucide-react";
 
 const FormatStatus = ({

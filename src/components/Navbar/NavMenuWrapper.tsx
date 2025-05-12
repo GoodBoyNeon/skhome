@@ -5,7 +5,7 @@ import {
 } from "@/components/ui/navigation-menu";
 import { formatText } from "@/lib/formatText";
 import { cn } from "@/lib/utils";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { buttonVariants } from "../ui/button";

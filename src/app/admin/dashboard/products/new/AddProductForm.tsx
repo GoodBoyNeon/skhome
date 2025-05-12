@@ -27,7 +27,7 @@ import {
   NewProductFormState,
 } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Brand, Category } from "@prisma/client";
+import { Brand, Category } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, Trash2, Upload } from "lucide-react";
 import { useRef, useState, useTransition } from "react";

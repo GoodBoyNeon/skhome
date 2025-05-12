@@ -5,7 +5,7 @@ import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 import { Label } from "./ui/label";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Brand, Category } from "@prisma/client";
+import { Brand, Category } from "@/generated/prisma";
 
 const FilterSidebar = ({
   hideCategory,

@@ -1,5 +1,3 @@
-import { PaymentMethod } from "@prisma/client";
-import { Record } from "@prisma/client/runtime/library";
 import { customAlphabet } from "nanoid";
 
 export type IdType = "order" | "booking";

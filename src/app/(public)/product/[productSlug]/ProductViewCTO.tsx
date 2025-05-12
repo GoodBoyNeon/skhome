@@ -1,6 +1,6 @@
 "use client";
 
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";

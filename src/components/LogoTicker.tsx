@@ -4,7 +4,7 @@ import { motion } from "motion/react";
 import React, { Fragment } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { Brand } from "@prisma/client";
+import { Brand } from "@/generated/prisma";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
 

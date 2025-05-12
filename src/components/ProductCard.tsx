@@ -2,7 +2,7 @@
 
 import { useCartStore } from "@/hooks/useCart";
 import { pricify } from "@/lib/utils";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import Image from "next/image";
 import Link from "next/link";
 import { toast } from "sonner";

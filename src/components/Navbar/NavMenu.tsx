@@ -1,6 +1,6 @@
 "use client";
 
-import { Category, Product } from "@prisma/client";
+import { Category, Product } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import NavMenuWrapper from "./NavMenuWrapper";

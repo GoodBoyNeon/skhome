@@ -1,4 +1,4 @@
-import { Brand, Category } from "@prisma/client";
+import { Brand, Category } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Skeleton } from "./ui/skeleton";
@@ -30,7 +30,7 @@ const ProductCardSubHead = ({
   }
 
   if (categoryRes.isLoading || brandRes.isLoading) {
-    return <Skeleton className="w-[120px] h-[12px]" />;
+    return <Skeleton className="h-[12px] w-[120px]" />;
   }
 
   const { data: category } = categoryRes;
@@ -38,7 +38,7 @@ const ProductCardSubHead = ({
   return (
     <>
       {category && brand && (
-        <h2 className="text-xs tracking-tight text-muted-foreground">
+        <h2 className="text-muted-foreground text-xs tracking-tight">
           {brand.name} &bull; {category.name}
         </h2>
       )}

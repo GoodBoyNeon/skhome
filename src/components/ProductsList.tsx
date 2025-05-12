@@ -1,6 +1,6 @@
 import React from "react";
 import ProductCard from "./ProductCard";
-import { Product } from "@prisma/client";
+import { Product } from "@/generated/prisma";
 import { cn } from "@/lib/utils";
 import SubHeading from "./SubHeading";
 
