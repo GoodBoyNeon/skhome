@@ -30,23 +30,24 @@ model Brand {
 }
 
 model Product {
-  id          Int      @id @default(autoincrement())
-  name        String
-  description String
-  urlSlug     String   @unique
-  MRP         Int
-  price       Int
-  stock       Int
-  images      String[]
-  tags        String[]
-  pIndex      Int      @default(0)
-  categoryId  Int
-  brandId     Int
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Item        Item[]
-  brand       Brand    @relation(fields: [brandId], references: [id])
-  category    Category @relation(fields: [categoryId], references: [id])
+  id                       Int      @id @default(autoincrement())
+  name                     String
+  description              String
+  urlSlug                  String   @unique
+  MRP                      Int
+  price                    Int
+  stock                    Int
+  images                   String[]
+  tags                     String[]
+  pIndex                   Int      @default(0)
+  categoryId               Int
+  insideValleyShippingCost Int      @default(0)
+  brandId                  Int
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+  Item                     Item[]
+  brand                    Brand    @relation(fields: [brandId], references: [id])
+  category                 Category @relation(fields: [categoryId], references: [id])
 }
 
 model Item {
