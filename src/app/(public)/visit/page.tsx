@@ -12,11 +12,10 @@ const Visit = () => {
       <Heading className="text-center">Visit Us</Heading>
 
       <p className="text-muted-foreground my-4 text-justify md:m-6 md:text-center lg:m-8 lg:text-lg">
-        Our physical store is located at Radhe Radhe, Bhaktapur. We always
-        recommend you visit us to learn more about the products you&apos;d like
-        to buy or to see it in action. You may also give us a call on
-        985-1181186 or 01-6635223 to learn more about the product you&apos;re
-        interested in.
+        Our showroom is located at Radhe Radhe, Bhaktapur. We always recommend
+        you visit us to learn more about the products you&apos;d like to buy or
+        to see it in action. You may also give us a call on 985-1181186 or
+        01-6635223 to learn more about the product you&apos;re interested in.
         <br />
         <br />
         <span className="font-semibold text-slate-500">

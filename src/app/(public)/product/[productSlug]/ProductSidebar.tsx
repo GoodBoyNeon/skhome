@@ -79,7 +79,7 @@ export default function ProductSidebar() {
         <Separator className="my-2" />
 
         <p className="text-muted-foreground text-base tracking-tight">
-          You may also visit our store at Radhe Radhe, Bhaktapur.{" "}
+          You may also visit our showroom at Radhe Radhe, Bhaktapur.{" "}
           <Link
             prefetch
             className="text-primary hover:underline"
