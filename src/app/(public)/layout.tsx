@@ -1,17 +1,13 @@
 import "@/app/globals.css";
 
-import { bodyFont } from "@/app/fonts";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";
-import QueryProvider from "@/components/QueryProvider";
-import { Toaster } from "sonner";
-import { cn } from "@/lib/utils";
+import { env as clientEnv } from "@/data/env/client";
+import { config } from "@/siteConfig";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
-import { env as clientEnv } from "@/data/env/client";
-import { config } from "@/config";
 
 export const metadata: Metadata = {
   metadataBase: new URL(clientEnv.NEXT_PUBLIC_BASE_URL),

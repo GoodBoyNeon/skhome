@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "@/siteConfig";
 import { getAllBrands, getAllCategories, getAllProducts } from "@/db";
 import { MetadataRoute } from "next";
 

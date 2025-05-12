@@ -21,28 +21,13 @@ import { redirect } from "next/navigation";
 import { type Dispatch, type SetStateAction, useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { pricify } from "@/lib/utils";
 
 type ShippingType = {
   id: ShippingMethod;
   label: string;
+  description: string;
   priceLabel: string;
-};
-const shippingTypes: ShippingType[] = [
-  {
-    id: "INSIDE_VALLEY",
-    label: "Inside Kathmandu Valley",
-    priceLabel: "FREE",
-  },
-  {
-    id: "OUTSIDE_VALLEY",
-    label: "Outside Kathmandu Valley",
-    priceLabel: "variable",
-  },
-] as const;
-
-const shippingCostLookup: Record<ShippingMethod, number | null> = {
-  INSIDE_VALLEY: 0,
-  OUTSIDE_VALLEY: null,
 };
 
 const paymentMethodSchema = z.enum(["COD"]);
@@ -51,12 +36,6 @@ type PaymentType = {
   id: PaymentMethod;
   label: string;
 };
-const paymentTypes: PaymentType[] = [
-  {
-    id: "COD",
-    label: "Cash on Delivery (COD)",
-  },
-] as const;
 
 type FormFields = z.infer<typeof CheckoutFormSchema>;
 
@@ -130,6 +109,15 @@ const CheckoutForm = ({
       redirect(`/order/confirmed?orderId=${res.data.orderId}`);
     }
   }
+  const insideValleyShipping = items.reduce(
+    (total, item) => total + item.product.insideValleyShippingCost,
+    0,
+  );
+  const shippingCostLookup: Record<ShippingMethod, number | null> = {
+    INSIDE_VALLEY: insideValleyShipping,
+    OUTSIDE_VALLEY: null,
+    STORE_PICKUP: 0,
+  };
 
   const handleShippingMethodChange = (value: ShippingMethod) => {
     setShippingMethod(value);
@@ -140,6 +128,37 @@ const CheckoutForm = ({
     setPaymentMethod(value);
     setValue("paymentMethod", value);
   };
+
+  const shippingTypes: ShippingType[] = [
+    {
+      id: "INSIDE_VALLEY",
+      label: "Inside Kathmandu Valley",
+      description: "Deliver anywhere inside Kathmanu Valley",
+      priceLabel:
+        insideValleyShipping === 0 ? "FREE" : pricify(insideValleyShipping),
+    },
+    {
+      id: "OUTSIDE_VALLEY",
+      label: "Outside Kathmandu Valley",
+      description: "Deliver anywhere outside Kathmandu Valley (within Nepal)",
+      priceLabel: "variable",
+    },
+    {
+      id: "STORE_PICKUP",
+      label: "Store Pickup",
+      description:
+        "Pickup your item(s) from our store at Radhe Radhe, Bhaktapur. (We're open on Saturdays too!)",
+      priceLabel: "FREE",
+    },
+  ] as const;
+
+  const paymentTypes: PaymentType[] = [
+    {
+      id: "COD",
+      label: "Cash on Delivery (COD)",
+    },
+  ] as const;
+
   return (
     <Form {...form}>
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-8">
@@ -265,7 +284,14 @@ const CheckoutForm = ({
                 >
                   <div className="flex items-center space-x-2">
                     <RadioGroupItem value={s.id} id={s.id}></RadioGroupItem>
-                    <Label htmlFor={s.id}>{s.label}</Label>
+                    <div>
+                      <Label htmlFor={s.id}>
+                        <span>{s.label}</span>
+                        <p className="text-muted-foreground text-sm font-normal">
+                          {s.description}
+                        </p>
+                      </Label>
+                    </div>
                   </div>
                   <div className="font-semibold">{s.priceLabel}</div>
                 </div>

@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "@/siteConfig";
 import { getAllBrands, getAllCategories } from "@/db";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";

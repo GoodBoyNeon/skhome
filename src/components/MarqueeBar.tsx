@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "@/siteConfig";
 import React from "react";
 import Marquee from "react-fast-marquee";
 
@@ -11,7 +11,7 @@ function MarqueeBar() {
       speed={75}
     >
       {config.announcementTexts.map((str) => (
-        <p key={str} className="px-32 md:px-48 lg:px-56 text-sm py-1.5">
+        <p key={str} className="px-32 py-1.5 text-sm md:px-48 lg:px-56">
           {str}
         </p>
       ))}

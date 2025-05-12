@@ -1,4 +1,4 @@
-import { config } from "@/config";
+import { config } from "@/siteConfig";
 import { MetadataRoute } from "next";
 
 export default function robots(): MetadataRoute.Robots {

@@ -103,6 +103,7 @@ model Appliance {
 enum ShippingMethod {
   INSIDE_VALLEY
   OUTSIDE_VALLEY
+  STORE_PICKUP
 }
 
 enum PaymentMethod {

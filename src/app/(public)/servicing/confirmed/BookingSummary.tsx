@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { config } from "@/config";
+import { config } from "@/siteConfig";
 import { getDateFromId } from "@/lib/IdHelper";
 import { MailQuestion, PhoneCall } from "lucide-react";
 import Link from "next/link";

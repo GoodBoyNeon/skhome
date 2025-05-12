@@ -1,6 +1,7 @@
 "use client";
 
 import { type CartItem, useCartStore } from "@/hooks/useCart";
+import { productsToSearchParams } from "@/lib/productParamHelper";
 import { pricify } from "@/lib/utils";
 import { ScrollArea } from "@radix-ui/react-scroll-area";
 import { ShoppingCart, X } from "lucide-react";
@@ -16,14 +17,18 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "./ui/sheet";
-import { productsToSearchParams } from "@/lib/productParamHelper";
 
 const Cart = () => {
   const { items } = useCartStore();
-  const totalPrice = items
-    .map((item) => item.product.price * item.quantity)
-    .reduce((price, total) => total + price, 0);
   const count = items.length;
+
+  const [totalPrice, totalShipping] = items.reduce(
+    ([priceSum, shippingSum], item) => [
+      priceSum + item.product.price,
+      shippingSum + item.product.insideValleyShippingCost,
+    ],
+    [0, 0],
+  );
 
   return (
     <Sheet>
@@ -63,7 +68,10 @@ const Cart = () => {
               </div>
               <div className="flex justify-between">
                 <p>Delivery fee</p>
-                <p>Free (inside valley)</p>
+                <p>
+                  {totalShipping === 0 ? "FREE" : pricify(totalShipping)}{" "}
+                  (inside valley)
+                </p>
               </div>
               <div className="flex justify-between pt-1 pb-4 font-semibold text-black">
                 <p>Total</p>
