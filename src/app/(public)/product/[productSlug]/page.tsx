@@ -1,6 +1,6 @@
 import ProductsList from "@/components/ProductsList";
 import SubHeading from "@/components/SubHeading";
-import { getProductBySlug, getAllProducts } from "@/db";
+import { getAllProducts, getProductBySlug } from "@/db";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductViewContainer from "./ProductViewContainer";

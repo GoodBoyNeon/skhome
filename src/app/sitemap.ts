@@ -1,9 +1,9 @@
-import { config } from "@/siteConfig";
+import { siteConfig } from "@/siteConfig";
 import { getAllBrands, getAllCategories, getAllProducts } from "@/db";
 import { MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const { baseUrl } = config;
+  const { baseUrl } = siteConfig;
 
   const products = await getAllProducts();
   const categories = await getAllCategories();

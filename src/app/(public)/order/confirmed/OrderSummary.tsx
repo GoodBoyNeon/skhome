@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { config } from "@/siteConfig";
+import { siteConfig } from "@/siteConfig";
 import { getDateFromId } from "@/lib/IdHelper";
 import { MailQuestion, PhoneCall } from "lucide-react";
 import Link from "next/link";
@@ -41,7 +41,7 @@ const OrderSummary = ({ orderId }: { orderId: string }) => {
               <div>
                 <p className="font-medium">Reach Us</p>
                 <p className="text-sm text-gray-600">
-                  {config.contact.map((c, i) => (
+                  {siteConfig.contact.map((c, i) => (
                     <Fragment key={i}>
                       <span>{c}</span>
                       <br />

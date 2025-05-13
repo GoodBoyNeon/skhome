@@ -1,4 +1,4 @@
-import { config } from "@/siteConfig";
+import { siteConfig } from "@/siteConfig";
 import { getAllBrands, getAllCategories } from "@/db";
 import { Mail, Phone } from "lucide-react";
 import Link from "next/link";
@@ -57,12 +57,12 @@ const Footer = () => {
               <div className="flex items-center gap-2 lg:justify-start">
                 <Link prefetch href="/">
                   <h2 className="text-xl font-semibold">
-                    {config.metadata.title}
+                    {siteConfig.metadata.title}
                   </h2>
                 </Link>
               </div>
               <p className="text-muted-foreground text-sm">
-                {config.metadata.description}
+                {siteConfig.metadata.description}
               </p>
               <ul className="text-muted-foreground flex items-center space-x-6">
                 {socials.map((s, i) => (
@@ -83,13 +83,13 @@ const Footer = () => {
                 ))}
               </ul>
               <ul className="text-muted-foreground space-y-0.5 text-sm">
-                {config.phone.map((p, i) => (
+                {siteConfig.phone.map((p, i) => (
                   <li key={i} className="flex gap-1.5">
                     <Phone className="size-5" /> {p}
                   </li>
                 ))}
                 <li className="flex gap-1.5">
-                  <Mail className="size-5" /> {config.email}
+                  <Mail className="size-5" /> {siteConfig.email}
                 </li>
               </ul>
             </div>

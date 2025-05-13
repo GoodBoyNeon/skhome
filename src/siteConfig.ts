@@ -1,4 +1,4 @@
-export const config = {
+export const siteConfig = {
   metadata: {
     title: "S.K. Home Traders",
     description:
@@ -20,10 +20,10 @@ export const config = {
   },
   contact: ["985-1181186", "info@skhometraders.com.np"],
   email: "info@skhometraders.com.np",
-  phone: ["985-1181186", "98-49508186"],
+  phone: ["01-6635223", "9851181186", "9849508186"],
   baseUrl: "https://skhometraders.com.np",
   announcementTexts: [
-    "Get FREE delivery inside valley on all products!",
+    "Get FREE delivery inside valley on products above Rs 2000!",
     "FREE Electric Kettle on purchase of KENT products",
     "Buy Solar Water Heaters on CLEARANCE Sale!",
   ],
