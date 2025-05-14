@@ -5,6 +5,8 @@ import ProductsList from "../ProductsList";
 import { Button } from "../ui/button";
 import Link from "next/link";
 
+export const revalidate = 600;
+
 const FeaturedProducts = async () => {
   const products = await prisma.product.findMany({
     orderBy: {

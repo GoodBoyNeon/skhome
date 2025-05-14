@@ -13,7 +13,7 @@ const About = () => {
       </div>
       <div className="mt-[260px]"></div>
       <div className="min-h-screen md:m-12 lg:m-16">
-        <Heading>Welcome to S.K. Home Traders</Heading>
+        <Heading className="text-center">Welcome to S.K. Home Traders</Heading>
 
         <p className="text-muted-foreground px-14 text-center text-balance lg:mt-8 lg:px-24 lg:text-lg">
           S.K Home Traders has been a trusted destination for home appliances

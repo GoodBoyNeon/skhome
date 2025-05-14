@@ -7,7 +7,7 @@ export const getAllProducts = unstable_cache(
     return await prisma.product.findMany();
   },
   ["products"],
-  { revalidate: 3600, tags: ["products"] },
+  { revalidate: 600, tags: ["products"] },
 );
 
 export const getProductBySlug = cache(async (urlSlug: string) => {
@@ -20,7 +20,7 @@ export const getAllCategories = unstable_cache(
     return await prisma.category.findMany();
   },
   ["categories"],
-  { revalidate: 3600, tags: ["categories"] },
+  { revalidate: 600, tags: ["categories"] },
 );
 
 export const getCategoryBySlug = cache(async (urlSlug: string) => {
@@ -33,7 +33,7 @@ export const getAllBrands = unstable_cache(
     return await prisma.brand.findMany();
   },
   ["brands"],
-  { revalidate: 3600, tags: ["brands"] },
+  { revalidate: 600, tags: ["brands"] },
 );
 
 export const getBrandBySlug = cache(async (urlSlug: string) => {
