@@ -1,43 +1,30 @@
 "use client";
 
-import {
-  DropdownMenu,
-  DropdownMenuSub,
-  DropdownMenuItem,
-  DropdownMenuGroup,
-  DropdownMenuLabel,
-  DropdownMenuPortal,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-  DropdownMenuShortcut,
-  DropdownMenuRadioItem,
-  DropdownMenuSeparator,
-  DropdownMenuRadioGroup,
-  DropdownMenuSubContent,
-  DropdownMenuSubTrigger,
-  DropdownMenuCheckboxItem,
-} from "@/components/ui/dropdown-menu";
 import { monoFont } from "@/app/fonts";
 import { Button, buttonVariants } from "@/components/ui/button";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { cn, pricify } from "@/lib/utils";
-import { Product } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
-import { ChevronDown, ChevronRight, Pencil, Plus } from "lucide-react";
+import { ChevronDown, Pencil, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { DeleteProductDialog } from "./delete-product-dialog";
+import { getAllProducts } from "@/db";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const AdminProductsPage = () => {
   const productsResp = useQuery({
     queryKey: ["products"],
-    queryFn: async (): Promise<Product[]> => {
-      const res = await fetch(`/api/product`);
-      return res.json();
-    },
+    queryFn: async () => await getAllProducts(),
   });
 
   if (productsResp.isLoading) {
-    return "Loading...";
+    return <Skeleton className="h-[600px] w-3xl" />;
   }
   if (productsResp.error) {
     throw new Error(productsResp.error?.message);

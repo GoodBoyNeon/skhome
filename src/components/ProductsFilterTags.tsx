@@ -9,6 +9,7 @@ import { X } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { FilterType } from "@/lib/filterProducts";
 import { useRouter } from "next/navigation";
+import { getBrandById, getCategoryById } from "@/db";
 
 const ProductsFilterTags = () => {
   const router = useRouter();
@@ -18,21 +19,19 @@ const ProductsFilterTags = () => {
   const filters = [];
 
   const categoryQuery = useQuery({
-    queryKey: [`category-${categoryId}`],
-    queryFn: async (): Promise<Category | null> => {
+    queryKey: ["category", categoryId],
+    queryFn: async () => {
       if (categoryId) {
-        const res = await fetch(`/api/category?id=${categoryId}`);
-        return res.json();
+        return await getCategoryById(parseInt(categoryId));
       }
       return null;
     },
   });
   const brandQuery = useQuery({
-    queryKey: [`brand-${brandId}`],
-    queryFn: async (): Promise<Brand | null> => {
+    queryKey: ["brand", brandId],
+    queryFn: async () => {
       if (brandId) {
-        const res = await fetch(`/api/brand?id=${brandId}`);
-        return res.json();
+        return await getBrandById(parseInt(brandId));
       }
       return null;
     },

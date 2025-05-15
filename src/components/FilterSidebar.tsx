@@ -1,11 +1,12 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
-import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
-import { Label } from "./ui/label";
+import { getAllBrands, getAllCategories } from "@/db";
+import { Brand } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { Brand, Category } from "@/generated/prisma";
+import { useEffect, useState } from "react";
+import { Label } from "./ui/label";
+import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
 
 const FilterSidebar = ({
   hideCategory,
@@ -16,17 +17,11 @@ const FilterSidebar = ({
 }) => {
   const categoriesQuery = useQuery({
     queryKey: ["categories"],
-    queryFn: async (): Promise<Category[]> => {
-      const res = await fetch(`/api/category`);
-      return res.json();
-    },
+    queryFn: async () => await getAllCategories(),
   });
   const brandsQuery = useQuery({
     queryKey: ["brands"],
-    queryFn: async (): Promise<Brand[]> => {
-      const res = await fetch("/api/brand");
-      return res.json();
-    },
+    queryFn: async () => await getAllBrands(),
   });
 
   if (categoriesQuery.error || brandsQuery.error) {

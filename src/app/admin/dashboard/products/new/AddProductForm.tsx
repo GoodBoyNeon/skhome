@@ -27,12 +27,12 @@ import {
   NewProductFormState,
 } from "@/lib/definitions";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Brand, Category } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import { Loader2, Trash2, Upload } from "lucide-react";
 import { useRef, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
+import { getAllBrands, getAllCategories } from "@/db";
 
 const AddProductForm = () => {
   const [images, setImages] = useState<File[]>([]);
@@ -61,17 +61,11 @@ const AddProductForm = () => {
 
   const categoriesRes = useQuery({
     queryKey: ["categories"],
-    queryFn: async (): Promise<Category[]> => {
-      const res = await fetch(`/api/category`);
-      return res.json();
-    },
+    queryFn: async () => await getAllCategories(),
   });
   const brandsRes = useQuery({
     queryKey: ["brands"],
-    queryFn: async (): Promise<Brand[]> => {
-      const res = await fetch(`/api/brand`);
-      return res.json();
-    },
+    queryFn: async () => await getAllBrands(),
   });
 
   if (categoriesRes.isLoading || brandsRes.isLoading) {

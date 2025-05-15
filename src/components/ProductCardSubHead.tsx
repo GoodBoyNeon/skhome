@@ -1,7 +1,7 @@
-import { Brand, Category } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 import { Skeleton } from "./ui/skeleton";
+import { getBrandById, getCategoryById } from "@/db";
 
 const ProductCardSubHead = ({
   categoryId,
@@ -10,31 +10,26 @@ const ProductCardSubHead = ({
   categoryId: number;
   brandId: number;
 }) => {
-  const categoryRes = useQuery({
-    queryKey: [`category-${categoryId}`],
-    queryFn: async (): Promise<Category> => {
-      const res = await fetch(`/api/category?id=${categoryId}`);
-      return res.json();
-    },
-  });
-  const brandRes = useQuery({
-    queryKey: [`brand-${brandId}`],
-    queryFn: async (): Promise<Brand> => {
-      const res = await fetch(`/api/brand?id=${brandId}`);
-      return res.json();
-    },
+  const categoryResp = useQuery({
+    queryKey: ["category", categoryId],
+    queryFn: async () => await getCategoryById(categoryId),
   });
 
-  if (categoryRes.error || brandRes.error) {
+  const brandResp = useQuery({
+    queryKey: ["brand", brandId],
+    queryFn: async () => await getBrandById(brandId),
+  });
+
+  if (categoryResp.error || brandResp.error) {
     return "Error!";
   }
 
-  if (categoryRes.isLoading || brandRes.isLoading) {
+  if (categoryResp.isLoading || brandResp.isLoading) {
     return <Skeleton className="h-[12px] w-[120px]" />;
   }
 
-  const { data: category } = categoryRes;
-  const { data: brand } = brandRes;
+  const { data: category } = categoryResp;
+  const { data: brand } = brandResp;
   return (
     <>
       {category && brand && (

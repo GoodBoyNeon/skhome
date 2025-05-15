@@ -4,9 +4,9 @@ import { motion } from "motion/react";
 import React, { Fragment } from "react";
 import Image from "next/image";
 import { useQuery } from "@tanstack/react-query";
-import { Brand } from "@/generated/prisma";
 import { Skeleton } from "./ui/skeleton";
 import Link from "next/link";
+import { getAllBrands } from "@/db";
 
 const LoadingSkeleton = () => {
   return (
@@ -40,10 +40,7 @@ export default function LogoTicker() {
     isLoading,
   } = useQuery({
     queryKey: ["brands"],
-    queryFn: async (): Promise<Brand[]> => {
-      const res = await fetch("/api/brand");
-      return res.json();
-    },
+    queryFn: async () => await getAllBrands(),
   });
 
   if (error) {

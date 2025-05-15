@@ -1,24 +1,17 @@
 "use client";
 
-import { Category, Product } from "@/generated/prisma";
+import { getAllCategories, getAllProducts } from "@/db";
 import { useQuery } from "@tanstack/react-query";
-import React from "react";
 import NavMenuWrapper from "./NavMenuWrapper";
 
 const NavMenu = ({ title, category }: { title: string; category: string }) => {
   const productsRes = useQuery({
     queryKey: ["products"],
-    queryFn: async (): Promise<Product[]> => {
-      const res = await fetch(`/api/product`);
-      return res.json();
-    },
+    queryFn: async () => await getAllProducts(),
   });
   const categoriesRes = useQuery({
     queryKey: ["categories"],
-    queryFn: async (): Promise<Category[]> => {
-      const res = await fetch(`/api/category`);
-      return res.json();
-    },
+    queryFn: async () => await getAllCategories(),
   });
 
   if (productsRes.isLoading || categoriesRes.isLoading) {

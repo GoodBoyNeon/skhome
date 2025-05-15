@@ -15,6 +15,11 @@ export const getProductBySlug = cache(async (urlSlug: string) => {
   return product;
 });
 
+export const getProductById = cache(async (id: number) => {
+  const product = await prisma.product.findUnique({ where: { id } });
+  return product;
+});
+
 export const getAllCategories = unstable_cache(
   async () => {
     return await prisma.category.findMany();
@@ -28,6 +33,11 @@ export const getCategoryBySlug = cache(async (urlSlug: string) => {
   return category;
 });
 
+export const getCategoryById = cache(async (id: number) => {
+  const category = await prisma.category.findUnique({ where: { id } });
+  return category;
+});
+
 export const getAllBrands = unstable_cache(
   async () => {
     return await prisma.brand.findMany();
@@ -38,5 +48,10 @@ export const getAllBrands = unstable_cache(
 
 export const getBrandBySlug = cache(async (urlSlug: string) => {
   const brand = await prisma.brand.findUnique({ where: { urlSlug } });
+  return brand;
+});
+
+export const getBrandById = cache(async (id: number) => {
+  const brand = await prisma.brand.findUnique({ where: { id } });
   return brand;
 });
