@@ -11,6 +11,7 @@ export const siteConfig = {
       "appliances",
       "solar",
       "chimney",
+      "kitchen",
       "water purfier",
       "water filter",
       "fridge",
