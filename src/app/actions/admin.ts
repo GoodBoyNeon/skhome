@@ -79,9 +79,13 @@ export async function createProduct(
 
   try {
     const imageUploadPromises = imageFiles.map(async (file, i) => {
-      const blob = await put(`product/${urlSlug}-${i}`, file, {
-        access: "public",
-      });
+      const blob = await put(
+        `brand/${urlSlug}-${i}.${file.type.split("/").at(1)}`,
+        file,
+        {
+          access: "public",
+        },
+      );
       return blob.url;
     });
 
@@ -246,9 +250,13 @@ export async function createCategory(
 
   try {
     const imageUrl = (
-      await put(`category/${urlSlug}`, imageFile, {
-        access: "public",
-      })
+      await put(
+        `category/${urlSlug}.${imageFile.type.split("/").at(1)}`,
+        imageFile,
+        {
+          access: "public",
+        },
+      )
     ).url;
 
     await prisma.category.create({
@@ -325,9 +333,13 @@ export async function createBrand(
 
   try {
     const imageUrl = (
-      await put(`brand/${urlSlug}`, imageFile, {
-        access: "public",
-      })
+      await put(
+        `brand/${urlSlug}.${imageFile.type.split("/").at(1)}`,
+        imageFile,
+        {
+          access: "public",
+        },
+      )
     ).url;
 
     await prisma.brand.create({
@@ -357,7 +369,7 @@ export async function createBrand(
 }
 
 export async function updateBookingStatus(
-  _: any,
+  _: unknown,
   {
     bookingId,
     newStatus,
