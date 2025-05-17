@@ -19,18 +19,22 @@ const SearchBar = () => {
     router.push(`/search?q=${encodeURIComponent(searchQuery.trim())}`);
   };
   return (
-    <form className="flex-1 min-h-max" onSubmit={handleSearch}>
-      <div className="relative flex items-center w-full bg-gray-100 rounded-lg dark:bg-gray-800 dark:text-gray-400 dark:focus-within:text-gray-400">
+    <form className="min-h-max flex-1" onSubmit={handleSearch}>
+      <div className="relative flex w-full items-center rounded-lg bg-gray-100 dark:bg-gray-800 dark:text-gray-400 dark:focus-within:text-gray-400">
         <Input
-          className="appearance-none w-full bg-transparent border-none"
+          className="w-full appearance-none border-none bg-transparent"
           id="search"
           ref={inputRef}
           placeholder="Search for products"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
-        <button className="cursor-pointer" type="submit">
-          <Search className="w-4 h-4 m-3 inset-y-0 right-0 z-10" />
+        <button
+          className="cursor-pointer"
+          type="submit"
+          aria-label="search-button"
+        >
+          <Search className="inset-y-0 right-0 z-10 m-3 h-4 w-4" />
         </button>
       </div>
     </form>

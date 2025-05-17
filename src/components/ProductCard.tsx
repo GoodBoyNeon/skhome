@@ -59,7 +59,7 @@ export default function ProductCard(product: Product) {
                     {pricify(MRP, true)}
                   </s>
 
-                  <p className="text-red-500">-{discountPercentage}%</p>
+                  <p className="text-red-600">-{discountPercentage}%</p>
                 </div>
               </div>
             </div>
