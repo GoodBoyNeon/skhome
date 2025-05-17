@@ -1,3 +1,5 @@
+"use server";
+
 import { prisma } from "@/lib/database";
 import { unstable_cache } from "next/cache";
 import { cache } from "react";
