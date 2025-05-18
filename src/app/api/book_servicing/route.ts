@@ -1,6 +1,6 @@
 import { prisma } from "@/lib/database";
 import { ServicingBookingFormFields } from "@/lib/definitions";
-import { generateId } from "@/lib/IdHelper";
+import { generateId } from "@/lib/idHelpers";
 import { ApplianceType } from "@/generated/prisma";
 import { NextRequest, NextResponse } from "next/server";
 

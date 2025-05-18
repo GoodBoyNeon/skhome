@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { siteConfig } from "@/siteConfig";
-import { getDateFromId } from "@/lib/IdHelper";
+import { getDateFromId } from "@/lib/idHelpers";
 import { MailQuestion, PhoneCall } from "lucide-react";
 import Link from "next/link";
 import { Fragment } from "react";

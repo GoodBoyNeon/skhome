@@ -1,6 +1,6 @@
 import { env } from "@/data/env/server";
 import { prisma } from "@/lib/database";
-import { generateId } from "@/lib/IdHelper";
+import { generateId } from "@/lib/idHelpers";
 import { NextRequest, NextResponse } from "next/server";
 import mailer from "nodemailer";
 import { CheckoutItem } from "../checkout/route";
