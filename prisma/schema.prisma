@@ -75,7 +75,7 @@ model Order {
   discount       Float
   total          Float
   postalCode     String?
-  status         OrderStatus    @default(PENDING)
+  status         OrderStatus    @default(PLACED)
   items          Item[]
 }
 
@@ -111,9 +111,11 @@ enum PaymentMethod {
 }
 
 enum OrderStatus {
-  PENDING
+  PLACED
   PROCESSING
   COMPLETED
+  CANCELLED
+  RETURNED
 }
 
 enum ServicingBookingStatus {
