@@ -2,6 +2,8 @@ import { Categories, FeaturedProducts, PromoSlides } from "@/components/Hero";
 import LogoTicker from "@/components/LogoTicker";
 import ServicingBanner from "@/components/Servicing/ServicingBanner";
 
+export const revalidate = 600;
+
 export default async function Home() {
   return (
     <>
