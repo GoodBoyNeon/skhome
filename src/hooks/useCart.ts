@@ -17,7 +17,7 @@ type CartState = {
 
 export const useCartStore = create<CartState>()(
   persist(
-    (set, get) => ({
+    (set, _get) => ({
       items: [],
       addItem: (product, quantity) =>
         set((state) => {
@@ -36,7 +36,7 @@ export const useCartStore = create<CartState>()(
           const index = state.items.findIndex(
             (p) => p.product.id === product.id,
           );
-          let newItems = state.items;
+          const newItems = state.items;
           newItems[index] = newProduct;
           return {
             items: newItems,

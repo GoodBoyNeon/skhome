@@ -61,6 +61,7 @@ export async function POST(request: NextRequest) {
     from: env.EMAIL,
     to: env.ORDER_PLACEMENT_EMAIL_ADDRESS,
     subject: "New Order",
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     html: `<h1>New Order Received</h1><br><strong>Name:</strong> ${information.firstName} ${information.lastName}<br><strong>Contact No.:</strong> ${information.phone}<br><strong>Address:</strong> ${information.address} / ${information.city}${information.appartment ? ` / ${information.appartment}` : ""}${information.postalCode ? ` / ${information.postalCode}` : ""}<br><br><h3>Ordered Items:</h3>${items.map(({ product, quantity }: { product: any; quantity: number }) => `<strong>Product ID:</strong> ${product.id}<br><strong>Product Name:</strong> ${product.name}<br><strong>Price:</strong> ${product.price}<br><strong>Quantity:</strong> ${quantity}`).join("<br>")}<br><br><h3>Summary</h3><strong>Shipping Method: </strong>${information.shippingMethod}<br><strong>Subtotal: </strong>${information.subtotal}<br><strong>Shipping Cost: </strong>${information.shipping}<br><strong>Discount: </strong>${information.discount}<br><strong>Grand Total: </strong>${information.total}<br><strong>Payment Method: </strong>${information.paymentMethod}<br>`,
   });
 
