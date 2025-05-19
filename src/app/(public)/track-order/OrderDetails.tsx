@@ -21,13 +21,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Item,
-  Order,
-  OrderStatus,
-  Product,
-  TimelineEvent,
-} from "@/generated/prisma";
+import { Item, Order, OrderStatus, Product } from "@/generated/prisma";
 import { getDateFromId } from "@/lib/idHelpers";
 import { pricify } from "@/lib/utils";
 import { Record } from "@/generated/prisma/runtime/library";
@@ -35,7 +29,6 @@ import { getEstimatedDelivery } from "@/lib/orderHelpers";
 
 interface OrderDetailsProps {
   order: {
-    timeline: TimelineEvent[];
     items: ({
       product: Product;
     } & Item)[];

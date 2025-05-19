@@ -17,7 +17,7 @@ const OrderStatusSection = ({ order }: { order: Order }) => {
           disabled={pending}
           onClick={() => {
             startTransition(() => {
-              action({ orderId: order.orderId, newStatus: "PENDING" });
+              action({ orderId: order.orderId, newStatus: "PLACED" });
             });
           }}
           className="cursor-pointer border-dashed border-red-500 text-red-500 hover:bg-red-50 hover:text-red-600"

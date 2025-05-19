@@ -7,11 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getOrder } from "./actions";
-import { Item, Order, Product, TimelineEvent } from "@/generated/prisma";
+import { Item, Order, Product } from "@/generated/prisma";
 import OrderDetails from "./OrderDetails";
 
 type CompleteOrder = {
-  timeline: TimelineEvent[];
   items: ({
     product: Product;
   } & Item)[];

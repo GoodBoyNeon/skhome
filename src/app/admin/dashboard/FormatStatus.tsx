@@ -6,7 +6,7 @@ const FormatStatus = ({
 }: {
   status: OrderStatus | ServicingBookingStatus;
 }) => {
-  if (status === "PENDING") {
+  if (status === "PENDING" || status === "PLACED") {
     return (
       <div className="flex items-center gap-1 font-medium text-red-500">
         <Info className="size-4" /> {status}
@@ -21,6 +21,12 @@ const FormatStatus = ({
   } else if (status === "COMPLETED") {
     return (
       <div className="flex items-center gap-1 font-medium text-green-500">
+        <Check className="size-4" /> {status}
+      </div>
+    );
+  } else {
+    return (
+      <div className="flex items-center gap-1 font-medium text-purple-700">
         <Check className="size-4" /> {status}
       </div>
     );
