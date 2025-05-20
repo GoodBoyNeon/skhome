@@ -27,6 +27,10 @@ const sections = [
       href: `/brand/${urlSlug}`,
     })),
   },
+  {
+    title: "Tools",
+    links: [{ name: "Track Order", href: "/track-order" }],
+  },
 ];
 
 const socials: Array<{ name: string; icon: IconType; href: string }> = [
@@ -93,9 +97,9 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="grid grid-cols-3 gap-6 lg:gap-20">
+            <div className="flex flex-wrap justify-center gap-6 lg:gap-20">
               {sections.map((section, i) => (
-                <div key={i}>
+                <div key={i} className="mb-12 shrink-0">
                   <h3 className="mb-6 font-bold">{section.title}</h3>
                   <ul className="text-muted-foreground space-y-4 text-sm">
                     {section.links.map((link, i) => (
@@ -111,7 +115,7 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="text-muted-foreground mt-20 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium lg:flex-row lg:items-center lg:text-left">
+          <div className="text-muted-foreground flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium lg:flex-row lg:items-center lg:text-left">
             <p>
               &copy; {new Date().getFullYear()} S.K. Home Traders. All rights
               reserved
