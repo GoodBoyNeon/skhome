@@ -3,7 +3,9 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default async function Categories() {
-  const categories = await getAllCategories();
+  const categories = (await getAllCategories()).sort(
+    (a, b) => b.pIndex - a.pIndex,
+  );
 
   return (
     <div className="bg-background m-2 flex justify-center gap-8 overflow-x-auto">

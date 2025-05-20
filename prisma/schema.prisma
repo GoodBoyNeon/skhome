@@ -14,6 +14,7 @@ model Category {
   name      String    @unique
   urlSlug   String    @unique
   image     String
+  pIndex    Int       @default(0)
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   products  Product[]
@@ -39,7 +40,7 @@ model Product {
   stock                    Int
   images                   String[]
   tags                     String[]
-  pIndex                   Int      @default(0)
+  pIndex                   Int
   categoryId               Int
   insideValleyShippingCost Int      @default(0)
   brandId                  Int
