@@ -1,7 +1,6 @@
 "use client";
 
 import { getAllBrands, getAllCategories } from "@/db";
-import { Brand } from "@/generated/prisma";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";

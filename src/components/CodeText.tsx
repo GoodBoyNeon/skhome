@@ -1,7 +1,8 @@
-import React, { ReactNode } from "react";
-import { cn } from "@/lib/utils";
 import { monoFont } from "@/app/fonts";
+import { cn } from "@/lib/utils";
+import React from "react";
 
+// eslint-disable-next-line @typescript-eslint/no-empty-object-type
 export interface CodeTextProps extends React.HTMLAttributes<HTMLSpanElement> {}
 
 const CodeText = ({ className, children, ...props }: CodeTextProps) => {

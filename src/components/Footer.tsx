@@ -28,7 +28,7 @@ const sections = [
     })),
   },
   {
-    title: "Tools",
+    title: "Customer Care",
     links: [{ name: "Track Order", href: "/track-order" }],
   },
 ];
