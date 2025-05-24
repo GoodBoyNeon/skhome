@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 import { bodyFont } from "./fonts";
-import QueryProvider from "@/components/QueryProvider";
 import { Toaster } from "sonner";
+import { TRPCProvider } from "@/components/TRPCProvider";
 
 export default function RootLayout({
   children,
@@ -11,11 +11,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={cn(bodyFont.className, "bg-base-bg overflow-x-hidden")}>
-        <QueryProvider>
+        <TRPCProvider>
           {children}
-
           <Toaster closeButton richColors theme="light" />
-        </QueryProvider>
+        </TRPCProvider>
       </body>
     </html>
   );
