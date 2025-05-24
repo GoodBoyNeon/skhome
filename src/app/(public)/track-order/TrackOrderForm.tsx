@@ -45,7 +45,7 @@ const TrackOrderForm = () => {
           <Label htmlFor="order-id">Order ID</Label>
           <Input
             id="order-id"
-            placeholder="Enter your order ID (e.g., SK-12345)"
+            placeholder="Enter your order ID (e.g., ORD-XXXXXXXX-XXXX-ABC123)"
             value={orderId}
             onChange={(e) => setOrderId(e.target.value)}
             required

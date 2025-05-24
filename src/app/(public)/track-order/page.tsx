@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function TrackOrderPage() {
   return (
     <div className="flex h-full items-center justify-center">
-      <div className="container max-w-5xl space-y-8 py-10">
+      <div className="container max-w-5xl space-y-8 py-24">
         <div className="space-y-2 text-center">
           <h1 className="text-3xl font-bold">Track Your Order</h1>
           <p className="text-muted-foreground">

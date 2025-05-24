@@ -26,6 +26,10 @@ const navItems = [
     name: "Visit Us",
     href: "/visit",
   },
+  {
+    name: "Track Order",
+    href: "/track-order",
+  },
 ];
 
 export default function Nav() {
