@@ -5,7 +5,7 @@ import SubHeading from "@/components/SubHeading";
 
 export default function Features() {
   return (
-    <section className="py-16 md:py-32">
+    <section className="py-16 md:py-24">
       <div className="@container mx-auto max-w-5xl px-6">
         <div className="text-center">
           <SubHeading className="">Built to cover your needs</SubHeading>
