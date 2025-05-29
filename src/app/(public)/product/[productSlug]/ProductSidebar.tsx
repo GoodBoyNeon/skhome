@@ -28,7 +28,7 @@ export default function ProductSidebar() {
 
   return (
     <>
-      <div className="bg-base-bg h-full max-w-72 border-x p-4 py-8">
+      <div className="bg-base-bg h-full max-w-72 border-x p-4 py-12">
         <h2 className="mb-6 text-2xl font-semibold">Contact Us</h2>
         <div className="space-y-2">
           <TooltipProvider>

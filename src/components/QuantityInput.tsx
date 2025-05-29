@@ -19,14 +19,23 @@ const QuantityInput = ({
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   size?: "sm" | "md";
 }) => {
+  const updateBtnIconVariants = cva("cursor-pointer", {
+    variants: {
+      size: {
+        sm: "h-3 w-3",
+        md: "h-4 w-4",
+      },
+    },
+  });
   const updateButtonVariants = cva("cursor-pointer", {
     variants: {
       size: {
         sm: "h-6 w-6 px-1",
-        md: "h-8 w-8 px-2",
+        md: "h-10 w-10 px-2",
       },
     },
   });
+
   const inputVariants = cva(
     cn(
       monoFont.className,
@@ -35,21 +44,22 @@ const QuantityInput = ({
     {
       variants: {
         size: {
-          sm: "h-6 w-8",
-          md: "h-8 w-10",
+          sm: "h-6 w-8 text-sm",
+          md: "h-12 w-16 text-base",
         },
       },
     },
   );
   return (
-    <div className="flex gap-0.5">
+    <div className="flex items-center gap-0.5">
       <Button
-        variant={"secondary"}
+        variant={"outline"}
         className={updateButtonVariants({ size })}
+        size={"icon"}
         disabled={quantity < 2}
         onClick={decOnClick}
       >
-        <Minus />
+        <Minus className={updateBtnIconVariants({ size })} />
       </Button>
       <Input
         type="number"
@@ -58,11 +68,12 @@ const QuantityInput = ({
         onChange={onChange}
       ></Input>
       <Button
-        variant={"secondary"}
-        className={updateButtonVariants({ size })}
+        variant={"outline"}
         onClick={incOnClick}
+        className={updateButtonVariants({ size })}
+        size={"icon"}
       >
-        <Plus />
+        <Plus className={updateBtnIconVariants({ size })} />
       </Button>
     </div>
   );

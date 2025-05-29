@@ -4,7 +4,7 @@ import { Product } from "@/generated/prisma";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { MapPin, ShoppingCart } from "lucide-react";
+import { MapPin, ShoppingBag } from "lucide-react";
 import { useCartStore } from "@/hooks/useCart";
 import { toast } from "sonner";
 import QuantityInput from "@/components/QuantityInput";
@@ -45,8 +45,9 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
 
   const { stock } = product;
   return (
-    <div>
-      <div className="space-y-2">
+    <div className="space-y-6">
+      <div className="space-y-3">
+        <h3 className="text-lg font-medium">Quantity</h3>
         <QuantityInput
           quantity={quantity}
           // setQuantity={setQuantity}
@@ -56,10 +57,13 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
             setQuantity(parseInt(e.target.value));
           }}
         />
+      </div>
+      <div className="space-y-3">
         {stock > 0 ? (
           <Button
             asChild
-            className="w-full cursor-pointer text-lg md:h-12 md:text-xl"
+            className="w-full cursor-pointer bg-blue-600 text-base hover:bg-blue-600/90"
+            size={"lg"}
           >
             <Link
               prefetch
@@ -72,29 +76,36 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
             </Link>
           </Button>
         ) : (
-          <Button variant={"destructive"} disabled>
+          <Button
+            size={"lg"}
+            className="w-full text-base"
+            variant={"destructive"}
+            disabled
+          >
             Out of Stock
           </Button>
         )}
-        <div className="flex space-x-2">
+        <div className="flex gap-3 font-medium">
           <Button
-            className="flex w-full cursor-pointer gap-1 text-lg md:h-12 md:text-xl"
-            variant={"secondary"}
+            className="flex-1 cursor-pointer text-base"
+            variant={"outline"}
+            size={"lg"}
             onClick={(e) => {
               e.preventDefault();
               addOnClick();
             }}
           >
-            <ShoppingCart />
-            {"Add to Cart"}
+            <ShoppingBag className="mr-2 size-4" />
+            Add to Cart
           </Button>
           <Button
             asChild
-            className="flex w-full cursor-pointer gap-1 text-lg md:h-12 md:text-xl"
-            variant={"secondary"}
+            className="flex-1 cursor-pointer text-base"
+            size={"lg"}
+            variant={"outline"}
           >
             <Link href="/visit" prefetch>
-              <MapPin />
+              <MapPin className="mr-2 size-4" />
               Contact/Visit
             </Link>
           </Button>

@@ -1,15 +1,13 @@
 import {
+  Quicksand as TitleFont,
   // Bricolage_Grotesque as TitleFont,
   // Lora as TitleFont,
-  Quicksand as TitleFont,
-
+  Dosis as SubtitleFont,
   // Bricolage_Grotesque as SubtitleFont,
   // Fira_Sans as SubtitleFont,
   // Inconsolata as SubtitleFont,
-  Dosis as SubtitleFont,
-
-  // Nunito as BodyFont,
   Geist as BodyFont,
+  // Nunito as BodyFont,
   // Montserrat as BodyFont,
   // Inter as BodyFont,
   // Lato as BodyFont,
@@ -28,7 +26,7 @@ export const subtitleFont = SubtitleFont({
 
 export const bodyFont = BodyFont({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
+  weight: ["200", "300", "400", "500", "600", "700", "800"],
 });
 
 export const monoFont = MonoFont({

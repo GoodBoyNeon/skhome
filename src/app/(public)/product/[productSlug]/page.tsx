@@ -4,6 +4,7 @@ import { getAllProducts, getProductBySlug } from "@/db";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import ProductViewContainer from "./ProductViewContainer";
+import ProductWhyUs from "./ProductWhyUs";
 
 export type Props = {
   params: Promise<{ productSlug: string }>;

@@ -1,6 +1,6 @@
 import { siteConfig } from "@/siteConfig";
 import { getAllBrands, getAllCategories } from "@/db";
-import { Mail, Phone } from "lucide-react";
+import { Mail, MapPin, Phone } from "lucide-react";
 import Link from "next/link";
 import { IconType } from "react-icons";
 import { FaFacebook, FaInstagram, FaTiktok } from "react-icons/fa";
@@ -81,19 +81,32 @@ const Footer = () => {
                       rel="noopener noreferrer"
                       aria-label={s.name}
                     >
-                      <s.icon className="size-6" />
+                      <s.icon className="size-6 transition hover:text-sky-600" />
                     </Link>
                   </li>
                 ))}
               </ul>
               <ul className="text-muted-foreground space-y-0.5 text-sm">
-                {siteConfig.phone.map((p, i) => (
-                  <li key={i} className="flex gap-1.5">
-                    <Phone className="size-5" /> {p}
+                {siteConfig.phone.map((phone, i) => (
+                  <li key={i} className="flex items-start space-x-3">
+                    <Phone className="size-5 text-sky-600" />
+                    <span>{phone}</span>
                   </li>
                 ))}
-                <li className="flex gap-1.5">
-                  <Mail className="size-5" /> {siteConfig.email}
+                <li className="flex items-start space-x-3">
+                  <Mail className="size-5 text-sky-600" />
+                  <span>{siteConfig.email}</span>
+                </li>
+                <li className="mt-1.5 flex items-start space-x-3">
+                  <MapPin className="mt-1 h-5 w-5 text-sky-600" />
+                  <span className="">
+                    Radhe Radhe Road,
+                    <br />
+                    Nikoshera,
+                    <br />
+                    Bhaktapur - 44811
+                    <br />
+                  </span>
                 </li>
               </ul>
             </div>
@@ -115,7 +128,7 @@ const Footer = () => {
               ))}
             </div>
           </div>
-          <div className="text-muted-foreground flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium lg:flex-row lg:items-center lg:text-left">
+          <div className="text-muted-foreground mt-8 flex flex-col justify-between gap-4 border-t pt-8 text-center text-sm font-medium lg:flex-row lg:items-center lg:text-left">
             <p>
               &copy; {new Date().getFullYear()} S.K. Home Traders. All rights
               reserved
