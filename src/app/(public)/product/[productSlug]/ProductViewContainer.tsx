@@ -1,7 +1,6 @@
 import Carousel from "@/components/Carousel";
 import { Badge } from "@/components/ui/badge";
 import { prisma } from "@/lib/database";
-import ReactMarkdown from "react-markdown";
 import { pricify } from "@/lib/utils";
 import { Product } from "@/generated/prisma";
 import { notFound } from "next/navigation";
@@ -9,8 +8,8 @@ import ProductSidebar from "./ProductSidebar";
 import ProductViewCTO from "./ProductViewCTO";
 import { Tabs, TabsTrigger, TabsContent, TabsList } from "@/components/ui/tabs";
 import { Card, CardContent } from "@/components/ui/card";
-import { formatText } from "@/lib/formatText";
 import ProductWhyUs from "./ProductWhyUs";
+import Markdown from "@/components/Markdown";
 
 const ProductViewContainer = async ({
   product,
@@ -44,19 +43,27 @@ const ProductViewContainer = async ({
     <div className="bg-white">
       <div>
         <div className="md:bg-background border-b md:flex md:justify-center md:gap-6">
+          {/* <DynamicBreadcrumb */}
+          {/*   productName={product.name} */}
+          {/*   categoryName={category?.name} */}
+          {/*   brandName={brand?.name} */}
+          {/* /> */}
+
           <div className="md:my-12">
             <Carousel images={images} />
           </div>
 
           <div className="bg-background w-full space-y-12 px-3 py-12 lg:max-w-xl">
-            <div className="space-y-0.5">
+            <div className="space-y-2">
+              <Badge className="bg-primary/10 text-primary hover:bg-primary/20 mb-2">
+                {category?.name}
+              </Badge>
+
               <h1 className="text-2xl font-bold md:text-3xl">{name}</h1>
 
-              <p className="text-muted-foreground font-medium">
-                Brand: {brand?.name}
-              </p>
+              <Badge variant={"secondary"}>Brand: {brand?.name}</Badge>
 
-              <Badge variant={"secondary"}>{category?.name}</Badge>
+              {/* <Badge variant={"secondary"}>{category?.name}</Badge> */}
             </div>
 
             <div className="my-2 md:my-6">
@@ -100,23 +107,27 @@ const ProductViewContainer = async ({
                   <h3 className="mb-4 text-lg font-semibold">
                     Product Description
                   </h3>
-                  <div className="text-muted-foreground">
-                    <ReactMarkdown>{formatText(description)}</ReactMarkdown>
-                  </div>
+                  <Markdown className="text-muted-foreground text-base tracking-wide">
+                    {description}
+                  </Markdown>
                 </CardContent>
               </Card>
             </TabsContent>
 
-            <TabsContent value="specifications" className="mt-6">
-              <Card>
-                <CardContent>
-                  <h3 className="mb-4 text-lg font-semibold">Specifications</h3>
-                  <div className="text-muted-foreground">
-                    <ReactMarkdown>{formatText(description)}</ReactMarkdown>
-                  </div>
-                </CardContent>
-              </Card>
-            </TabsContent>
+            {specifications && (
+              <TabsContent value="specifications" className="mt-6">
+                <Card>
+                  <CardContent>
+                    <h3 className="mb-4 text-lg font-semibold">
+                      Specifications
+                    </h3>
+                    <Markdown className="text-muted-foreground text-base tracking-wide">
+                      {specifications}
+                    </Markdown>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            )}
           </Tabs>
 
           <ProductWhyUs />

@@ -2,7 +2,7 @@ import {
   Quicksand as TitleFont,
   // Bricolage_Grotesque as TitleFont,
   // Lora as TitleFont,
-  Dosis as SubtitleFont,
+
   // Bricolage_Grotesque as SubtitleFont,
   // Fira_Sans as SubtitleFont,
   // Inconsolata as SubtitleFont,
@@ -15,11 +15,6 @@ import {
 } from "next/font/google";
 
 export const titleFont = TitleFont({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-});
-
-export const subtitleFont = SubtitleFont({
   subsets: ["latin"],
   weight: ["400", "500", "600", "700"],
 });

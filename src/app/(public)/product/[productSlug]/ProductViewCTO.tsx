@@ -4,7 +4,7 @@ import { Product } from "@/generated/prisma";
 import React, { useState } from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { MapPin, ShoppingBag } from "lucide-react";
+import { MapPin, ShoppingBag, ShoppingCart } from "lucide-react";
 import { useCartStore } from "@/hooks/useCart";
 import { toast } from "sonner";
 import QuantityInput from "@/components/QuantityInput";
@@ -72,6 +72,7 @@ const ProductViewCTO = ({ product }: { product: Product }) => {
                 p: `${product.id}q${quantity}`,
               })}`}
             >
+              <ShoppingCart className="mr-2 size-4" />
               Buy Now
             </Link>
           </Button>

@@ -1,4 +1,3 @@
-import { subtitleFont } from "@/app/fonts";
 import { cn } from "@/lib/utils";
 import React from "react";
 
@@ -10,15 +9,14 @@ export interface SubHeadingProps
 const SubHeading = React.forwardRef<HTMLHeadingElement, SubHeadingProps>(
   ({ children, className }, _ref) => {
     return (
-      <h3
+      <h2
         className={cn(
-          `mt-10 mb-6 text-center text-3xl font-semibold lg:text-4xl`,
-          subtitleFont.className,
+          `mt-10 mb-6 text-center text-2xl font-bold lg:text-3xl`,
           className,
         )}
       >
         {children}
-      </h3>
+      </h2>
     );
   },
 );

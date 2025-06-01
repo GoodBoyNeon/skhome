@@ -45,13 +45,11 @@ export default async function ProductPage(props: Props) {
   );
 
   return (
-    <div>
+    <div className="mb-12">
       <ProductViewContainer product={product} allProducts={allProducts} />
 
       <div className="mx-4 md:mx-12 lg:mx-16">
-        <SubHeading className="mb-4 text-xl font-semibold md:text-2xl">
-          Similar products
-        </SubHeading>
+        <SubHeading>Similar Products</SubHeading>
 
         <ProductsList products={similar} />
       </div>

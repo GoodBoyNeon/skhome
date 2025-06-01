@@ -57,7 +57,7 @@ export default function ProductWhyUs() {
           {features.map((feature, index) => (
             <div key={index} className="group text-center">
               <div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-sky-100 transition-colors duration-300 group-hover:bg-sky-600">
-                <feature.icon className="h-8 w-8 text-sky-600 transition-colors duration-300 group-hover:text-white" />
+                <feature.icon className="text-primary h-8 w-8 transition-colors duration-300 group-hover:text-white" />
               </div>
               <h3 className="mb-3 text-xl font-bold text-gray-800">
                 {feature.title}
