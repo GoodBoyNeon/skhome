@@ -1,6 +1,7 @@
 import "@/app/globals.css";
 
 import Footer from "@/components/Footer";
+import { NavigationProvider } from "@/components/NavigationProvider";
 import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";
 import { env as clientEnv } from "@/data/env/client";
@@ -53,12 +54,14 @@ export default function PublicLayout({
 }>) {
   return (
     <>
-      <MarqueeBar />
-      <Header />
-      {children}
-      <SpeedInsights />
-      <Analytics />
-      <Footer />
+      <NavigationProvider>
+        <MarqueeBar />
+        <Header />
+        {children}
+        <SpeedInsights />
+        <Analytics />
+        <Footer />
+      </NavigationProvider>
     </>
   );
 }

@@ -95,7 +95,11 @@ const CategoryPage = async ({ params, searchParams }: Props) => {
             <ProductsFilterTags />
             <SortMenu />
           </div>
-          <ProductsList products={finalProducts} />
+          <ProductsList
+            products={finalProducts}
+            isTracked
+            referrer="category"
+          />
         </div>
       </div>
     </div>

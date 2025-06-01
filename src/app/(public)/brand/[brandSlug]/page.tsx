@@ -96,7 +96,7 @@ const Page = async (props: Props) => {
             <ProductsFilterTags />
             <SortMenu />
           </div>
-          <ProductsList products={finalProducts} />
+          <ProductsList products={finalProducts} isTracked referrer="brand" />
         </div>
       </div>
     </div>

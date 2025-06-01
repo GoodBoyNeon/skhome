@@ -7,10 +7,12 @@ import SubHeading from "./SubHeading";
 export interface ProductsListProps
   extends React.HTMLAttributes<HTMLDivElement> {
   products: Product[];
+  isTracked?: boolean;
+  referrer?: string;
 }
 
 const ProductsList = React.forwardRef<HTMLDivElement, ProductsListProps>(
-  ({ className, products, ...props }, ref) => {
+  ({ className, products, isTracked, referrer, ...props }, ref) => {
     return (
       <div className="w-full">
         {products.length > 0 ? (
@@ -24,7 +26,12 @@ const ProductsList = React.forwardRef<HTMLDivElement, ProductsListProps>(
             {...props}
           >
             {products.map((product, i) => (
-              <ProductCard key={i} {...product} />
+              <ProductCard
+                key={i}
+                product={product}
+                isTracked={isTracked}
+                referrer={referrer}
+              />
             ))}
           </div>
         ) : (
