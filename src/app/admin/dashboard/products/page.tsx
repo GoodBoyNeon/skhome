@@ -8,14 +8,14 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Skeleton } from "@/components/ui/skeleton";
+import { getAllProducts } from "@/db";
 import { cn, pricify } from "@/lib/utils";
 import { useQuery } from "@tanstack/react-query";
 import { ChevronDown, Pencil, Plus } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { DeleteProductDialog } from "./delete-product-dialog";
-import { getAllProducts } from "@/db";
-import { Skeleton } from "@/components/ui/skeleton";
 
 const AdminProductsPage = () => {
   const productsResp = useQuery({
@@ -121,14 +121,16 @@ const AdminProductsPage = () => {
               </div>
 
               <div className="mx-4 flex gap-4">
-                <Button
-                  variant="outline"
-                  className="text-primary border-primary hover:text-primary/80 cursor-pointer gap-1"
-                  size="sm"
+                <Link
+                  href={`/admin/dashboard/products/edit?id=${product.id}`}
+                  className={cn(
+                    buttonVariants({ variant: "outline", size: "sm" }),
+                    "text-primary border-primary hover:text-primary/80 cursor-pointer gap-1",
+                  )}
                 >
                   <Pencil className="size-4" />
                   Edit
-                </Button>
+                </Link>
                 <DeleteProductDialog
                   productId={product.id}
                   productName={product.name}

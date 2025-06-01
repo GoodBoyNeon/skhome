@@ -2,6 +2,8 @@
 
 import { prisma } from "@/lib/database";
 import {
+  UpdateProductFormSchema,
+  UpdateProductFormState,
   newBrandFormSchema,
   NewBrandFormState,
   newCategoryFormSchema,
@@ -20,6 +22,7 @@ export async function createProduct(
   const validatedFields = NewProductFormSchema.safeParse({
     name: formData.get("name"),
     description: formData.get("description"),
+    specifications: formData.get("specifications"),
     urlSlug: formData.get("urlSlug"),
     MRP: formData.get("MRP"),
     price: formData.get("price"),
@@ -41,6 +44,7 @@ export async function createProduct(
   const {
     name,
     description,
+    specifications,
     urlSlug,
     MRP,
     price,
@@ -122,6 +126,7 @@ export async function createProduct(
       data: {
         name,
         description,
+        specifications,
         urlSlug,
         MRP,
         price,
@@ -144,6 +149,122 @@ export async function createProduct(
     };
   } catch (error) {
     console.error("Failed to create product:", error);
+    return {
+      errors: {
+        _form: ["An unexpected error occurred. Please try again."],
+      },
+      message: "Database or upload error. Failed to create product.",
+      success: false,
+    };
+  }
+}
+
+export async function updateProduct(
+  _prevState: UpdateProductFormState,
+  formData: FormData,
+  productId: number,
+): Promise<UpdateProductFormState> {
+  const validatedFields = UpdateProductFormSchema.safeParse({
+    name: formData.get("name"),
+    description: formData.get("description"),
+    specifications: formData.get("specifications"),
+    urlSlug: formData.get("urlSlug"),
+    MRP: formData.get("MRP"),
+    price: formData.get("price"),
+    stock: formData.get("stock"),
+    pIndex: formData.get("pIndex"),
+    brand: formData.get("brand"),
+    category: formData.get("category"),
+    tags: JSON.parse((formData.get("tags") as string) || "[]"),
+  });
+
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: "Missing Fields. Failed to create product.",
+      success: false,
+    };
+  }
+
+  const {
+    name,
+    description,
+    specifications,
+    urlSlug,
+    MRP,
+    price,
+    stock,
+    pIndex,
+    brand,
+    category,
+    tags,
+  } = validatedFields.data;
+
+  try {
+    const brandObject = await prisma.brand.findUnique({
+      where: { id: parseInt(brand) },
+    });
+
+    const categoryObject = await prisma.category.findUnique({
+      where: { id: parseInt(category) },
+    });
+
+    if (!brandObject) {
+      return {
+        errors: {
+          brand: ["Brand does not exist in database."],
+        },
+        message: "Failed to update product.",
+        success: false,
+      };
+    }
+    if (!categoryObject) {
+      return {
+        errors: {
+          category: ["Category does not exist in database."],
+        },
+        message: "Failed to update product.",
+        success: false,
+      };
+    }
+
+    await prisma.product.update({
+      where: {
+        id: productId,
+      },
+      data: {
+        name,
+        description,
+        specifications,
+        urlSlug,
+        MRP,
+        price,
+        stock,
+        pIndex,
+        tags,
+        brand: {
+          connect: {
+            id: brandObject.id,
+          },
+        },
+        category: {
+          connect: {
+            id: categoryObject.id,
+          },
+        },
+      },
+    });
+
+    revalidateTag("products");
+    revalidatePath("/admin/dashboard/products");
+
+    return {
+      errors: {},
+      message: "Product updated successfully!",
+      success: true,
+    };
+  } catch (error) {
+    console.error("Failed to update product:", error);
     return {
       errors: {
         _form: ["An unexpected error occurred. Please try again."],

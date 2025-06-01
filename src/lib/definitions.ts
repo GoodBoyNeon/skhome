@@ -1,4 +1,5 @@
 import { PaymentMethod, ShippingMethod } from "@/generated/prisma";
+import { StringifyOptions } from "querystring";
 import { z } from "zod";
 
 export type CheckoutType = "single" | "cart";
@@ -80,7 +81,10 @@ export const NewProductFormSchema = z.object({
     message: "Please provide a valid name with at least 3 characters.",
   }),
   description: z.string().min(10, {
-    message: "Please provide a valid name with at least 10 characters.",
+    message: "Please provide a valid description with at least 10 characters.",
+  }),
+  specifications: z.string().min(10, {
+    message: "Please provide valid specifications with at least 10 characters.",
   }),
   urlSlug: z
     .string()
@@ -121,6 +125,7 @@ export type NewProductFormState = {
   errors?: {
     name?: string[];
     description?: string[];
+    specifications?: string[];
     urlSlug?: string[];
     MRP?: string[];
     price?: string[];
@@ -201,3 +206,67 @@ export type AdminLoginFormState =
       message?: string;
     }
   | undefined;
+
+export const UpdateProductFormSchema = z.object({
+  name: z.string().min(3, {
+    message: "Please provide a valid name with at least 3 characters.",
+  }),
+  description: z.string().min(10, {
+    message: "Please provide a valid description with at least 10 characters.",
+  }),
+  specifications: z.string().min(10, {
+    message: "Please provide valid specifications with at least 10 characters.",
+  }),
+  urlSlug: z
+    .string()
+    .regex(/^[a-z0-9-]+$/, {
+      message:
+        "url slug must only contain lowercase characters, numbers and - (hyphens)",
+    })
+    .min(3, {
+      message: "Please enter a valid url slug",
+    }),
+  MRP: z.coerce.number().int({
+    message: "MRP must be a whole number.",
+  }),
+  price: z.coerce.number().int({
+    message: "Price must be a whole number.",
+  }),
+  stock: z.coerce.number().int({
+    message: "Stock must be a whole number.",
+  }),
+  pIndex: z.coerce.number().int({
+    message: "Product index must be a whole number.",
+  }),
+
+  brand: z.string({
+    required_error: "Please select a brand.",
+  }),
+  category: z.string({
+    required_error: "Please select a category.",
+  }),
+  tags: z.array(z.string()).min(1, {
+    message: "Add at least one tag.",
+  }),
+});
+
+export type UpdateProductFormFields = z.infer<typeof UpdateProductFormSchema>;
+
+export type UpdateProductFormState = {
+  errors?: {
+    name?: string[];
+    description?: string[];
+    specifications?: string[];
+    urlSlug?: string[];
+    MRP?: string[];
+    price?: string[];
+    stock?: string[];
+    pIndex?: string[];
+    brand?: string[];
+    category?: string[];
+    tags?: string[];
+    _form?: string[];
+  };
+  message?: string | null;
+  success?: boolean;
+};
