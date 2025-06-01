@@ -70,10 +70,7 @@ const Footer = () => {
               </p>
               <ul className="text-muted-foreground flex items-center space-x-6">
                 {socials.map((s, i) => (
-                  <li
-                    key={i}
-                    className="hover:text-accent-foreground font-medium"
-                  >
+                  <li key={i} className="hover:text-primary font-medium">
                     <Link
                       key={i}
                       href={s.href}
@@ -81,7 +78,7 @@ const Footer = () => {
                       rel="noopener noreferrer"
                       aria-label={s.name}
                     >
-                      <s.icon className="size-6 transition hover:text-sky-600" />
+                      <s.icon className="hover:text-primary size-6 transition" />
                     </Link>
                   </li>
                 ))}
@@ -89,16 +86,16 @@ const Footer = () => {
               <ul className="text-muted-foreground space-y-0.5 text-sm">
                 {siteConfig.phone.map((phone, i) => (
                   <li key={i} className="flex items-start space-x-3">
-                    <Phone className="size-5 text-sky-600" />
+                    <Phone className="text-primary size-5" />
                     <span>{phone}</span>
                   </li>
                 ))}
                 <li className="flex items-start space-x-3">
-                  <Mail className="size-5 text-sky-600" />
+                  <Mail className="text-primary size-5" />
                   <span>{siteConfig.email}</span>
                 </li>
                 <li className="mt-1.5 flex items-start space-x-3">
-                  <MapPin className="mt-1 h-5 w-5 text-sky-600" />
+                  <MapPin className="text-primary mt-1 h-5 w-5" />
                   <span className="">
                     Radhe Radhe Road,
                     <br />
@@ -116,10 +113,7 @@ const Footer = () => {
                   <h3 className="mb-6 font-bold">{section.title}</h3>
                   <ul className="text-muted-foreground space-y-4 text-sm">
                     {section.links.map((link, i) => (
-                      <li
-                        key={i}
-                        className="hover:text-accent-foreground font-medium"
-                      >
+                      <li key={i} className="hover:text-primary font-medium">
                         <a href={link.href}>{link.name}</a>
                       </li>
                     ))}
