@@ -1,14 +1,16 @@
 import "@/app/globals.css";
 
 import Footer from "@/components/Footer";
-import { NavigationProvider } from "@/components/NavigationProvider";
+import FullPageSpinner from "@/components/FullPageSpinner";
 import Header from "@/components/Header";
 import MarqueeBar from "@/components/MarqueeBar";
+import { NavigationProvider } from "@/components/NavigationProvider";
 import { env as clientEnv } from "@/data/env/client";
 import { siteConfig } from "@/siteConfig";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   metadataBase: new URL(clientEnv.NEXT_PUBLIC_BASE_URL),
@@ -53,7 +55,8 @@ export default function PublicLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <>
+    // NOTE: Temporary fix, will remove when github issue is resolved
+    <Suspense fallback={<FullPageSpinner />}>
       <NavigationProvider>
         <MarqueeBar />
         <Header />
@@ -62,6 +65,6 @@ export default function PublicLayout({
         <Analytics />
         <Footer />
       </NavigationProvider>
-    </>
+    </Suspense>
   );
 }

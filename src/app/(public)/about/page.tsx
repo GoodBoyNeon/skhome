@@ -1,11 +1,12 @@
+import AboutImg from "@/../public/about-banner-resized.png";
+import FullPageSpinner from "@/components/FullPageSpinner";
 import Heading from "@/components/Heading";
 import { Metadata } from "next";
-import Features from "./Features";
-import ReviewTestimonials from "./Testimonials";
-import Stats from "./Stats";
-import React from "react";
 import Image from "next/image";
-import AboutImg from "@/../public/about-banner-resized.png";
+import { Suspense } from "react";
+import Features from "./Features";
+import Stats from "./Stats";
+import ReviewTestimonials from "./Testimonials";
 import WhyUs from "./WhyUs";
 
 export const metadata: Metadata = {
@@ -14,7 +15,7 @@ export const metadata: Metadata = {
 
 export default function AboutPage() {
   return (
-    <>
+    <Suspense fallback={<FullPageSpinner />}>
       <div className="absolute z-[-2] overflow-hidden [mask-image:linear-gradient(to_top,transparent,white_40%,white_90%,white_100%)]">
         <Image src={AboutImg} alt="banner" aria-hidden />
       </div>
@@ -41,6 +42,6 @@ export default function AboutPage() {
 
         <ReviewTestimonials />
       </div>
-    </>
+    </Suspense>
   );
 }
