@@ -3,12 +3,13 @@ import ProductCard from "./ProductCard";
 import { Product } from "@/generated/prisma";
 import { cn } from "@/lib/utils";
 import SubHeading from "./SubHeading";
+import { Referrer } from "@/types/navigation";
 
 export interface ProductsListProps
   extends React.HTMLAttributes<HTMLDivElement> {
   products: Product[];
   isTracked?: boolean;
-  referrer?: string;
+  referrer?: Referrer;
 }
 
 const ProductsList = React.forwardRef<HTMLDivElement, ProductsListProps>(

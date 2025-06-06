@@ -1,17 +1,8 @@
 "use client";
 
+import { AddToHistory, NavigationHistory } from "@/types/navigation";
 import { usePathname, useSearchParams } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
-
-type Referrer = "category" | "brand" | "products" | "direct" | null;
-
-type NavigationHistory = {
-  path: string;
-  referrer: Referrer;
-  timestamp: number /* timestamp is required to filter duplicates */;
-};
-
-type AddToHistory = (entry: Omit<NavigationHistory, "timestamp">) => void;
 
 const NavigationContext = createContext<{
   history: NavigationHistory[];

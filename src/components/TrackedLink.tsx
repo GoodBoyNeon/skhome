@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useNavigation } from "./NavigationProvider";
+import { Referrer } from "@/types/navigation";
 
 export function TrackedLink({
   href,
@@ -10,7 +11,7 @@ export function TrackedLink({
   ...props
 }: {
   href: string;
-  referrer?: "category" | "brand" | "products";
+  referrer: Referrer;
   children: React.ReactNode;
 } & React.ComponentProps<typeof Link>) {
   const { addToHistory } = useNavigation();

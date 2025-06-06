@@ -9,6 +9,7 @@ import { toast } from "sonner";
 import ProductCardSubHead from "./ProductCardSubHead";
 import { Button } from "./ui/button";
 import { TrackedLink } from "./TrackedLink";
+import { Referrer } from "@/types/navigation";
 
 export default function ProductCard({
   product,
@@ -17,7 +18,7 @@ export default function ProductCard({
 }: {
   product: Product;
   isTracked?: boolean;
-  referrer?: "category" | "brand" | "products";
+  referrer?: Referrer;
 }) {
   const { name, MRP, price, images, urlSlug, categoryId, brandId } = product;
   const { items, addItem } = useCartStore();
