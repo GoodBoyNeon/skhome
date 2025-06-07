@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Select,
   SelectContent,
@@ -10,6 +10,7 @@ import {
 } from "./ui/select";
 import { useRouter, useSearchParams } from "next/navigation";
 import { z } from "zod";
+import FullPageSpinner from "./FullPageSpinner";
 
 export const sortType = [
   "featured",
@@ -36,26 +37,28 @@ const SortMenu = () => {
   };
 
   return (
-    <Select value={currentSort} onValueChange={handleSortChange}>
-      <SelectTrigger className="w-[180px] cursor-pointer">
-        <SelectValue placeholder="Sort By.."></SelectValue>
-      </SelectTrigger>
+    <Suspense fallback={<FullPageSpinner />}>
+      <Select value={currentSort} onValueChange={handleSortChange}>
+        <SelectTrigger className="w-[180px] cursor-pointer">
+          <SelectValue placeholder="Sort By.."></SelectValue>
+        </SelectTrigger>
 
-      <SelectContent>
-        <SelectItem className="cursor-pointer" value="featured">
-          Featured
-        </SelectItem>
-        <SelectItem className="cursor-pointer" value="alphabetical">
-          Title (A-Z)
-        </SelectItem>
-        <SelectItem className="cursor-pointer" value="price-low">
-          Price (low to high)
-        </SelectItem>
-        <SelectItem className="cursor-pointer" value="price-high">
-          Price (high to low)
-        </SelectItem>
-      </SelectContent>
-    </Select>
+        <SelectContent>
+          <SelectItem className="cursor-pointer" value="featured">
+            Featured
+          </SelectItem>
+          <SelectItem className="cursor-pointer" value="alphabetical">
+            Title (A-Z)
+          </SelectItem>
+          <SelectItem className="cursor-pointer" value="price-low">
+            Price (low to high)
+          </SelectItem>
+          <SelectItem className="cursor-pointer" value="price-high">
+            Price (high to low)
+          </SelectItem>
+        </SelectContent>
+      </Select>
+    </Suspense>
   );
 };
 

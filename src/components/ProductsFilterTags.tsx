@@ -1,15 +1,14 @@
 "use client";
 
-import { Brand, Category } from "@/generated/prisma";
-import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
-import React from "react";
-import { buttonVariants } from "./ui/button";
-import { X } from "lucide-react";
-import { cn } from "@/lib/utils";
-import { FilterType } from "@/lib/filterProducts";
-import { useRouter } from "next/navigation";
 import { getBrandById, getCategoryById } from "@/db";
+import { FilterType } from "@/lib/filterProducts";
+import { cn } from "@/lib/utils";
+import { useQuery } from "@tanstack/react-query";
+import { X } from "lucide-react";
+import { useRouter, useSearchParams } from "next/navigation";
+import React, { Suspense } from "react";
+import { buttonVariants } from "./ui/button";
+import FullPageSpinner from "./FullPageSpinner";
 
 const ProductsFilterTags = () => {
   const router = useRouter();
@@ -62,25 +61,27 @@ const ProductsFilterTags = () => {
   };
 
   return (
-    <div className="flex h-full w-[50%] items-stretch gap-3">
-      {filters.map((f) => (
-        <div
-          key={f.name}
-          className={cn(
-            "space-x-3",
-            buttonVariants({ variant: "secondary", size: "sm" }),
-          )}
-        >
-          <span>{f.name}</span>
-          <button
-            onClick={(e) => handleXClick(e, f.type as FilterType)}
-            className="text-muted-foreground hover:text-secondary-foreground/80 cursor-pointer"
+    <Suspense fallback={<FullPageSpinner />}>
+      <div className="flex h-full w-[50%] items-stretch gap-3">
+        {filters.map((f) => (
+          <div
+            key={f.name}
+            className={cn(
+              "space-x-3",
+              buttonVariants({ variant: "secondary", size: "sm" }),
+            )}
           >
-            <X size={16} />
-          </button>
-        </div>
-      ))}
-    </div>
+            <span>{f.name}</span>
+            <button
+              onClick={(e) => handleXClick(e, f.type as FilterType)}
+              className="text-muted-foreground hover:text-secondary-foreground/80 cursor-pointer"
+            >
+              <X size={16} />
+            </button>
+          </div>
+        ))}
+      </div>
+    </Suspense>
   );
 };
 

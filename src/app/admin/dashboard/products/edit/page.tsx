@@ -7,6 +7,8 @@ import { useQuery } from "@tanstack/react-query";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Product } from "@/generated/prisma";
 import { capitalize } from "@/lib/capitalize";
+import { Suspense } from "react";
+import FullPageSpinner from "@/components/FullPageSpinner";
 
 export default function AdminProductEdit() {
   const searchParams = useSearchParams();
@@ -26,13 +28,16 @@ export default function AdminProductEdit() {
 
   if (query.data)
     return (
-      <div className="container py-12">
-        <div className="mx-auto max-w-3xl">
-          <h1 className="mb-8 text-3xl font-bold">
-            Editing {capitalize(query.data.urlSlug.replace(/-/g, " "), "title")}
-          </h1>
-          <EditProductForm curProduct={query.data} />
+      <Suspense fallback={<FullPageSpinner />}>
+        <div className="container py-12">
+          <div className="mx-auto max-w-3xl">
+            <h1 className="mb-8 text-3xl font-bold">
+              Editing{" "}
+              {capitalize(query.data.urlSlug.replace(/-/g, " "), "title")}
+            </h1>
+            <EditProductForm curProduct={query.data} />
+          </div>
         </div>
-      </div>
+      </Suspense>
     );
 }

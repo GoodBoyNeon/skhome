@@ -3,9 +3,10 @@
 import { getAllBrands, getAllCategories } from "@/db";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { Label } from "./ui/label";
 import { RadioGroup, RadioGroupItem } from "./ui/radio-group";
+import FullPageSpinner from "./FullPageSpinner";
 
 const FilterSidebar = ({
   hideCategory,
@@ -62,48 +63,50 @@ const FilterSidebar = ({
   };
 
   return (
-    <div className="space-y-12">
-      {!hideCategory && categories && (
-        <div className="space-y-2">
-          <h3 className="text-base font-medium">By Category</h3>
-          <RadioGroup
-            value={categoryValue}
-            onValueChange={handleCategoryChange}
-          >
-            {categories.map((c) => (
-              <div key={c.name} className="flex items-center space-x-1">
-                <RadioGroupItem
-                  value={c.id.toString()}
-                  id={`category-${c.id}`}
-                />
-                <Label className="font-normal" htmlFor={`category-${c.id}`}>
-                  {c.name}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
-      )}
-      {!hideBrand && brands && (
-        <div className="space-y-2">
-          <h3 className="text-base font-medium">By Brand</h3>
-          <RadioGroup value={brandValue} onValueChange={handleBrandChange}>
-            {brands.map((c) => (
-              <div key={c.id} className="flex items-center space-x-1">
-                <RadioGroupItem
-                  className="decoratio"
-                  value={c.id.toString()}
-                  id={`brand-${c.id}`}
-                />
-                <Label className="font-normal" htmlFor={`brand-${c.id}`}>
-                  {c.name}
-                </Label>
-              </div>
-            ))}
-          </RadioGroup>
-        </div>
-      )}
-    </div>
+    <Suspense fallback={<FullPageSpinner />}>
+      <div className="space-y-12">
+        {!hideCategory && categories && (
+          <div className="space-y-2">
+            <h3 className="text-base font-medium">By Category</h3>
+            <RadioGroup
+              value={categoryValue}
+              onValueChange={handleCategoryChange}
+            >
+              {categories.map((c) => (
+                <div key={c.name} className="flex items-center space-x-1">
+                  <RadioGroupItem
+                    value={c.id.toString()}
+                    id={`category-${c.id}`}
+                  />
+                  <Label className="font-normal" htmlFor={`category-${c.id}`}>
+                    {c.name}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        )}
+        {!hideBrand && brands && (
+          <div className="space-y-2">
+            <h3 className="text-base font-medium">By Brand</h3>
+            <RadioGroup value={brandValue} onValueChange={handleBrandChange}>
+              {brands.map((c) => (
+                <div key={c.id} className="flex items-center space-x-1">
+                  <RadioGroupItem
+                    className="decoratio"
+                    value={c.id.toString()}
+                    id={`brand-${c.id}`}
+                  />
+                  <Label className="font-normal" htmlFor={`brand-${c.id}`}>
+                    {c.name}
+                  </Label>
+                </div>
+              ))}
+            </RadioGroup>
+          </div>
+        )}
+      </div>
+    </Suspense>
   );
 };
 

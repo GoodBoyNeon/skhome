@@ -1,10 +1,10 @@
-import FullPageSpinner from "@/components/FullPageSpinner";
 import SubHeading from "@/components/SubHeading";
 import type { CartItem } from "@/hooks/useCart";
 import { prisma } from "@/lib/database";
 import { CheckoutType } from "@/lib/definitions";
-import { Suspense } from "react";
 import CheckoutContainer from "./CheckoutContainer";
+import { Suspense } from "react";
+import FullPageSpinner from "@/components/FullPageSpinner";
 
 const CheckoutPage = async ({
   searchParams,
@@ -41,12 +41,12 @@ const CheckoutPage = async ({
   }
 
   return (
-    <Suspense fallback={<FullPageSpinner />}>
-      <div className="mx-auto max-w-7xl px-4 py-8">
-        <SubHeading>Checkout</SubHeading>
+    <div className="mx-auto max-w-7xl px-4 py-8">
+      <SubHeading>Checkout</SubHeading>
+      <Suspense fallback={<FullPageSpinner />}>
         <CheckoutContainer items={selectedItems} checkoutType={type} />
-      </div>
-    </Suspense>
+      </Suspense>
+    </div>
   );
 };
 

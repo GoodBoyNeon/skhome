@@ -3,7 +3,7 @@
 import Confetti from "@/components/Confetti";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle, Home, Loader2 } from "lucide-react";
+import { ArrowRight, CheckCircle, Home } from "lucide-react";
 import Link from "next/link";
 import { redirect, useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useState } from "react";
@@ -11,7 +11,8 @@ import OrderSummary from "./OrderSummary";
 import FullPageSpinner from "@/components/FullPageSpinner";
 
 export default function ThankYouPage() {
-  const orderId = useSearchParams().get("orderId");
+  const searchParams = useSearchParams();
+  const orderId = searchParams.get("orderId");
 
   if (!orderId || typeof orderId !== "string") {
     redirect("/");

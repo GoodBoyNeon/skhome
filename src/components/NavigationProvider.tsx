@@ -1,7 +1,6 @@
 "use client";
 
 import { AddToHistory, NavigationHistory } from "@/types/navigation";
-import { usePathname, useSearchParams } from "next/navigation";
 import React, { createContext, useContext, useEffect, useState } from "react";
 
 const NavigationContext = createContext<{
@@ -18,8 +17,6 @@ export const NavigationProvider = ({
   children: React.ReactNode;
 }) => {
   const [history, setHistory] = useState<NavigationHistory[]>([]);
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useEffect(() => {
     if (history.length === 0) {

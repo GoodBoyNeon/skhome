@@ -11,7 +11,8 @@ import BookingSummary from "./BookingSummary";
 import FullPageSpinner from "@/components/FullPageSpinner";
 
 export default function ThankYouPage() {
-  const bookingId = useSearchParams().get("bookingId");
+  const searchParams = useSearchParams();
+  const bookingId = searchParams.get("bookingId");
 
   if (!bookingId || typeof bookingId !== "string") {
     redirect("/");

@@ -1,6 +1,4 @@
-import FullPageSpinner from "@/components/FullPageSpinner";
 import { Metadata } from "next";
-import { Suspense } from "react";
 import TrackOrderForm from "./TrackOrderForm";
 
 export const metadata: Metadata = {
@@ -19,9 +17,7 @@ export default function TrackOrderPage() {
             Enter your order ID to check the status and details of your purchase
           </p>
         </div>
-        <Suspense fallback={<FullPageSpinner />}>
-          <TrackOrderForm />
-        </Suspense>
+        <TrackOrderForm />
       </div>
     </div>
   );
